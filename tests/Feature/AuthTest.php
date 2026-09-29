@@ -116,6 +116,32 @@ class AuthTest extends TestCase
         $this->assertDatabaseHas('teachers', ['nip' => $randomNip]);
     }
 
+    public function test_login_validation_rules_via_form_request(): void
+    {
+        $response = $this->from('/login')->post('/login', [
+            'login' => '',
+            'password' => '',
+        ]);
+
+        $response->assertRedirect('/login');
+        $response->assertSessionHasErrors([
+            'login' => 'Email atau username wajib diisi.',
+            'password' => 'Kata sandi wajib diisi.',
+        ]);
+    }
+
+    public function test_student_registration_validation_via_form_request(): void
+    {
+        $response = $this->from('/register')->post('/register', [
+            'role_type' => 'siswa',
+            'nisn' => '123',
+            'name' => '',
+        ]);
+
+        $response->assertRedirect('/register');
+        $response->assertSessionHasErrors(['nisn', 'name', 'email', 'username', 'major_id', 'class_id', 'password']);
+    }
+
     public function test_user_can_logout(): void
     {
         $user = User::first();

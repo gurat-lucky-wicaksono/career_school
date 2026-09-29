@@ -16,6 +16,9 @@
     },
     "dependencies": {
         "alpinejs": "^3.17.4",
-        "lucide": "^1.48.0"
+        "apexcharts": "^7.6.1",
+        "flatpickr": "^4.6.13",
+        "lucide": "^1.48.0",
+        "sweetalert2": "^11.26.25"
     }
 }

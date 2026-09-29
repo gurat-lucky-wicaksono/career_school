@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\RegisterCompanyRequest;
+use App\Http\Requests\Auth\RegisterStudentRequest;
+use App\Http\Requests\Auth\RegisterTeacherRequest;
 use App\Models\Company;
 use App\Models\Major;
 use App\Models\Profile;
@@ -14,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
@@ -34,15 +39,9 @@ class AuthController extends Controller
     /**
      * Handle an incoming login request.
      */
-    public function login(Request $request): RedirectResponse
+    public function login(LoginRequest $request): RedirectResponse
     {
-        $credentials = $request->validate([
-            'login' => ['required', 'string'],
-            'password' => ['required', 'string'],
-        ], [
-            'login.required' => 'Email atau username wajib diisi.',
-            'password.required' => 'Kata sandi wajib diisi.',
-        ]);
+        $credentials = $request->validated();
 
         $loginInput = trim($credentials['login']);
         $fieldType = filter_var($loginInput, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
@@ -76,6 +75,11 @@ class AuthController extends Controller
         $user->update(['last_login_at' => now()]);
         $request->session()->regenerate();
 
+        // Role-based post-login redirection
+        if ($user->role?->nama === 'admin' && Route::has('admin.dashboard')) {
+            return redirect()->intended(route('admin.dashboard'))->with('success', 'Selamat datang kembali, Administrator!');
+        }
+
         return redirect()->intended(route('landing'))->with('success', 'Selamat datang kembali, ' . $user->name . '!');
     }
 
@@ -103,46 +107,22 @@ class AuthController extends Controller
         $roleType = $request->input('role_type', 'siswa');
 
         if ($roleType === 'guru') {
-            return $this->registerTeacher($request);
+            return $this->registerTeacher(app(RegisterTeacherRequest::class));
         }
 
         if ($roleType === 'perusahaan') {
-            return $this->registerCompany($request);
+            return $this->registerCompany(app(RegisterCompanyRequest::class));
         }
 
-        return $this->registerStudent($request);
+        return $this->registerStudent(app(RegisterStudentRequest::class));
     }
 
     /**
      * Process student registration via NISN.
      */
-    protected function registerStudent(Request $request): RedirectResponse
+    protected function registerStudent(RegisterStudentRequest $request): RedirectResponse
     {
-        $data = $request->validate([
-            'nisn' => ['required', 'digits:10', 'unique:students,nisn'],
-            'name' => ['required', 'string', 'max:100'],
-            'email' => ['required', 'string', 'email', 'max:150', 'unique:users,email'],
-            'username' => ['required', 'string', 'min:3', 'max:50', 'alpha_dash', 'unique:users,username'],
-            'major_id' => ['required', 'exists:majors,id'],
-            'class_id' => ['required', 'exists:classes,id'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ], [
-            'nisn.required' => 'Nomor Induk Siswa Nasional (NISN) wajib diisi.',
-            'nisn.digits' => 'NISN harus berjumlah tepat 10 digit angka.',
-            'nisn.unique' => 'NISN ini sudah terdaftar / teraktivasi sebelumnya.',
-            'name.required' => 'Nama lengkap wajib diisi.',
-            'email.required' => 'Alamat email wajib diisi.',
-            'email.email' => 'Format alamat email tidak valid.',
-            'email.unique' => 'Alamat email ini sudah digunakan.',
-            'username.required' => 'Username wajib diisi.',
-            'username.alpha_dash' => 'Username hanya boleh berisi huruf, angka, garis bawah, dan tanda hubung.',
-            'username.unique' => 'Username ini sudah digunakan.',
-            'major_id.required' => 'Jurusan kejuruan wajib dipilih.',
-            'class_id.required' => 'Kelas wajib dipilih.',
-            'password.required' => 'Kata sandi wajib diisi.',
-            'password.min' => 'Kata sandi minimal 8 karakter.',
-            'password.confirmed' => 'Konfirmasi kata sandi tidak cocok.',
-        ]);
+        $data = $request->validated();
 
         $siswaRole = Role::where('nama', 'siswa')->firstOrFail();
 
@@ -184,30 +164,9 @@ class AuthController extends Controller
     /**
      * Process teacher registration.
      */
-    protected function registerTeacher(Request $request): RedirectResponse
+    protected function registerTeacher(RegisterTeacherRequest $request): RedirectResponse
     {
-        $data = $request->validate([
-            'nip' => ['required', 'string', 'max:20', 'unique:teachers,nip'],
-            'name' => ['required', 'string', 'max:100'],
-            'mata_pelajaran' => ['required', 'string', 'max:100'],
-            'email' => ['required', 'string', 'email', 'max:150', 'unique:users,email'],
-            'username' => ['required', 'string', 'min:3', 'max:50', 'alpha_dash', 'unique:users,username'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ], [
-            'nip.required' => 'Nomor Induk Pegawai (NIP) wajib diisi.',
-            'nip.unique' => 'NIP ini sudah terdaftar sebelumnya.',
-            'name.required' => 'Nama lengkap dan gelar wajib diisi.',
-            'mata_pelajaran.required' => 'Mata pelajaran / bidang kejuruan wajib diisi.',
-            'email.required' => 'Alamat email dinas/sekolah wajib diisi.',
-            'email.email' => 'Format email tidak valid.',
-            'email.unique' => 'Alamat email ini sudah digunakan.',
-            'username.required' => 'Username wajib diisi.',
-            'username.alpha_dash' => 'Username hanya boleh berisi huruf, angka, garis bawah, dan tanda hubung.',
-            'username.unique' => 'Username ini sudah digunakan.',
-            'password.required' => 'Kata sandi wajib diisi.',
-            'password.min' => 'Kata sandi minimal 8 karakter.',
-            'password.confirmed' => 'Konfirmasi kata sandi tidak cocok.',
-        ]);
+        $data = $request->validated();
 
         $guruRole = Role::where('nama', 'guru')->firstOrFail();
 
@@ -245,29 +204,9 @@ class AuthController extends Controller
     /**
      * Process company partner registration.
      */
-    protected function registerCompany(Request $request): RedirectResponse
+    protected function registerCompany(RegisterCompanyRequest $request): RedirectResponse
     {
-        $data = $request->validate([
-            'nama_perusahaan' => ['required', 'string', 'max:150'],
-            'name' => ['required', 'string', 'max:100'],
-            'bidang' => ['required', 'string', 'max:100'],
-            'email' => ['required', 'string', 'email', 'max:150', 'unique:users,email'],
-            'username' => ['required', 'string', 'min:3', 'max:50', 'alpha_dash', 'unique:users,username'],
-            'telepon' => ['nullable', 'string', 'max:20'],
-            'kota' => ['nullable', 'string', 'max:80'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ], [
-            'nama_perusahaan.required' => 'Nama instansi/perusahaan wajib diisi.',
-            'name.required' => 'Nama penanggung jawab (PIC/HRD) wajib diisi.',
-            'bidang.required' => 'Bidang industri/sektor usaha wajib diisi.',
-            'email.required' => 'Alamat email instansi/perusahaan wajib diisi.',
-            'email.unique' => 'Alamat email ini sudah terdaftar.',
-            'username.required' => 'Username akun instansi wajib diisi.',
-            'username.unique' => 'Username ini sudah digunakan.',
-            'password.required' => 'Kata sandi wajib diisi.',
-            'password.min' => 'Kata sandi minimal 8 karakter.',
-            'password.confirmed' => 'Konfirmasi kata sandi tidak cocok.',
-        ]);
+        $data = $request->validated();
 
         $perusahaanRole = Role::where('nama', 'perusahaan')->firstOrFail();
 
@@ -303,6 +242,7 @@ class AuthController extends Controller
 
         return redirect()->route('landing')->with('success', 'Pendaftaran mitra berhasil! Akun Anda sedang dalam antrean verifikasi tim BKK SMKN 1 Cirebon.');
     }
+
 
     /**
      * Log out the current user session.
