@@ -19,18 +19,6 @@ class MajorSeeder extends Seeder
                 'kepala_jurusan' => 'Bambang Tri Setiadi, S.Kom.',
                 'keterangan' => 'Konsentrasi keahlian rekayasa perangkat lunak, pemrograman web, mobile, dan gim.',
             ],
-            [
-                'kode' => 'TJKT',
-                'nama' => 'Teknik Jaringan Komputer dan Telekomunikasi',
-                'kepala_jurusan' => 'Ketua Jurusan TJKT',
-                'keterangan' => 'Konsentrasi keahlian infrastruktur jaringan, server, dan keamanan siber.',
-            ],
-            [
-                'kode' => 'DKV',
-                'nama' => 'Desain Komunikasi Visual',
-                'kepala_jurusan' => 'Ketua Jurusan DKV',
-                'keterangan' => 'Konsentrasi keahlian desain grafis, multimedia, UI/UX, dan ilustrasi digital.',
-            ],
         ];
 
         foreach ($majors as $major) {
