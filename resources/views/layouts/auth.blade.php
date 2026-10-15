@@ -4,6 +4,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="@yield('meta_description', 'Portal Autentikasi Career School — SMK Negeri 1 Cirebon')">
+
+    <!-- Anti-FOUC Inline Theme Script (Executes synchronously before paint) -->
+    <script>
+        (function () {
+            try {
+                const savedTheme = localStorage.getItem('theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            } catch (_) {}
+        })();
+    </script>
+
     <title>@yield('title', 'Autentikasi') — Career School SMKN 1 Cirebon</title>
     <link rel="icon" type="image/png" href="{{ asset('images/logos/logo-career-school.png') }}">
 
@@ -19,7 +35,7 @@
     <!-- Styles & Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-surface-bg text-text-primary antialiased font-sans selection:bg-brand-primary selection:text-neutral-900 transition-colors duration-150 min-h-screen flex flex-col">
+<body class="bg-surface-bg text-text-primary antialiased font-sans selection:bg-brand-primary selection:text-neutral-900 min-h-screen flex flex-col">
 
     <!-- Minimal Auth Header -->
     <header class="w-full border-b border-border-subtle bg-surface-bg/90 backdrop-blur-md sticky top-0 z-40">

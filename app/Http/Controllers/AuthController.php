@@ -80,6 +80,10 @@ class AuthController extends Controller
             return redirect()->intended(route('admin.dashboard'))->with('success', 'Selamat datang kembali, Administrator!');
         }
 
+        if ($user->role?->nama === 'perusahaan' && Route::has('company.dashboard')) {
+            return redirect()->intended(route('company.dashboard'))->with('success', 'Selamat datang di Portal Mitra Industri!');
+        }
+
         return redirect()->intended(route('landing'))->with('success', 'Selamat datang kembali, ' . $user->name . '!');
     }
 

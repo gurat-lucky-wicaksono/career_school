@@ -29,6 +29,11 @@ class Student extends Model
         return $this->belongsTo(SchoolClass::class, 'class_id');
     }
 
+    public function schoolClass(): BelongsTo
+    {
+        return $this->class();
+    }
+
     public function major(): BelongsTo
     {
         return $this->belongsTo(Major::class);
@@ -43,8 +48,7 @@ class Student extends Model
     public function skills()
     {
         return $this->belongsToMany(Skill::class, 'student_skills')
-                    ->withPivot('id', 'tingkat', 'tervalidasi')
-                    ->withTimestamps();
+                    ->withPivot('id', 'tingkat', 'tervalidasi');
     }
 
     public function portfolios()
