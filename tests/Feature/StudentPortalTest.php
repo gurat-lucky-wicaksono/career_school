@@ -1,0 +1,439 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\Models\Application;
+use App\Models\Company;
+use App\Models\Job;
+use App\Models\Major;
+use App\Models\Role;
+use App\Models\SchoolClass;
+use App\Models\Skill;
+use App\Models\Student;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Tests\TestCase;
+
+class StudentPortalTest extends TestCase
+{
+    private function getStudentUser(): array
+    {
+        $user = User::where('email', 'siswa@demo.com')->first();
+        if (!$user) {
+            $role = Role::firstOrCreate(['nama' => 'siswa'], ['label' => 'Siswa']);
+            $user = User::create([
+                'role_id' => $role->id,
+                'name' => 'Rifqi Pratama',
+                'username' => 'rifqi_pplg',
+                'email' => 'siswa@demo.com',
+                'password' => Hash::make('password'),
+                'is_active' => true,
+            ]);
+
+            $major = Major::firstOrCreate(['kode' => 'PPLG'], ['nama' => 'Pengembangan Perangkat Lunak & Gim']);
+            $class = SchoolClass::firstOrCreate(['nama' => 'XI PPLG 1'], ['major_id' => $major->id, 'tingkat' => 11]);
+
+            $student = Student::create([
+                'user_id' => $user->id,
+                'nisn' => '0061234567',
+                'class_id' => $class->id,
+                'major_id' => $major->id,
+                'angkatan' => 2024,
+                'status' => 'aktif',
+            ]);
+        } else {
+            $student = $user->student;
+        }
+
+        return [$user, $student];
+    }
+
+    public function test_guest_cannot_access_student_dashboard(): void
+    {
+        $response = $this->get('/student/dashboard');
+        $response->assertRedirect('/login');
+    }
+
+    public function test_non_student_cannot_access_student_portal(): void
+    {
+        $admin = User::where('email', 'admin@demo.com')->first();
+        if (!$admin) {
+            $adminRole = Role::firstOrCreate(['nama' => 'admin'], ['label' => 'Administrator']);
+            $admin = User::create([
+                'role_id' => $adminRole->id,
+                'name' => 'Admin Test',
+                'username' => 'admintest',
+                'email' => 'admin@demo.com',
+                'password' => Hash::make('password'),
+                'is_active' => true,
+            ]);
+        }
+
+        $response = $this->actingAs($admin)->get('/student/dashboard');
+        $response->assertRedirect(route('admin.dashboard'));
+    }
+
+    public function test_authenticated_student_can_view_dashboard(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $response = $this->actingAs($user)->get('/student/dashboard');
+
+        $response->assertStatus(200);
+        $response->assertSee('Halo, ' . $user->name);
+        $response->assertSee('Portal Siswa Vokasi');
+        $response->assertSee('Rekomendasi Lowongan Industri');
+        $response->assertSee('Keahlian Terdaftar');
+    }
+
+    public function test_student_can_view_job_exploration_index(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $response = $this->actingAs($user)->get('/student/jobs');
+
+        $response->assertStatus(200);
+        $response->assertSee('Eksplorasi Lowongan Industri');
+        $response->assertSee('Formula KAK 15 Terapan');
+    }
+
+    public function test_student_can_filter_jobs_by_keyword_and_type(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $response = $this->actingAs($user)->get('/student/jobs?q=Web&jenis=magang');
+
+        $response->assertStatus(200);
+        $response->assertSee('Eksplorasi Lowongan Industri');
+    }
+
+    public function test_student_can_view_job_details_with_match_breakdown(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $job = Job::where('status', 'dibuka')->first();
+        if (!$job) {
+            $company = Company::first();
+            $job = Job::create([
+                'company_id' => $company->id,
+                'judul' => 'Junior Web Developer',
+                'slug' => 'junior-web-developer-' . time(),
+                'deskripsi' => 'Pengembangan antarmuka web vokasi.',
+                'lokasi' => 'Kota Cirebon',
+                'jenis' => 'magang',
+                'status' => 'dibuka',
+            ]);
+        }
+
+        $response = $this->actingAs($user)->get('/student/jobs/' . $job->id);
+
+        $response->assertStatus(200);
+        $response->assertSee($job->judul);
+        $response->assertSee('Analisis Kecocokan Rekomendasi');
+        $response->assertSee('Formula KAK 15');
+        $response->assertSee('Keahlian (60%)');
+    }
+
+    public function test_student_can_apply_to_open_job(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        // Create a unique test job so application is fresh
+        $company = Company::first();
+        $testJob = Job::create([
+            'company_id' => $company->id,
+            'judul' => 'Mobile App Tester PKL ' . time(),
+            'slug' => 'mobile-app-tester-pkl-' . time(),
+            'deskripsi' => 'Pengujian fungsionalitas aplikasi mobile sekolah.',
+            'lokasi' => 'Kota Cirebon',
+            'jenis' => 'magang',
+            'status' => 'dibuka',
+        ]);
+
+        $response = $this->actingAs($user)->post('/student/jobs/' . $testJob->id . '/apply', [
+            'pesan' => 'Saya sangat tertarik mengikuti program PKL ini karena sesuai kompetensi saya.',
+        ]);
+
+        $response->assertRedirect('/student/jobs/' . $testJob->id);
+        $response->assertSessionHas('success');
+
+        $this->assertDatabaseHas('applications', [
+            'job_id' => $testJob->id,
+            'student_id' => $student->id,
+            'status' => 'tertunda',
+        ]);
+
+        // Second attempt to apply to the same job should be prevented
+        $duplicateResponse = $this->actingAs($user)->post('/student/jobs/' . $testJob->id . '/apply', [
+            'pesan' => 'Mencoba melamar kembali.',
+        ]);
+
+        $duplicateResponse->assertRedirect('/student/jobs/' . $testJob->id);
+        $duplicateResponse->assertSessionHas('info');
+    }
+
+    public function test_student_can_view_applications_index(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $response = $this->actingAs($user)->get('/student/applications');
+
+        $response->assertStatus(200);
+        $response->assertSee('Lamaran Saya');
+        $response->assertSee('Menunggu Review');
+        $response->assertSee('Wawancara');
+    }
+
+    public function test_student_can_filter_applications_by_status(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $response = $this->actingAs($user)->get('/student/applications?status=wawancara');
+
+        $response->assertStatus(200);
+        $response->assertSee('Lamaran Saya');
+    }
+
+    public function test_student_can_view_application_detail_with_timeline(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $application = Application::where('student_id', $student->id)->first();
+        if (!$application) {
+            $job = Job::first();
+            $application = Application::create([
+                'job_id' => $job->id,
+                'student_id' => $student->id,
+                'skor_kecocokan' => 88.5,
+                'status' => 'wawancara',
+                'catatan_hrd' => 'Jadwal wawancara online via Meet.',
+            ]);
+        }
+
+        $response = $this->actingAs($user)->get('/student/applications/' . $application->id);
+
+        $response->assertStatus(200);
+        $response->assertSee($application->job->judul);
+        $response->assertSee('Alur Tahapan Rekrutmen & Seleksi', false);
+        $response->assertSee('Wawancara / Uji Teknis');
+    }
+
+    public function test_student_cannot_view_other_students_application(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        // Create another student and their application
+        $otherRole = Role::firstOrCreate(['nama' => 'siswa'], ['label' => 'Siswa']);
+        $otherUser = User::create([
+            'role_id' => $otherRole->id,
+            'name' => 'Siswa Lain ' . time(),
+            'username' => 'siswalain_' . time(),
+            'email' => 'siswalain_' . time() . '@smkn1.sch.id',
+            'password' => Hash::make('password'),
+            'is_active' => true,
+        ]);
+
+        $class = SchoolClass::first();
+        $major = Major::first();
+        $otherStudent = Student::create([
+            'user_id' => $otherUser->id,
+            'class_id' => $class?->id,
+            'major_id' => $major?->id,
+            'nisn' => '00' . rand(10000000, 99999999),
+            'angkatan' => 2024,
+            'status' => 'aktif',
+        ]);
+
+        $company = Company::first();
+        $job = Job::create([
+            'company_id' => $company->id,
+            'judul' => 'Job Other Student ' . time(),
+            'slug' => 'job-other-student-' . time(),
+            'deskripsi' => 'Testing unauthorized access.',
+            'lokasi' => 'Kota Cirebon',
+            'jenis' => 'magang',
+            'status' => 'dibuka',
+        ]);
+
+        $otherApplication = Application::create([
+            'job_id' => $job->id,
+            'student_id' => $otherStudent->id,
+            'skor_kecocokan' => 75.0,
+            'status' => 'tertunda',
+        ]);
+
+        $response = $this->actingAs($user)->get('/student/applications/' . $otherApplication->id);
+        $response->assertStatus(403);
+    }
+
+    public function test_student_can_withdraw_pending_application(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $company = Company::first();
+        $job = Job::create([
+            'company_id' => $company->id,
+            'judul' => 'Job Withdrawal Test ' . time(),
+            'slug' => 'withdrawal-test-' . time(),
+            'deskripsi' => 'Deskripsi pekerjaan penarikan.',
+            'lokasi' => 'Kota Cirebon',
+            'jenis' => 'magang',
+            'status' => 'dibuka',
+        ]);
+
+        $pendingApp = Application::create([
+            'job_id' => $job->id,
+            'student_id' => $student->id,
+            'skor_kecocokan' => 82.0,
+            'status' => 'tertunda',
+        ]);
+
+        $response = $this->actingAs($user)->delete('/student/applications/' . $pendingApp->id);
+
+        $response->assertRedirect('/student/applications');
+        $response->assertSessionHas('success');
+        $this->assertDatabaseMissing('applications', ['id' => $pendingApp->id]);
+    }
+
+    public function test_student_can_view_portfolios_index(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $response = $this->actingAs($user)->get('/student/portfolios');
+
+        $response->assertStatus(200);
+        $response->assertSee('Karya & Portofolio Siswa', false);
+        $response->assertSee('Tambah Karya Baru');
+    }
+
+    public function test_student_can_create_portfolio(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $response = $this->actingAs($user)->post('/student/portfolios', [
+            'judul' => 'Sistem Rekomendasi Magang Siswa',
+            'kategori' => 'Web Development',
+            'deskripsi' => 'Pengembangan algoritma cerdas berbasis KAK 15.',
+            'tautan' => 'https://github.com/smkn1/portfolio-test',
+        ]);
+
+        $response->assertRedirect('/student/portfolios');
+        $response->assertSessionHas('success');
+
+        $this->assertDatabaseHas('portfolios', [
+            'student_id' => $student->id,
+            'judul' => 'Sistem Rekomendasi Magang Siswa',
+            'kategori' => 'Web Development',
+        ]);
+    }
+
+    public function test_student_can_update_portfolio(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $portfolio = \App\Models\Portfolio::create([
+            'student_id' => $student->id,
+            'judul' => 'Aplikasi Kasir Toko Lama',
+            'kategori' => 'Desktop App',
+            'deskripsi' => 'Aplikasi kasir berbasis Java.',
+        ]);
+
+        $response = $this->actingAs($user)->put('/student/portfolios/' . $portfolio->id, [
+            'judul' => 'Aplikasi Kasir Modern SMKN 1',
+            'kategori' => 'Web Development',
+            'deskripsi' => 'Aplikasi kasir berbasis cloud Laravel 12.',
+            'tautan' => 'https://demo-pos.smkn1.sch.id',
+        ]);
+
+        $response->assertRedirect('/student/portfolios');
+        $response->assertSessionHas('success');
+
+        $this->assertDatabaseHas('portfolios', [
+            'id' => $portfolio->id,
+            'judul' => 'Aplikasi Kasir Modern SMKN 1',
+        ]);
+    }
+
+    public function test_student_can_delete_portfolio(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $portfolio = \App\Models\Portfolio::create([
+            'student_id' => $student->id,
+            'judul' => 'Proyek Hapus Test',
+            'kategori' => 'Lainnya',
+        ]);
+
+        $response = $this->actingAs($user)->delete('/student/portfolios/' . $portfolio->id);
+
+        $response->assertRedirect('/student/portfolios');
+        $response->assertSessionHas('success');
+        $this->assertDatabaseMissing('portfolios', ['id' => $portfolio->id]);
+    }
+
+    public function test_student_can_view_profile(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $response = $this->actingAs($user)->get('/student/profile');
+
+        $response->assertStatus(200);
+        $response->assertSee('Keahlian & Profil Siswa', false);
+        $response->assertSee('Data Akademik SMKN 1 Cirebon');
+        $response->assertSee('Biodata Pribadi Siswa');
+    }
+
+    public function test_student_can_update_profile_biodata(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $response = $this->actingAs($user)->put('/student/profile', [
+            'name' => 'Rifqi Pratama Updated',
+            'bio' => 'Programmer antusias vokasi SMKN 1 Cirebon.',
+            'telepon' => '081234567890',
+            'kota' => 'Kota Cirebon',
+            'jenis_kelamin' => 'L',
+            'tanggal_lahir' => '2007-05-15',
+        ]);
+
+        $response->assertRedirect('/student/profile');
+        $response->assertSessionHas('success');
+
+        $this->assertDatabaseHas('users', ['id' => $user->id, 'name' => 'Rifqi Pratama Updated']);
+        $this->assertDatabaseHas('profiles', ['user_id' => $user->id, 'telepon' => '081234567890']);
+    }
+
+    public function test_student_can_add_and_remove_skill(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $skill = Skill::firstOrCreate(['nama' => 'Docker & Containerization', 'kategori' => 'DevOps']);
+
+        // Add skill
+        $addResponse = $this->actingAs($user)->post('/student/profile/skills', [
+            'skill_id' => $skill->id,
+            'tingkat' => 4,
+        ]);
+
+        $addResponse->assertRedirect('/student/profile');
+        $addResponse->assertSessionHas('success');
+
+        $this->assertDatabaseHas('student_skills', [
+            'student_id' => $student->id,
+            'skill_id' => $skill->id,
+            'tingkat' => 4,
+        ]);
+
+        // Remove skill
+        $removeResponse = $this->actingAs($user)->delete('/student/profile/skills/' . $skill->id);
+
+        $removeResponse->assertRedirect('/student/profile');
+        $removeResponse->assertSessionHas('success');
+
+        $this->assertDatabaseMissing('student_skills', [
+            'student_id' => $student->id,
+            'skill_id' => $skill->id,
+        ]);
+    }
+}
+

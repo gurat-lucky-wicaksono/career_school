@@ -51,7 +51,7 @@ class AuthTest extends TestCase
             'password' => 'password',
         ]);
 
-        $response->assertRedirect(route('landing'));
+        $response->assertRedirect(route('student.dashboard'));
         $this->assertAuthenticatedAs($user);
     }
 
@@ -92,7 +92,7 @@ class AuthTest extends TestCase
             'password_confirmation' => 'password123',
         ]);
 
-        $response->assertRedirect(route('landing'));
+        $response->assertRedirect(route('student.dashboard'));
         $this->assertAuthenticated();
         $this->assertDatabaseHas('students', ['nisn' => $randomNisn]);
 

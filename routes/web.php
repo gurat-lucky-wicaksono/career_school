@@ -73,6 +73,33 @@ Route::middleware(['auth', 'role:perusahaan'])->prefix('company')->name('company
     Route::get('/search', [\App\Http\Controllers\Company\GlobalSearchController::class, 'search'])->name('search');
 });
 
+// Portal Siswa Vokasi Routes (Protected by Auth & Role: Siswa)
+Route::middleware(['auth', 'role:siswa'])->prefix('student')->name('student.')->group(function () {
+    Route::get('/dashboard', [\App\Http\Controllers\Student\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/', function () {
+        return redirect()->route('student.dashboard');
+    });
+
+    // Eksplorasi Lowongan Industri & Alur Lamar
+    Route::get('/jobs', [\App\Http\Controllers\Student\JobController::class, 'index'])->name('jobs.index');
+    Route::get('/jobs/{job}', [\App\Http\Controllers\Student\JobController::class, 'show'])->name('jobs.show');
+    Route::post('/jobs/{job}/apply', [\App\Http\Controllers\Student\JobController::class, 'apply'])->name('jobs.apply');
+
+    // Manajemen Lamaran Saya & Pelacakan Seleksi
+    Route::get('/applications', [\App\Http\Controllers\Student\ApplicationController::class, 'index'])->name('applications.index');
+    Route::get('/applications/{application}', [\App\Http\Controllers\Student\ApplicationController::class, 'show'])->name('applications.show');
+    Route::delete('/applications/{application}', [\App\Http\Controllers\Student\ApplicationController::class, 'destroy'])->name('applications.destroy');
+
+    // Karya & Portofolio Siswa (CRUD)
+    Route::resource('portfolios', \App\Http\Controllers\Student\PortfolioController::class);
+
+    // Profil & Keahlian Mandiri Siswa
+    Route::get('/profile', [\App\Http\Controllers\Student\ProfileController::class, 'index'])->name('profile');
+    Route::put('/profile', [\App\Http\Controllers\Student\ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/skills', [\App\Http\Controllers\Student\ProfileController::class, 'addSkill'])->name('profile.skills.add');
+    Route::delete('/profile/skills/{skill}', [\App\Http\Controllers\Student\ProfileController::class, 'removeSkill'])->name('profile.skills.remove');
+});
+
 // List of supported landing section paths
 $landingSections = 'beranda|platform|sekolah|fitur|fitur-unggulan|cara-kerja|statistik|faq';
 
