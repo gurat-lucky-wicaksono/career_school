@@ -73,6 +73,24 @@ Route::middleware(['auth', 'role:perusahaan'])->prefix('company')->name('company
     Route::get('/search', [\App\Http\Controllers\Company\GlobalSearchController::class, 'search'])->name('search');
 });
 
+// Portal Siswa Vokasi Routes (Protected by Auth & Role: Siswa)
+Route::middleware(['auth', 'role:siswa'])->prefix('student')->name('student.')->group(function () {
+    Route::get('/dashboard', [\App\Http\Controllers\Student\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/', function () {
+        return redirect()->route('student.dashboard');
+    });
+
+    // Eksplorasi Lowongan Industri & Alur Lamar
+    Route::get('/jobs', [\App\Http\Controllers\Student\JobController::class, 'index'])->name('jobs.index');
+    Route::get('/jobs/{job}', [\App\Http\Controllers\Student\JobController::class, 'show'])->name('jobs.show');
+    Route::post('/jobs/{job}/apply', [\App\Http\Controllers\Student\JobController::class, 'apply'])->name('jobs.apply');
+
+    // Tahap Lanjutan: Lamaran, Portofolio & Profil (Temporary redirect fallback until Tahap 3 & 4)
+    Route::get('/applications', fn() => redirect()->route('student.dashboard'))->name('applications.index');
+    Route::get('/portfolios', fn() => redirect()->route('student.dashboard'))->name('portfolios.index');
+    Route::get('/profile', fn() => redirect()->route('student.dashboard'))->name('profile');
+});
+
 // List of supported landing section paths
 $landingSections = 'beranda|platform|sekolah|fitur|fitur-unggulan|cara-kerja|statistik|faq';
 
