@@ -299,8 +299,8 @@
                                 <h4 class="text-xs font-bold text-slate-900 dark:text-white truncate">
                                     {{ $portfolio->judul }}
                                 </h4>
-                                @if ($portfolio->tautan_proyek)
-                                    <a href="{{ $portfolio->tautan_proyek }}" target="_blank" rel="noopener noreferrer" class="text-brand-primary hover:text-brand-primary/80 flex-shrink-0" title="Kunjungi Tautan">
+                                @if ($portfolio->tautan)
+                                    <a href="{{ $portfolio->tautan }}" target="_blank" rel="noopener noreferrer" class="text-brand-primary hover:text-brand-primary/80 flex-shrink-0" title="Kunjungi Tautan">
                                         <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
                                     </a>
                                 @endif

@@ -294,5 +294,146 @@ class StudentPortalTest extends TestCase
         $response->assertSessionHas('success');
         $this->assertDatabaseMissing('applications', ['id' => $pendingApp->id]);
     }
+
+    public function test_student_can_view_portfolios_index(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $response = $this->actingAs($user)->get('/student/portfolios');
+
+        $response->assertStatus(200);
+        $response->assertSee('Karya & Portofolio Siswa', false);
+        $response->assertSee('Tambah Karya Baru');
+    }
+
+    public function test_student_can_create_portfolio(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $response = $this->actingAs($user)->post('/student/portfolios', [
+            'judul' => 'Sistem Rekomendasi Magang Siswa',
+            'kategori' => 'Web Development',
+            'deskripsi' => 'Pengembangan algoritma cerdas berbasis KAK 15.',
+            'tautan' => 'https://github.com/smkn1/portfolio-test',
+        ]);
+
+        $response->assertRedirect('/student/portfolios');
+        $response->assertSessionHas('success');
+
+        $this->assertDatabaseHas('portfolios', [
+            'student_id' => $student->id,
+            'judul' => 'Sistem Rekomendasi Magang Siswa',
+            'kategori' => 'Web Development',
+        ]);
+    }
+
+    public function test_student_can_update_portfolio(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $portfolio = \App\Models\Portfolio::create([
+            'student_id' => $student->id,
+            'judul' => 'Aplikasi Kasir Toko Lama',
+            'kategori' => 'Desktop App',
+            'deskripsi' => 'Aplikasi kasir berbasis Java.',
+        ]);
+
+        $response = $this->actingAs($user)->put('/student/portfolios/' . $portfolio->id, [
+            'judul' => 'Aplikasi Kasir Modern SMKN 1',
+            'kategori' => 'Web Development',
+            'deskripsi' => 'Aplikasi kasir berbasis cloud Laravel 12.',
+            'tautan' => 'https://demo-pos.smkn1.sch.id',
+        ]);
+
+        $response->assertRedirect('/student/portfolios');
+        $response->assertSessionHas('success');
+
+        $this->assertDatabaseHas('portfolios', [
+            'id' => $portfolio->id,
+            'judul' => 'Aplikasi Kasir Modern SMKN 1',
+        ]);
+    }
+
+    public function test_student_can_delete_portfolio(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $portfolio = \App\Models\Portfolio::create([
+            'student_id' => $student->id,
+            'judul' => 'Proyek Hapus Test',
+            'kategori' => 'Lainnya',
+        ]);
+
+        $response = $this->actingAs($user)->delete('/student/portfolios/' . $portfolio->id);
+
+        $response->assertRedirect('/student/portfolios');
+        $response->assertSessionHas('success');
+        $this->assertDatabaseMissing('portfolios', ['id' => $portfolio->id]);
+    }
+
+    public function test_student_can_view_profile(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $response = $this->actingAs($user)->get('/student/profile');
+
+        $response->assertStatus(200);
+        $response->assertSee('Keahlian & Profil Siswa', false);
+        $response->assertSee('Data Akademik SMKN 1 Cirebon');
+        $response->assertSee('Biodata Pribadi Siswa');
+    }
+
+    public function test_student_can_update_profile_biodata(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $response = $this->actingAs($user)->put('/student/profile', [
+            'name' => 'Rifqi Pratama Updated',
+            'bio' => 'Programmer antusias vokasi SMKN 1 Cirebon.',
+            'telepon' => '081234567890',
+            'kota' => 'Kota Cirebon',
+            'jenis_kelamin' => 'L',
+            'tanggal_lahir' => '2007-05-15',
+        ]);
+
+        $response->assertRedirect('/student/profile');
+        $response->assertSessionHas('success');
+
+        $this->assertDatabaseHas('users', ['id' => $user->id, 'name' => 'Rifqi Pratama Updated']);
+        $this->assertDatabaseHas('profiles', ['user_id' => $user->id, 'telepon' => '081234567890']);
+    }
+
+    public function test_student_can_add_and_remove_skill(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $skill = Skill::firstOrCreate(['nama' => 'Docker & Containerization', 'kategori' => 'DevOps']);
+
+        // Add skill
+        $addResponse = $this->actingAs($user)->post('/student/profile/skills', [
+            'skill_id' => $skill->id,
+            'tingkat' => 4,
+        ]);
+
+        $addResponse->assertRedirect('/student/profile');
+        $addResponse->assertSessionHas('success');
+
+        $this->assertDatabaseHas('student_skills', [
+            'student_id' => $student->id,
+            'skill_id' => $skill->id,
+            'tingkat' => 4,
+        ]);
+
+        // Remove skill
+        $removeResponse = $this->actingAs($user)->delete('/student/profile/skills/' . $skill->id);
+
+        $removeResponse->assertRedirect('/student/profile');
+        $removeResponse->assertSessionHas('success');
+
+        $this->assertDatabaseMissing('student_skills', [
+            'student_id' => $student->id,
+            'skill_id' => $skill->id,
+        ]);
+    }
 }
 

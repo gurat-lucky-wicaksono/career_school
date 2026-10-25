@@ -90,9 +90,14 @@ Route::middleware(['auth', 'role:siswa'])->prefix('student')->name('student.')->
     Route::get('/applications/{application}', [\App\Http\Controllers\Student\ApplicationController::class, 'show'])->name('applications.show');
     Route::delete('/applications/{application}', [\App\Http\Controllers\Student\ApplicationController::class, 'destroy'])->name('applications.destroy');
 
-    // Tahap Lanjutan: Portofolio & Profil (Temporary redirect fallback until Tahap 4)
-    Route::get('/portfolios', fn() => redirect()->route('student.dashboard'))->name('portfolios.index');
-    Route::get('/profile', fn() => redirect()->route('student.dashboard'))->name('profile');
+    // Karya & Portofolio Siswa (CRUD)
+    Route::resource('portfolios', \App\Http\Controllers\Student\PortfolioController::class);
+
+    // Profil & Keahlian Mandiri Siswa
+    Route::get('/profile', [\App\Http\Controllers\Student\ProfileController::class, 'index'])->name('profile');
+    Route::put('/profile', [\App\Http\Controllers\Student\ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/skills', [\App\Http\Controllers\Student\ProfileController::class, 'addSkill'])->name('profile.skills.add');
+    Route::delete('/profile/skills/{skill}', [\App\Http\Controllers\Student\ProfileController::class, 'removeSkill'])->name('profile.skills.remove');
 });
 
 // List of supported landing section paths
