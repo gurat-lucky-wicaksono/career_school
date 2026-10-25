@@ -85,8 +85,12 @@ Route::middleware(['auth', 'role:siswa'])->prefix('student')->name('student.')->
     Route::get('/jobs/{job}', [\App\Http\Controllers\Student\JobController::class, 'show'])->name('jobs.show');
     Route::post('/jobs/{job}/apply', [\App\Http\Controllers\Student\JobController::class, 'apply'])->name('jobs.apply');
 
-    // Tahap Lanjutan: Lamaran, Portofolio & Profil (Temporary redirect fallback until Tahap 3 & 4)
-    Route::get('/applications', fn() => redirect()->route('student.dashboard'))->name('applications.index');
+    // Manajemen Lamaran Saya & Pelacakan Seleksi
+    Route::get('/applications', [\App\Http\Controllers\Student\ApplicationController::class, 'index'])->name('applications.index');
+    Route::get('/applications/{application}', [\App\Http\Controllers\Student\ApplicationController::class, 'show'])->name('applications.show');
+    Route::delete('/applications/{application}', [\App\Http\Controllers\Student\ApplicationController::class, 'destroy'])->name('applications.destroy');
+
+    // Tahap Lanjutan: Portofolio & Profil (Temporary redirect fallback until Tahap 4)
     Route::get('/portfolios', fn() => redirect()->route('student.dashboard'))->name('portfolios.index');
     Route::get('/profile', fn() => redirect()->route('student.dashboard'))->name('profile');
 });

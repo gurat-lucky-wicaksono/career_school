@@ -171,4 +171,128 @@ class StudentPortalTest extends TestCase
         $duplicateResponse->assertRedirect('/student/jobs/' . $testJob->id);
         $duplicateResponse->assertSessionHas('info');
     }
+
+    public function test_student_can_view_applications_index(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $response = $this->actingAs($user)->get('/student/applications');
+
+        $response->assertStatus(200);
+        $response->assertSee('Lamaran Saya');
+        $response->assertSee('Menunggu Review');
+        $response->assertSee('Wawancara');
+    }
+
+    public function test_student_can_filter_applications_by_status(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $response = $this->actingAs($user)->get('/student/applications?status=wawancara');
+
+        $response->assertStatus(200);
+        $response->assertSee('Lamaran Saya');
+    }
+
+    public function test_student_can_view_application_detail_with_timeline(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $application = Application::where('student_id', $student->id)->first();
+        if (!$application) {
+            $job = Job::first();
+            $application = Application::create([
+                'job_id' => $job->id,
+                'student_id' => $student->id,
+                'skor_kecocokan' => 88.5,
+                'status' => 'wawancara',
+                'catatan_hrd' => 'Jadwal wawancara online via Meet.',
+            ]);
+        }
+
+        $response = $this->actingAs($user)->get('/student/applications/' . $application->id);
+
+        $response->assertStatus(200);
+        $response->assertSee($application->job->judul);
+        $response->assertSee('Alur Tahapan Rekrutmen & Seleksi', false);
+        $response->assertSee('Wawancara / Uji Teknis');
+    }
+
+    public function test_student_cannot_view_other_students_application(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        // Create another student and their application
+        $otherRole = Role::firstOrCreate(['nama' => 'siswa'], ['label' => 'Siswa']);
+        $otherUser = User::create([
+            'role_id' => $otherRole->id,
+            'name' => 'Siswa Lain ' . time(),
+            'username' => 'siswalain_' . time(),
+            'email' => 'siswalain_' . time() . '@smkn1.sch.id',
+            'password' => Hash::make('password'),
+            'is_active' => true,
+        ]);
+
+        $class = SchoolClass::first();
+        $major = Major::first();
+        $otherStudent = Student::create([
+            'user_id' => $otherUser->id,
+            'class_id' => $class?->id,
+            'major_id' => $major?->id,
+            'nisn' => '00' . rand(10000000, 99999999),
+            'angkatan' => 2024,
+            'status' => 'aktif',
+        ]);
+
+        $company = Company::first();
+        $job = Job::create([
+            'company_id' => $company->id,
+            'judul' => 'Job Other Student ' . time(),
+            'slug' => 'job-other-student-' . time(),
+            'deskripsi' => 'Testing unauthorized access.',
+            'lokasi' => 'Kota Cirebon',
+            'jenis' => 'magang',
+            'status' => 'dibuka',
+        ]);
+
+        $otherApplication = Application::create([
+            'job_id' => $job->id,
+            'student_id' => $otherStudent->id,
+            'skor_kecocokan' => 75.0,
+            'status' => 'tertunda',
+        ]);
+
+        $response = $this->actingAs($user)->get('/student/applications/' . $otherApplication->id);
+        $response->assertStatus(403);
+    }
+
+    public function test_student_can_withdraw_pending_application(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $company = Company::first();
+        $job = Job::create([
+            'company_id' => $company->id,
+            'judul' => 'Job Withdrawal Test ' . time(),
+            'slug' => 'withdrawal-test-' . time(),
+            'deskripsi' => 'Deskripsi pekerjaan penarikan.',
+            'lokasi' => 'Kota Cirebon',
+            'jenis' => 'magang',
+            'status' => 'dibuka',
+        ]);
+
+        $pendingApp = Application::create([
+            'job_id' => $job->id,
+            'student_id' => $student->id,
+            'skor_kecocokan' => 82.0,
+            'status' => 'tertunda',
+        ]);
+
+        $response = $this->actingAs($user)->delete('/student/applications/' . $pendingApp->id);
+
+        $response->assertRedirect('/student/applications');
+        $response->assertSessionHas('success');
+        $this->assertDatabaseMissing('applications', ['id' => $pendingApp->id]);
+    }
 }
+
