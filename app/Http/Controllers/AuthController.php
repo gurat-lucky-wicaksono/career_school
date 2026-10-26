@@ -88,6 +88,10 @@ class AuthController extends Controller
             return redirect()->intended(route('student.dashboard'))->with('success', 'Selamat datang di Portal Siswa!');
         }
 
+        if ($user->role?->nama === 'guru' && Route::has('teacher.dashboard')) {
+            return redirect()->intended(route('teacher.dashboard'))->with('success', 'Selamat datang di Portal Guru Kejuruan!');
+        }
+
         return redirect()->intended(route('landing'))->with('success', 'Selamat datang kembali, ' . $user->name . '!');
     }
 
@@ -206,7 +210,7 @@ class AuthController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        return redirect()->route('landing')->with('success', 'Pendaftaran akun guru berhasil! Selamat datang di Career School SMKN 1 Cirebon.');
+        return redirect()->route('teacher.dashboard')->with('success', 'Pendaftaran akun guru berhasil! Selamat datang di Career School SMKN 1 Cirebon.');
     }
 
     /**

@@ -100,6 +100,26 @@ Route::middleware(['auth', 'role:siswa'])->prefix('student')->name('student.')->
     Route::delete('/profile/skills/{skill}', [\App\Http\Controllers\Student\ProfileController::class, 'removeSkill'])->name('profile.skills.remove');
 });
 
+// Portal Guru Kejuruan & Pembimbing PKL Routes (Protected by Auth & Role: Guru)
+Route::middleware(['auth', 'role:guru'])->prefix('teacher')->name('teacher.')->group(function () {
+    Route::get('/dashboard', [\App\Http\Controllers\Teacher\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/', function () {
+        return redirect()->route('teacher.dashboard');
+    });
+
+    // Validasi Keahlian Siswa Vokasi
+    Route::get('/skills', [\App\Http\Controllers\Teacher\SkillValidationController::class, 'index'])->name('skills.index');
+    Route::post('/skills/{studentSkill}/validate', [\App\Http\Controllers\Teacher\SkillValidationController::class, 'validateSkill'])->name('skills.validate');
+    Route::post('/skills/bulk-validate', [\App\Http\Controllers\Teacher\SkillValidationController::class, 'bulkValidate'])->name('skills.bulk-validate');
+    Route::delete('/skills/{studentSkill}/reject', [\App\Http\Controllers\Teacher\SkillValidationController::class, 'rejectSkill'])->name('skills.reject');
+
+    // Pemantauan Siswa Bimbingan & PKL
+    Route::get('/mentoring', [\App\Http\Controllers\Teacher\StudentMentoringController::class, 'index'])->name('mentoring.index');
+
+    // Portofolio Siswa Bimbingan
+    Route::get('/portfolios', [\App\Http\Controllers\Teacher\StudentMentoringController::class, 'portfolios'])->name('portfolios.index');
+});
+
 // List of supported landing section paths
 $landingSections = 'beranda|platform|sekolah|fitur|fitur-unggulan|cara-kerja|statistik|faq';
 

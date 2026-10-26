@@ -37,6 +37,9 @@ class EnsureRole
             if ($userRole === 'siswa' && \Illuminate\Support\Facades\Route::has('student.dashboard')) {
                 return redirect()->route('student.dashboard')->with('error', 'Akses ditolak. Anda dialihkan ke portal siswa.');
             }
+            if ($userRole === 'guru' && \Illuminate\Support\Facades\Route::has('teacher.dashboard')) {
+                return redirect()->route('teacher.dashboard')->with('error', 'Akses ditolak. Anda dialihkan ke portal guru.');
+            }
 
             return redirect()->route('landing')->with('error', 'Anda tidak memiliki izin untuk mengakses halaman tersebut.');
         }
