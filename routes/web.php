@@ -37,6 +37,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('companies', \App\Http\Controllers\Admin\CompanyController::class);
     Route::resource('jobs', \App\Http\Controllers\Admin\JobController::class);
 
+    // Informasi BKK (Pengumuman & Agenda)
+    Route::resource('announcements', \App\Http\Controllers\Admin\AnnouncementController::class);
+    Route::resource('agendas', \App\Http\Controllers\Admin\AgendaController::class);
+
     // Pusat Notifikasi
     Route::get('/notifications', [\App\Http\Controllers\Admin\NotificationController::class, 'index'])->name('notifications.index');
     Route::post('/notifications/{notification}/read', [\App\Http\Controllers\Admin\NotificationController::class, 'markAsRead'])->name('notifications.read');
