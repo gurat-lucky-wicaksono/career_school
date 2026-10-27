@@ -13,13 +13,13 @@
         </a>
 
         <!-- Navigation Links: Clean Section Routes -->
-        <div class="hidden lg:flex items-center gap-5 xl:gap-6 text-xs md:text-sm font-medium text-text-secondary whitespace-nowrap">
+        <div class="hidden lg:flex items-center gap-4 xl:gap-5 text-xs md:text-sm font-medium text-text-secondary whitespace-nowrap">
             <a href="/beranda" data-nav="beranda" class="hover:text-text-primary transition-colors py-1">Beranda</a>
             <a href="/platform" data-nav="platform" class="hover:text-text-primary transition-colors py-1">Platform</a>
             <a href="/sekolah" data-nav="sekolah" class="hover:text-text-primary transition-colors py-1">Sekolah</a>
-            <a href="/fitur-unggulan" data-nav="fitur-unggulan" class="hover:text-text-primary transition-colors py-1">Fitur Unggulan</a>
-            <a href="/cara-kerja" data-nav="cara-kerja" class="hover:text-text-primary transition-colors py-1">Cara Kerja</a>
-            <a href="/statistik" data-nav="statistik" class="hover:text-text-primary transition-colors py-1">Statistik</a>
+            <a href="/fitur-unggulan" data-nav="fitur-unggulan" class="hover:text-text-primary transition-colors py-1">Fitur</a>
+            <a href="{{ route('public.announcements') }}" class="hover:text-text-primary transition-colors py-1">Pengumuman</a>
+            <a href="{{ route('public.agendas') }}" class="hover:text-text-primary transition-colors py-1">Agenda</a>
             <a href="/faq" data-nav="faq" class="hover:text-text-primary transition-colors py-1">FAQ</a>
         </div>
 

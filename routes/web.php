@@ -124,6 +124,11 @@ Route::middleware(['auth', 'role:guru'])->prefix('teacher')->name('teacher.')->g
     Route::get('/portfolios', [\App\Http\Controllers\Teacher\StudentMentoringController::class, 'portfolios'])->name('portfolios.index');
 });
 
+// Pusat Informasi Publik BKK (Pengumuman & Agenda)
+Route::get('/pengumuman', [\App\Http\Controllers\PublicInformationController::class, 'announcements'])->name('public.announcements');
+Route::get('/pengumuman/{announcement}', [\App\Http\Controllers\PublicInformationController::class, 'showAnnouncement'])->name('public.announcements.show');
+Route::get('/agenda', [\App\Http\Controllers\PublicInformationController::class, 'agendas'])->name('public.agendas');
+
 // List of supported landing section paths
 $landingSections = 'beranda|platform|sekolah|fitur|fitur-unggulan|cara-kerja|statistik|faq';
 

@@ -229,5 +229,114 @@
             </div>
         </div>
     </div>
+
+    <!-- 5. Widget Informasi BKK & Agenda Vokasi untuk Guru -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Pengumuman BKK Terkini -->
+        <div class="bg-surface-card border border-slate-200/80 dark:border-white/10 rounded-2xl shadow-sm p-6 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/5">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+                        <i data-lucide="megaphone" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-sm font-bold text-slate-900 dark:text-white">
+                            Pengumuman BKK Sekolah
+                        </h2>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400">
+                            Pemberitahuan rekrutmen industri dan edaran sekolah.
+                        </p>
+                    </div>
+                </div>
+                <a href="{{ route('public.announcements') }}" class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
+                    Semua Pengumuman
+                </a>
+            </div>
+
+            <div class="space-y-3">
+                @forelse ($recentAnnouncements as $announcement)
+                    <a href="{{ route('public.announcements.show', $announcement) }}" class="block p-3.5 rounded-xl bg-slate-50 dark:bg-neutral-800/40 border border-slate-100 dark:border-white/5 hover:border-emerald-500/40 transition-all group">
+                        <div class="flex items-center justify-between gap-2 mb-1">
+                            @if ($announcement->prioritas === 'penting')
+                                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-100 text-rose-800 dark:bg-rose-950/60 dark:text-rose-300">
+                                    Penting
+                                </span>
+                            @else
+                                <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-200/70 text-slate-700 dark:bg-neutral-700 dark:text-slate-300">
+                                    Informasi
+                                </span>
+                            @endif
+                            <span class="text-[11px] text-slate-400">
+                                {{ $announcement->created_at->format('d M Y') }}
+                            </span>
+                        </div>
+                        <h4 class="text-xs font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors line-clamp-1">
+                            {{ $announcement->judul }}
+                        </h4>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">
+                            {{ Str::limit(strip_tags($announcement->isi), 100) }}
+                        </p>
+                    </a>
+                @empty
+                    <div class="py-6 text-center text-xs text-slate-500 dark:text-slate-400">
+                        Belum ada pengumuman baru dari BKK SMKN 1 Cirebon.
+                    </div>
+                @endforelse
+            </div>
+        </div>
+
+        <!-- Agenda Kegiatan Terdekat -->
+        <div class="bg-surface-card border border-slate-200/80 dark:border-white/10 rounded-2xl shadow-sm p-6 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/5">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                        <i data-lucide="calendar" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-sm font-bold text-slate-900 dark:text-white">
+                            Agenda Vokasi & PKL Terdekat
+                        </h2>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400">
+                            Jadwal kunjungan industri, pembekalan, & seleksi.
+                        </p>
+                    </div>
+                </div>
+                <a href="{{ route('public.agendas') }}" class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline">
+                    Semua Agenda
+                </a>
+            </div>
+
+            <div class="space-y-3">
+                @forelse ($upcomingAgendas as $agenda)
+                    <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-neutral-800/40 border border-slate-100 dark:border-white/5 flex items-start justify-between gap-3">
+                        <div class="space-y-1 min-w-0">
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300">
+                                {{ ucfirst($agenda->jenis) }}
+                            </span>
+                            <h4 class="text-xs font-bold text-slate-900 dark:text-white line-clamp-1">
+                                {{ $agenda->judul }}
+                            </h4>
+                            <p class="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+                                <i data-lucide="map-pin" class="w-3 h-3 text-slate-400"></i>
+                                <span class="truncate">{{ $agenda->lokasi ?: 'Aula SMKN 1 Cirebon' }}</span>
+                            </p>
+                        </div>
+                        <div class="text-right flex-shrink-0 text-xs">
+                            <span class="font-bold text-slate-900 dark:text-white block">
+                                {{ $agenda->tanggal_mulai ? $agenda->tanggal_mulai->format('d M') : '-' }}
+                            </span>
+                            <span class="text-[10px] text-slate-400 block">
+                                {{ $agenda->tanggal_mulai ? $agenda->tanggal_mulai->format('Y') : '' }}
+                            </span>
+                        </div>
+                    </div>
+                @empty
+                    <div class="py-6 text-center text-xs text-slate-500 dark:text-slate-400">
+                        Belum ada agenda terdekat yang dijadwalkan.
+                    </div>
+                @endforelse
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

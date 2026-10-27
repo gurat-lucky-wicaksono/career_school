@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
+use App\Models\Agenda;
+use App\Models\Announcement;
 use App\Models\Job;
 use App\Models\Major;
 use App\Models\Profile;
@@ -88,6 +90,18 @@ class DashboardController extends Controller
         $recentPortfolios = $student->portfolios()->latest()->take(3)->get();
         $studentSkills = $student->skills()->orderByPivot('tingkat', 'desc')->take(6)->get();
 
+        // BKK Information & Agendas for Student
+        $recentAnnouncements = Announcement::where('status', 'terbit')
+            ->latest('mulai_tampil')
+            ->latest('created_at')
+            ->take(3)
+            ->get();
+
+        $upcomingAgendas = Agenda::where('tanggal_mulai', '>=', now()->subDays(1))
+            ->orderBy('tanggal_mulai')
+            ->take(3)
+            ->get();
+
         $breadcrumbs = [
             ['label' => 'Dashboard Siswa', 'url' => null],
         ];
@@ -100,6 +114,8 @@ class DashboardController extends Controller
             'recommendedJobs',
             'recentPortfolios',
             'studentSkills',
+            'recentAnnouncements',
+            'upcomingAgendas',
             'breadcrumbs'
         ));
     }
