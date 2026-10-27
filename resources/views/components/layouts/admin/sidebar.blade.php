@@ -73,6 +73,23 @@
             ],
         ],
         [
+            'category' => 'Informasi BKK',
+            'items' => [
+                [
+                    'label' => 'Pengumuman BKK',
+                    'route' => 'admin.announcements.index',
+                    'icon' => 'megaphone',
+                    'badge' => null,
+                ],
+                [
+                    'label' => 'Agenda Kegiatan',
+                    'route' => 'admin.agendas.index',
+                    'icon' => 'calendar',
+                    'badge' => null,
+                ],
+            ],
+        ],
+        [
             'category' => 'Sistem & Portal',
             'items' => [
                 [

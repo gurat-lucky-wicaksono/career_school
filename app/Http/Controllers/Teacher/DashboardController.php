@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
+use App\Models\Agenda;
+use App\Models\Announcement;
 use App\Models\Application;
 use App\Models\SchoolClass;
 use App\Models\Student;
@@ -75,6 +77,18 @@ class DashboardController extends Controller
             ->take(6)
             ->get();
 
+        // BKK Information & Agendas for Teacher
+        $recentAnnouncements = Announcement::where('status', 'terbit')
+            ->latest('mulai_tampil')
+            ->latest('created_at')
+            ->take(3)
+            ->get();
+
+        $upcomingAgendas = Agenda::where('tanggal_mulai', '>=', now()->subDays(1))
+            ->orderBy('tanggal_mulai')
+            ->take(3)
+            ->get();
+
         $breadcrumbs = [
             ['label' => 'Dashboard Guru', 'url' => null],
         ];
@@ -86,6 +100,8 @@ class DashboardController extends Controller
             'stats',
             'pendingSkillSubmissions',
             'recentApplications',
+            'recentAnnouncements',
+            'upcomingAgendas',
             'breadcrumbs'
         ));
     }
