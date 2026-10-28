@@ -68,4 +68,16 @@ class Post extends Model
         return $this->belongsToMany(Hashtag::class, 'post_hashtag')
                     ->withPivot('created_at');
     }
+
+    public function isLikedBy(?User $user): bool
+    {
+        if (!$user) return false;
+        return $this->likes()->where('user_id', $user->id)->exists();
+    }
+
+    public function isBookmarkedBy(?User $user): bool
+    {
+        if (!$user) return false;
+        return $this->bookmarks()->where('user_id', $user->id)->exists();
+    }
 }
