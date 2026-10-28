@@ -57,6 +57,23 @@
             ],
         ],
         [
+            'category' => 'Jejaring & Komunitas',
+            'items' => [
+                [
+                    'label' => 'Feed Komunitas',
+                    'route' => 'feed.index',
+                    'icon' => 'message-square',
+                    'badge' => null,
+                ],
+                [
+                    'label' => 'Kiriman Tersimpan',
+                    'route' => 'bookmarks.index',
+                    'icon' => 'bookmark',
+                    'badge' => null,
+                ],
+            ],
+        ],
+        [
             'category' => 'Lainnya',
             'items' => [
                 [

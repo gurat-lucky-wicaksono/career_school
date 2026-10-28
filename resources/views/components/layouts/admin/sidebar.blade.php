@@ -73,7 +73,7 @@
             ],
         ],
         [
-            'category' => 'Informasi BKK',
+            'category' => 'Informasi BKK & Komunitas',
             'items' => [
                 [
                     'label' => 'Pengumuman BKK',
@@ -85,6 +85,12 @@
                     'label' => 'Agenda Kegiatan',
                     'route' => 'admin.agendas.index',
                     'icon' => 'calendar',
+                    'badge' => null,
+                ],
+                [
+                    'label' => 'Feed Komunitas Vokasi',
+                    'route' => 'feed.index',
+                    'icon' => 'message-square',
                     'badge' => null,
                 ],
             ],

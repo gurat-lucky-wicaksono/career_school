@@ -124,6 +124,27 @@ Route::middleware(['auth', 'role:guru'])->prefix('teacher')->name('teacher.')->g
     Route::get('/portfolios', [\App\Http\Controllers\Teacher\StudentMentoringController::class, 'portfolios'])->name('portfolios.index');
 });
 
+// Komunitas Vokasi & Social Network Routes (Protected by Auth for All Roles)
+Route::middleware(['auth'])->group(function () {
+    // Feed & Post Management
+    Route::get('/feed', [\App\Http\Controllers\FeedController::class, 'index'])->name('feed.index');
+    Route::post('/feed', [\App\Http\Controllers\FeedController::class, 'store'])->name('feed.store');
+    Route::delete('/feed/{post}', [\App\Http\Controllers\FeedController::class, 'destroy'])->name('feed.destroy');
+
+    // Social Interactions (Like, Comment, Bookmark, Follow)
+    Route::post('/posts/{post}/like', [\App\Http\Controllers\SocialInteractionController::class, 'toggleLike'])->name('posts.like');
+    Route::post('/posts/{post}/comments', [\App\Http\Controllers\SocialInteractionController::class, 'storeComment'])->name('posts.comments.store');
+    Route::delete('/comments/{comment}', [\App\Http\Controllers\SocialInteractionController::class, 'destroyComment'])->name('comments.destroy');
+    Route::post('/posts/{post}/bookmark', [\App\Http\Controllers\SocialInteractionController::class, 'toggleBookmark'])->name('posts.bookmark');
+    Route::post('/users/{user}/follow', [\App\Http\Controllers\SocialInteractionController::class, 'toggleFollow'])->name('users.follow');
+
+    // Bookmarks Collection
+    Route::get('/bookmarks', [\App\Http\Controllers\UserProfileController::class, 'bookmarks'])->name('bookmarks.index');
+
+    // Public Community Profile
+    Route::get('/u/{username}', [\App\Http\Controllers\UserProfileController::class, 'show'])->name('community.profile');
+});
+
 // Pusat Informasi Publik BKK (Pengumuman & Agenda)
 Route::get('/pengumuman', [\App\Http\Controllers\PublicInformationController::class, 'announcements'])->name('public.announcements');
 Route::get('/pengumuman/{announcement}', [\App\Http\Controllers\PublicInformationController::class, 'showAnnouncement'])->name('public.announcements.show');
