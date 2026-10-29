@@ -155,6 +155,11 @@ class User extends Authenticatable
         return $this->hasRole('perusahaan');
     }
 
+    public function isAlumni(): bool
+    {
+        return $this->alumni()->exists();
+    }
+
     public function isFollowing(int|User $user): bool
     {
         $userId = $user instanceof User ? $user->id : $user;
