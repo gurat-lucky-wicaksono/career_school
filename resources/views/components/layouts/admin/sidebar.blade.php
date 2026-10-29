@@ -88,6 +88,12 @@
                     'badge' => null,
                 ],
                 [
+                    'label' => 'Tracer Study Alumni',
+                    'route' => 'admin.tracer.index',
+                    'icon' => 'line-chart',
+                    'badge' => null,
+                ],
+                [
                     'label' => 'Feed Komunitas Vokasi',
                     'route' => 'feed.index',
                     'icon' => 'message-square',

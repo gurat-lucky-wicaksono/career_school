@@ -41,6 +41,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('announcements', \App\Http\Controllers\Admin\AnnouncementController::class);
     Route::resource('agendas', \App\Http\Controllers\Admin\AgendaController::class);
 
+    // Tracer Study & Penelusuran Alumni
+    Route::get('/tracer-study', [\App\Http\Controllers\Admin\TracerStudyController::class, 'index'])->name('tracer.index');
+    Route::patch('/tracer-study/{alumni}/toggle-visibility', [\App\Http\Controllers\Admin\TracerStudyController::class, 'toggleVisibility'])->name('tracer.toggle-visibility');
+    Route::delete('/tracer-study/{alumni}', [\App\Http\Controllers\Admin\TracerStudyController::class, 'destroy'])->name('tracer.destroy');
+
     // Pusat Notifikasi
     Route::get('/notifications', [\App\Http\Controllers\Admin\NotificationController::class, 'index'])->name('notifications.index');
     Route::post('/notifications/{notification}/read', [\App\Http\Controllers\Admin\NotificationController::class, 'markAsRead'])->name('notifications.read');
@@ -149,6 +154,14 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/pengumuman', [\App\Http\Controllers\PublicInformationController::class, 'announcements'])->name('public.announcements');
 Route::get('/pengumuman/{announcement}', [\App\Http\Controllers\PublicInformationController::class, 'showAnnouncement'])->name('public.announcements.show');
 Route::get('/agenda', [\App\Http\Controllers\PublicInformationController::class, 'agendas'])->name('public.agendas');
+
+// Direktori & Tracer Study Alumni
+Route::get('/alumni', [\App\Http\Controllers\TracerStudyController::class, 'index'])->name('alumni.index');
+Route::get('/alumni/{alumni}', [\App\Http\Controllers\TracerStudyController::class, 'show'])->name('alumni.show');
+Route::middleware('auth')->group(function () {
+    Route::get('/tracer-study/kuesioner', [\App\Http\Controllers\TracerStudyController::class, 'create'])->name('tracer.create');
+    Route::post('/tracer-study/kuesioner', [\App\Http\Controllers\TracerStudyController::class, 'store'])->name('tracer.store');
+});
 
 // List of supported landing section paths
 $landingSections = 'beranda|platform|sekolah|fitur|fitur-unggulan|cara-kerja|statistik|faq';

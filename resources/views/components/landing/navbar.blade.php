@@ -20,6 +20,7 @@
             <a href="/fitur-unggulan" data-nav="fitur-unggulan" class="hover:text-text-primary transition-colors py-1">Fitur</a>
             <a href="{{ route('public.announcements') }}" class="hover:text-text-primary transition-colors py-1">Pengumuman</a>
             <a href="{{ route('public.agendas') }}" class="hover:text-text-primary transition-colors py-1">Agenda</a>
+            <a href="{{ route('alumni.index') }}" class="hover:text-text-primary transition-colors py-1">Alumni</a>
             @auth
                 <a href="{{ route('feed.index') }}" class="text-brand-secondary dark:text-brand-primary font-bold hover:underline py-1">Komunitas</a>
             @endauth

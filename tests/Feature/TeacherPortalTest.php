@@ -255,17 +255,19 @@ class TeacherPortalTest extends TestCase
         [$user, $teacher] = $this->getTeacherUser();
         [$student, $studentSkill] = $this->getStudentWithSkill();
 
-        Portfolio::firstOrCreate(
+        $portfolio = Portfolio::updateOrCreate(
             ['judul' => 'Sistem Informasi PKL Berbasis Laravel', 'student_id' => $student->id],
             [
                 'kategori' => 'Web Development',
                 'deskripsi' => 'Aplikasi pemantauan PKL siswa vokasi',
                 'tautan' => 'https://github.com/smkn1cirebon/portfolio-test',
                 'status' => 'terbit',
+                'created_at' => now(),
             ]
         );
+        $portfolio->touch();
 
-        $response = $this->actingAs($user)->get('/teacher/portfolios');
+        $response = $this->actingAs($user)->get('/teacher/portfolios?q=Sistem+Informasi+PKL');
 
         $response->assertStatus(200);
         $response->assertSee('Portofolio Siswa Bimbingan');
