@@ -150,6 +150,14 @@ Route::get('/pengumuman', [\App\Http\Controllers\PublicInformationController::cl
 Route::get('/pengumuman/{announcement}', [\App\Http\Controllers\PublicInformationController::class, 'showAnnouncement'])->name('public.announcements.show');
 Route::get('/agenda', [\App\Http\Controllers\PublicInformationController::class, 'agendas'])->name('public.agendas');
 
+// Direktori & Tracer Study Alumni
+Route::get('/alumni', [\App\Http\Controllers\TracerStudyController::class, 'index'])->name('alumni.index');
+Route::get('/alumni/{alumni}', [\App\Http\Controllers\TracerStudyController::class, 'show'])->name('alumni.show');
+Route::middleware('auth')->group(function () {
+    Route::get('/tracer-study/kuesioner', [\App\Http\Controllers\TracerStudyController::class, 'create'])->name('tracer.create');
+    Route::post('/tracer-study/kuesioner', [\App\Http\Controllers\TracerStudyController::class, 'store'])->name('tracer.store');
+});
+
 // List of supported landing section paths
 $landingSections = 'beranda|platform|sekolah|fitur|fitur-unggulan|cara-kerja|statistik|faq';
 

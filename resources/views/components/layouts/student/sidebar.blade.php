@@ -71,6 +71,12 @@
                     'icon' => 'bookmark',
                     'badge' => null,
                 ],
+                [
+                    'label' => 'Tracer Study Alumni',
+                    'route' => 'tracer.create',
+                    'icon' => 'graduation-cap',
+                    'badge' => null,
+                ],
             ],
         ],
         [
