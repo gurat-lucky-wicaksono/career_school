@@ -41,6 +41,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('announcements', \App\Http\Controllers\Admin\AnnouncementController::class);
     Route::resource('agendas', \App\Http\Controllers\Admin\AgendaController::class);
 
+    // Tracer Study & Penelusuran Alumni
+    Route::get('/tracer-study', [\App\Http\Controllers\Admin\TracerStudyController::class, 'index'])->name('tracer.index');
+    Route::patch('/tracer-study/{alumni}/toggle-visibility', [\App\Http\Controllers\Admin\TracerStudyController::class, 'toggleVisibility'])->name('tracer.toggle-visibility');
+    Route::delete('/tracer-study/{alumni}', [\App\Http\Controllers\Admin\TracerStudyController::class, 'destroy'])->name('tracer.destroy');
+
     // Pusat Notifikasi
     Route::get('/notifications', [\App\Http\Controllers\Admin\NotificationController::class, 'index'])->name('notifications.index');
     Route::post('/notifications/{notification}/read', [\App\Http\Controllers\Admin\NotificationController::class, 'markAsRead'])->name('notifications.read');
