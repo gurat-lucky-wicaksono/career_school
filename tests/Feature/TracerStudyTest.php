@@ -199,13 +199,15 @@ class TracerStudyTest extends TestCase
         $major = $this->getMajor();
         $user = $this->getUser('student_update_tracer@demo.com', 'student_update_tracer', 'Siswa Tracer Update');
 
-        Alumni::create([
-            'user_id' => $user->id,
-            'major_id' => $major->id,
-            'tahun_lulus' => 2023,
-            'status_bmw' => 'mencari_kerja',
-            'is_public' => true,
-        ]);
+        Alumni::updateOrCreate(
+            ['user_id' => $user->id],
+            [
+                'major_id' => $major->id,
+                'tahun_lulus' => 2023,
+                'status_bmw' => 'mencari_kerja',
+                'is_public' => true,
+            ]
+        );
 
         $updatePayload = [
             'major_id' => $major->id,
