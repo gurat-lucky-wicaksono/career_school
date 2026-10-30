@@ -68,6 +68,9 @@
             <i data-lucide="moon" class="w-4 h-4 block dark:hidden text-slate-600"></i>
         </button>
 
+        <!-- Notification Bell -->
+        <x-notifications.dropdown />
+
         <!-- Profile Dropdown -->
         <div x-data="{ open: false }" class="relative">
             <button 

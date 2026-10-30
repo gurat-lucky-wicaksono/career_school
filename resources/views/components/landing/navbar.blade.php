@@ -60,6 +60,7 @@
                 </a>
             @else
                 <div class="flex items-center gap-2 sm:gap-3">
+                    <x-notifications.dropdown />
                     <span class="text-xs md:text-sm font-semibold text-text-primary max-w-[120px] sm:max-w-none truncate">
                         {{ auth()->user()->name }}
                     </span>

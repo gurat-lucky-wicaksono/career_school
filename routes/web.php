@@ -148,6 +148,11 @@ Route::middleware(['auth'])->group(function () {
 
     // Public Community Profile
     Route::get('/u/{username}', [\App\Http\Controllers\UserProfileController::class, 'show'])->name('community.profile');
+
+    // Universal Notification Center
+    Route::get('/notifications', [\App\Http\Controllers\NotificationController::class, 'index'])->name('notifications.index');
+    Route::post('/notifications/{notification}/read', [\App\Http\Controllers\NotificationController::class, 'markAsRead'])->name('notifications.read');
+    Route::post('/notifications/mark-all-read', [\App\Http\Controllers\NotificationController::class, 'markAllRead'])->name('notifications.markAllRead');
 });
 
 // Pusat Informasi Publik BKK (Pengumuman & Agenda)
