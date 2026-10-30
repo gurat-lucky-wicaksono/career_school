@@ -32,6 +32,10 @@ class SocialInteractionController extends Controller
             ]);
             $post->increment('like_count');
             $message = 'Menyukai kiriman.';
+
+            if ($post->user) {
+                \App\Services\NotificationService::notifyCommunityInteraction($post->user, auth()->user(), 'like', $post);
+            }
         }
 
         return redirect()->back()->with('success', $message);
@@ -47,7 +51,7 @@ class SocialInteractionController extends Controller
             'parent_id' => 'nullable|exists:comments,id',
         ]);
 
-        Comment::create([
+        $comment = Comment::create([
             'post_id' => $post->id,
             'user_id' => auth()->id(),
             'parent_id' => $validated['parent_id'] ?? null,
@@ -56,6 +60,10 @@ class SocialInteractionController extends Controller
         ]);
 
         $post->increment('comment_count');
+
+        if ($post->user) {
+            \App\Services\NotificationService::notifyCommunityInteraction($post->user, auth()->user(), 'comment', $comment);
+        }
 
         return redirect()->back()->with('success', 'Komentar Anda berhasil dikirim.');
     }
@@ -127,6 +135,8 @@ class SocialInteractionController extends Controller
                 'following_id' => $user->id,
             ]);
             $message = 'Sekarang Anda mengikuti ' . $user->name . '.';
+
+            \App\Services\NotificationService::notifyCommunityInteraction($user, auth()->user(), 'follow');
         }
 
         return redirect()->back()->with('success', $message);

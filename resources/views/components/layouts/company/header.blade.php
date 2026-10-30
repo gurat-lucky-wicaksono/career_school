@@ -286,6 +286,9 @@
         <!-- Vertical Divider -->
         <div class="h-6 w-px bg-slate-200 dark:bg-white/10 mx-0.5"></div>
 
+        <!-- Notification Bell -->
+        <x-notifications.dropdown />
+
         <!-- User Profile Dropdown (Alpine.js) -->
         <div x-data="{ open: false }" @click.outside="open = false" class="relative">
             <button 

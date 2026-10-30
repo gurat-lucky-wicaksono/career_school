@@ -128,6 +128,9 @@
                     <span>{{ $portalLabel }}</span>
                 </a>
 
+                <!-- Notification Bell -->
+                <x-notifications.dropdown />
+
                 <!-- User Dropdown (Alpine.js) -->
                 <div x-data="{ open: false }" class="relative">
                     <button 

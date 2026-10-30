@@ -119,22 +119,7 @@ class ApplicationController extends Controller
 
         // Send in-app notification to the applicant if status changed
         if ($oldStatus !== $newStatus && $application->student?->user_id) {
-            $statusLabels = [
-                'ditinjau' => 'sedang ditinjau oleh HRD',
-                'wawancara' => 'memasuki tahap wawancara',
-                'diterima' => 'dinyatakan DITERIMA',
-                'ditolak' => 'belum dapat diterima',
-                'tertunda' => 'dalam antrean',
-            ];
-
-            Notification::create([
-                'user_id' => $application->student->user_id,
-                'jenis' => 'karier',
-                'judul' => 'Lamaran Anda pada posisi ' . $application->job->judul . ' di ' . $company->nama . ' ' . ($statusLabels[$newStatus] ?? 'telah diperbarui statusnya') . '.',
-                'referensi_tipe' => 'application',
-                'referensi_id' => $application->id,
-                'dibaca' => false,
-            ]);
+            \App\Services\NotificationService::notifyApplicationStatus($application, $newStatus);
         }
 
         return redirect()->back()->with('success', 'Status lamaran kandidat berhasil diperbarui.');

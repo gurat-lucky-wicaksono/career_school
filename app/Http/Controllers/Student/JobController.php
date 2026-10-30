@@ -184,7 +184,7 @@ class JobController extends Controller
         // Compute match score at moment of application
         $match = $matchingService->calculate($student, $job);
 
-        Application::create([
+        $application = Application::create([
             'job_id' => $job->id,
             'student_id' => $student->id,
             'skor_kecocokan' => $match['total'],
@@ -193,6 +193,9 @@ class JobController extends Controller
         ]);
 
         $job->increment('application_count');
+
+        // Kirim notifikasi ke perusahaan mitra
+        \App\Services\NotificationService::notifyNewApplicant($application);
 
         return redirect()->route('student.jobs.show', $job)
             ->with('success', 'Lamaran Anda berhasil dikirim ke ' . ($job->company->nama ?? 'mitra industri') . '! Pantau perkembangan seleksi pada menu Lamaran Saya.');

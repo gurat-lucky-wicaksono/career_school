@@ -124,6 +124,8 @@ class SkillValidationController extends Controller
             ]
         );
 
+        \App\Services\NotificationService::notifySkillEndorsed($studentSkill, $teacher);
+
         return redirect()->back()
             ->with('success', 'Kompetensi ' . ($studentSkill->skill->nama ?? 'keahlian') . ' siswa berhasil divalidasi resmi.');
     }
@@ -155,6 +157,8 @@ class SkillValidationController extends Controller
                     'tanggal' => now(),
                 ]
             );
+
+            \App\Services\NotificationService::notifySkillEndorsed($skill, $teacher);
         }
 
         return redirect()->back()
