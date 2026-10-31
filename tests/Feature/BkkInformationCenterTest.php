@@ -258,6 +258,7 @@ class BkkInformationCenterTest extends TestCase
             'isi' => 'Konten pengumuman yang dapat dilihat oleh publik',
             'prioritas' => 'normal',
             'status' => 'terbit',
+            'mulai_tampil' => now(),
         ]);
 
         Announcement::create([

@@ -131,4 +131,34 @@ class ApplicationController extends Controller
         return redirect()->route('student.applications.index')
             ->with('success', 'Lamaran Anda berhasil dibatalkan dari sistem seleksi.');
     }
+
+    /**
+     * Print official registration proof & recommendation slip for the application.
+     */
+    public function printProof(Application $application): View
+    {
+        $student = $this->getStudent();
+
+        if ($application->student_id !== $student->id) {
+            abort(403, 'Anda tidak memiliki hak akses untuk mencetak bukti pendaftaran ini.');
+        }
+
+        $application->load([
+            'job.company',
+            'job.skills',
+            'student.user.profile',
+            'student.major',
+            'student.schoolClass',
+            'student.studentSkills.skill',
+        ]);
+
+        $schoolProfile = \App\Models\SchoolProfile::first() ?? new \App\Models\SchoolProfile([
+            'nama_sekolah' => 'SMKN 1 Cirebon',
+            'alamat' => 'Jl. Perjuangan, Sunyaragi, Kec. Kesambi, Kota Cirebon, Jawa Barat 45132',
+            'telepon' => '0231-480202',
+            'email' => 'info@smkn1-cirebon.sch.id',
+        ]);
+
+        return view('student.applications.print-proof', compact('application', 'student', 'schoolProfile'));
+    }
 }

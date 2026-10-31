@@ -94,6 +94,12 @@
                     'badge' => null,
                 ],
                 [
+                    'label' => 'Laporan & Rekap BKK',
+                    'route' => 'admin.reports.index',
+                    'icon' => 'file-text',
+                    'badge' => null,
+                ],
+                [
                     'label' => 'Feed Komunitas Vokasi',
                     'route' => 'feed.index',
                     'icon' => 'message-square',

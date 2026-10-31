@@ -185,6 +185,15 @@
                             </form>
                         @endif
 
+                        <a 
+                            href="{{ route('student.applications.print', $application) }}" 
+                            target="_blank"
+                            title="Cetak Bukti Pendaftaran (PDF)"
+                            class="p-2 rounded-xl border border-slate-200/80 dark:border-white/10 text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-neutral-800 transition-colors"
+                        >
+                            <i data-lucide="printer" class="w-4 h-4"></i>
+                        </a>
+
                         <x-ui.button variant="primary" size="sm" href="{{ route('student.applications.show', $application) }}">
                             <span>Pelacakan Detail</span>
                             <i data-lucide="arrow-right" class="w-3.5 h-3.5 ml-1.5"></i>
