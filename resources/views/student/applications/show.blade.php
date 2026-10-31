@@ -5,7 +5,7 @@
 @section('content')
 <div class="space-y-6">
     <!-- Header Navigation -->
-    <div class="flex items-center justify-between">
+    <div class="flex flex-wrap items-center justify-between gap-3">
         <x-ui.button 
             variant="secondary" 
             size="sm" 
@@ -15,14 +15,25 @@
             Kembali ke Daftar Lamaran
         </x-ui.button>
 
-        <x-ui.button 
-            variant="ghost" 
-            size="sm" 
-            href="{{ route('student.jobs.show', $application->job) }}"
-        >
-            <span>Buka Detail Lowongan</span>
-            <i data-lucide="external-link" class="w-3.5 h-3.5 ml-1.5"></i>
-        </x-ui.button>
+        <div class="flex items-center gap-2">
+            <a 
+                href="{{ route('student.applications.print', $application) }}" 
+                target="_blank"
+                class="inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-neutral-800 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-neutral-700 transition-colors shadow-sm"
+            >
+                <i data-lucide="printer" class="w-3.5 h-3.5 mr-1.5 text-brand-secondary dark:text-brand-primary"></i>
+                <span>Cetak Lembar Bukti (PDF)</span>
+            </a>
+
+            <x-ui.button 
+                variant="ghost" 
+                size="sm" 
+                href="{{ route('student.jobs.show', $application->job) }}"
+            >
+                <span>Buka Detail Lowongan</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5 ml-1.5"></i>
+            </x-ui.button>
+        </div>
     </div>
 
     <!-- 1. Hero Card Lamaran -->

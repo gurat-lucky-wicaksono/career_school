@@ -51,6 +51,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::post('/notifications/{notification}/read', [\App\Http\Controllers\Admin\NotificationController::class, 'markAsRead'])->name('notifications.read');
     Route::post('/notifications/mark-all-read', [\App\Http\Controllers\Admin\NotificationController::class, 'markAllAsRead'])->name('notifications.markAllRead');
 
+    // Laporan & Ekspor BKK SMKN 1 Cirebon
+    Route::get('/reports', [\App\Http\Controllers\Admin\ReportController::class, 'index'])->name('reports.index');
+    Route::get('/reports/print-summary', [\App\Http\Controllers\Admin\ReportController::class, 'printSummary'])->name('reports.print-summary');
+    Route::get('/reports/export/tracer-csv', [\App\Http\Controllers\Admin\ReportController::class, 'exportTracerCsv'])->name('reports.export.tracer-csv');
+    Route::get('/reports/export/applications-csv', [\App\Http\Controllers\Admin\ReportController::class, 'exportApplicationsCsv'])->name('reports.export.applications-csv');
+
     // Pencarian Global / Command Palette
     Route::get('/search', [\App\Http\Controllers\Admin\GlobalSearchController::class, 'search'])->name('search');
 
@@ -97,6 +103,7 @@ Route::middleware(['auth', 'role:siswa'])->prefix('student')->name('student.')->
     // Manajemen Lamaran Saya & Pelacakan Seleksi
     Route::get('/applications', [\App\Http\Controllers\Student\ApplicationController::class, 'index'])->name('applications.index');
     Route::get('/applications/{application}', [\App\Http\Controllers\Student\ApplicationController::class, 'show'])->name('applications.show');
+    Route::get('/applications/{application}/print', [\App\Http\Controllers\Student\ApplicationController::class, 'printProof'])->name('applications.print');
     Route::delete('/applications/{application}', [\App\Http\Controllers\Student\ApplicationController::class, 'destroy'])->name('applications.destroy');
 
     // Karya & Portofolio Siswa (CRUD)
