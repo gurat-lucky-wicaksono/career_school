@@ -137,6 +137,10 @@ Route::middleware(['auth', 'role:guru'])->prefix('teacher')->name('teacher.')->g
 });
 
 // Komunitas Vokasi & Social Network Routes (Protected by Auth for All Roles)
+Route::get('/komunitas', function () {
+    return redirect()->route('feed.index');
+});
+
 Route::middleware(['auth'])->group(function () {
     // Feed & Post Management
     Route::get('/feed', [\App\Http\Controllers\FeedController::class, 'index'])->name('feed.index');
