@@ -92,7 +92,4 @@ class ReportController extends Controller
 
         return $this->reportService->streamApplicationsCsv($filters);
     }
-
-        return $this->reportService->streamApplicationsCsv($filters);
-    }
 }
