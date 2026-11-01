@@ -73,6 +73,7 @@ class AuthController extends Controller
         }
 
         $user->update(['last_login_at' => now()]);
+        \App\Services\ActivityLogService::logAuth($user, 'auth.login', "Pengguna {$user->name} berhasil masuk ke sistem.");
         $request->session()->regenerate();
 
         // Role-based post-login redirection
@@ -261,6 +262,11 @@ class AuthController extends Controller
      */
     public function logout(Request $request): RedirectResponse
     {
+        $user = Auth::user();
+        if ($user) {
+            \App\Services\ActivityLogService::logAuth($user, 'auth.logout', "Pengguna {$user->name} keluar dari sistem.");
+        }
+
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

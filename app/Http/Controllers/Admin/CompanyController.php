@@ -204,6 +204,8 @@ class CompanyController extends Controller
             'verified_at' => now(),
         ]);
 
+        \App\Services\ActivityLogService::logCompanyVerification($company, $status, Auth::user());
+
         $message = $status === 'terverifikasi' ? 'Mitra industri berhasil diverifikasi.' : 'Kemitraan industri ditolak.';
 
         return back()->with('success', $message);
