@@ -120,6 +120,13 @@ class ApplicationController extends Controller
         // Send in-app notification to the applicant if status changed
         if ($oldStatus !== $newStatus && $application->student?->user_id) {
             \App\Services\NotificationService::notifyApplicationStatus($application, $newStatus);
+            \App\Services\ActivityLogService::logApplicationStatusChange(
+                $application,
+                $oldStatus,
+                $newStatus,
+                auth()->user(),
+                $validated['catatan_hrd'] ?? null
+            );
         }
 
         return redirect()->back()->with('success', 'Status lamaran kandidat berhasil diperbarui.');

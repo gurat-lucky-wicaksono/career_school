@@ -57,6 +57,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/reports/export/tracer-csv', [\App\Http\Controllers\Admin\ReportController::class, 'exportTracerCsv'])->name('reports.export.tracer-csv');
     Route::get('/reports/export/applications-csv', [\App\Http\Controllers\Admin\ReportController::class, 'exportApplicationsCsv'])->name('reports.export.applications-csv');
 
+    // Audit Trail & Log Aktivitas Sistem
+    Route::get('/activity-logs', [\App\Http\Controllers\Admin\ActivityLogController::class, 'index'])->name('activity-logs.index');
+    Route::get('/activity-logs/{activityLog}', [\App\Http\Controllers\Admin\ActivityLogController::class, 'show'])->name('activity-logs.show');
+    Route::get('/activity-logs-export', [\App\Http\Controllers\Admin\ActivityLogController::class, 'export'])->name('activity-logs.export');
+
     // Pencarian Global / Command Palette
     Route::get('/search', [\App\Http\Controllers\Admin\GlobalSearchController::class, 'search'])->name('search');
 

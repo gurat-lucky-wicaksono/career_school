@@ -51,6 +51,10 @@ class ReportController extends Controller
 
         $reportData = $this->reportService->getBkkSummaryData($filters);
 
+        if (auth()->check()) {
+            \App\Services\ActivityLogService::logReportExport(auth()->user(), 'summary_print', $filters);
+        }
+
         return view('admin.reports.print-summary', compact('reportData', 'filters'));
     }
 
@@ -65,6 +69,10 @@ class ReportController extends Controller
             'tahun_lulus' => $request->query('tahun_lulus'),
         ];
 
+        if (auth()->check()) {
+            \App\Services\ActivityLogService::logReportExport(auth()->user(), 'tracer_study_csv', $filters);
+        }
+
         return $this->reportService->streamTracerCsv($filters);
     }
 
@@ -77,6 +85,10 @@ class ReportController extends Controller
             'status' => $request->query('status'),
             'job_id' => $request->query('job_id'),
         ];
+
+        if (auth()->check()) {
+            \App\Services\ActivityLogService::logReportExport(auth()->user(), 'applications_csv', $filters);
+        }
 
         return $this->reportService->streamApplicationsCsv($filters);
     }

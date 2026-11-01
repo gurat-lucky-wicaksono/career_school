@@ -111,6 +111,12 @@
             'category' => 'Sistem & Portal',
             'items' => [
                 [
+                    'label' => 'Audit Trail & Log',
+                    'route' => 'admin.activity-logs.index',
+                    'icon' => 'history',
+                    'badge' => null,
+                ],
+                [
                     'label' => 'Pengaturan Sistem',
                     'route' => 'admin.settings',
                     'icon' => 'settings',

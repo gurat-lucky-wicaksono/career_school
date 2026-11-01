@@ -196,6 +196,7 @@ class JobController extends Controller
 
         // Kirim notifikasi ke perusahaan mitra
         \App\Services\NotificationService::notifyNewApplicant($application);
+        \App\Services\ActivityLogService::logApplicationSubmitted($application, auth()->user());
 
         return redirect()->route('student.jobs.show', $job)
             ->with('success', 'Lamaran Anda berhasil dikirim ke ' . ($job->company->nama ?? 'mitra industri') . '! Pantau perkembangan seleksi pada menu Lamaran Saya.');

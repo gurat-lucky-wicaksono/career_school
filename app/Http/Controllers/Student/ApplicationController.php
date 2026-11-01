@@ -126,6 +126,8 @@ class ApplicationController extends Controller
             $job->decrement('application_count');
         }
 
+        \App\Services\ActivityLogService::logApplicationWithdrawn($application, auth()->user());
+
         $application->delete();
 
         return redirect()->route('student.applications.index')
