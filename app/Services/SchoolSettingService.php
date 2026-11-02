@@ -132,7 +132,7 @@ class SchoolSettingService
      */
     public static function getMaxActiveApplications(): int
     {
-        return (int) SchoolSetting::get('max_active_applications_per_student', 3);
+        return (int) SchoolSetting::get('max_active_applications_per_student', 5);
     }
 
     /**
@@ -158,7 +158,7 @@ class SchoolSettingService
             'koordinator_bkk' => [
                 'nama' => self::getBkkLeaderName(),
                 'nip' => self::getBkkLeaderNip(),
-                'jabatan' => 'Ketua ' . self::getBkkName(),
+                'jabatan' => 'Ketua Bursa Kerja Khusus (BKK)',
             ],
         ];
     }

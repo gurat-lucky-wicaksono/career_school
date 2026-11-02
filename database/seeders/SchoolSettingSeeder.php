@@ -140,7 +140,7 @@ class SchoolSettingSeeder extends Seeder
             ],
             [
                 'key' => 'max_active_applications_per_student',
-                'value' => '3',
+                'value' => '5',
                 'group' => 'academic',
                 'type' => 'number',
                 'label' => 'Maksimal Lamaran Aktif per Siswa',

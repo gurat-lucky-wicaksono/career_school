@@ -56,6 +56,16 @@ class SchoolSettingTest extends TestCase
         }
     }
 
+    protected function tearDown(): void
+    {
+        // Reset settings back to defaults so other test classes are not affected
+        $seeder = new \Database\Seeders\SchoolSettingSeeder();
+        $seeder->run();
+        SchoolSetting::flushCache();
+
+        parent::tearDown();
+    }
+
     public function test_admin_can_access_school_settings_page(): void
     {
         $admin = $this->getUser('admin_settings_tester@demo.com', 'admin_settings_tester', 'Admin Settings Tester', 'admin');
