@@ -10,6 +10,7 @@ use App\Models\Major;
 use App\Models\SchoolProfile;
 use App\Models\Student;
 use App\Models\StudentSkill;
+use App\Services\SchoolSettingService;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ReportExportService
@@ -22,12 +23,12 @@ class ReportExportService
         $majorId = $filters['major_id'] ?? null;
         $tahun = $filters['tahun'] ?? null;
 
-        // School Profile
-        $schoolProfile = SchoolProfile::first() ?? new SchoolProfile([
-            'nama_sekolah' => 'SMKN 1 Cirebon',
-            'alamat' => 'Jl. Perjuangan, Sunyaragi, Kec. Kesambi, Kota Cirebon, Jawa Barat 45132',
-            'telepon' => '0231-480202',
-            'email' => 'info@smkn1-cirebon.sch.id',
+        // School Profile from dynamic settings
+        $schoolProfile = new SchoolProfile([
+            'nama_sekolah' => SchoolSettingService::getSchoolName(),
+            'alamat' => SchoolSettingService::getSchoolAddress(),
+            'telepon' => SchoolSettingService::getSchoolPhone(),
+            'email' => SchoolSettingService::getSchoolEmail(),
         ]);
 
         // Majors query
@@ -172,18 +173,9 @@ class ReportExportService
             'bmw_stats' => $bmwStats,
             'keselarasan_stats' => $keselarasanStats,
             'top_skills' => $topSkills,
-            'signatories' => [
-                'kepala_sekolah' => [
-                    'nama' => 'Drs. H. Arifudin, M.Pd.',
-                    'nip' => '19680512 199303 1 008',
-                    'jabatan' => 'Kepala SMK Negeri 1 Cirebon',
-                ],
-                'koordinator_bkk' => [
-                    'nama' => 'Bambang Sudarsono, S.Kom.',
-                    'nip' => '19820719 200902 1 003',
-                    'jabatan' => 'Ketua Bursa Kerja Khusus (BKK)',
-                ],
-            ],
+            'signatories' => SchoolSettingService::getSignatories(),
+            'bkk_name' => SchoolSettingService::getBkkName(),
+            'bkk_sk_number' => SchoolSettingService::getBkkSkNumber(),
             'generated_at' => now(),
         ];
     }

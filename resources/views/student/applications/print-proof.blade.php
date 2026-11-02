@@ -326,11 +326,11 @@
             <div class="kop-text">
                 <h4>Pemerintah Daerah Provinsi Jawa Barat</h4>
                 <h3>Dinas Pendidikan &bull; Cabang Dinas Wilayah X</h3>
-                <h2>SMK Negeri 1 Cirebon</h2>
+                <h2>{{ \App\Services\SchoolSettingService::getSchoolName() }}</h2>
                 <p>
-                    Jl. Perjuangan, Sunyaragi, Kec. Kesambi, Kota Cirebon, Jawa Barat 45132<br>
-                    Telepon: (0231) 480202 &bull; Pos-el: info@smkn1-cirebon.sch.id<br>
-                    <strong>Bursa Kerja Khusus (BKK) & Pusat Karir Kejuruan</strong>
+                    {{ \App\Services\SchoolSettingService::getSchoolAddress() }}<br>
+                    Telepon: {{ \App\Services\SchoolSettingService::getSchoolPhone() }} &bull; Pos-el: {{ \App\Services\SchoolSettingService::getSchoolEmail() }}<br>
+                    <strong>{{ \App\Services\SchoolSettingService::getBkkName() }}</strong>
                 </p>
             </div>
         </div>
@@ -461,8 +461,8 @@
                 <p>Cirebon, {{ date('d F Y') }}</p>
                 <p>Pengelola Bursa Kerja Khusus (BKK)</p>
                 <div class="sig-space"></div>
-                <p class="sig-name">Bambang Sudarsono, S.Kom.</p>
-                <p class="sig-sub">NIP. 19820719 200902 1 003</p>
+                <p class="sig-name">{{ \App\Services\SchoolSettingService::getBkkLeaderName() }}</p>
+                <p class="sig-sub">NIP. {{ \App\Services\SchoolSettingService::getBkkLeaderNip() }}</p>
             </div>
         </div>
     </div>

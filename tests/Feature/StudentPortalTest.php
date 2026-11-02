@@ -138,6 +138,11 @@ class StudentPortalTest extends TestCase
     {
         [$user, $student] = $this->getStudentUser();
 
+        // Clean up any previously accumulated test applications
+        Application::where('student_id', $student->id)
+            ->whereHas('job', fn($q) => $q->where('judul', 'like', 'Mobile App Tester PKL%'))
+            ->delete();
+
         // Create a unique test job so application is fresh
         $company = Company::first();
         $testJob = Job::create([
