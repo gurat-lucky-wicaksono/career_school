@@ -305,11 +305,11 @@
             <div class="kop-text">
                 <h4>Pemerintah Daerah Provinsi Jawa Barat</h4>
                 <h3>Dinas Pendidikan &bull; Cabang Dinas Wilayah X</h3>
-                <h2>SMK Negeri 1 Cirebon</h2>
+                <h2>{{ $reportData['school_profile']->nama_sekolah ?? 'SMK Negeri 1 Cirebon' }}</h2>
                 <p>
-                    Jl. Perjuangan, Sunyaragi, Kec. Kesambi, Kota Cirebon, Jawa Barat 45132<br>
-                    Telepon: (0231) 480202 &bull; Faksimile: (0231) 481234 &bull; Laman: https://smkn1-cirebon.sch.id<br>
-                    Pos-el: info@smkn1-cirebon.sch.id &bull; <strong>Bursa Kerja Khusus (BKK) Mitra Industri</strong>
+                    {{ $reportData['school_profile']->alamat ?? 'Jl. Perjuangan, Sunyaragi, Kec. Kesambi, Kota Cirebon, Jawa Barat 45131' }}<br>
+                    Telepon: {{ $reportData['school_profile']->telepon ?? '(0231) 480202' }} &bull; Pos-el: {{ $reportData['school_profile']->email ?? 'info@smkn1-cirebon.sch.id' }}<br>
+                    <strong>{{ $reportData['bkk_name'] ?? 'Bursa Kerja Khusus (BKK) SMK Negeri 1 Cirebon' }} &bull; SK: {{ $reportData['bkk_sk_number'] ?? '-' }}</strong>
                 </p>
             </div>
         </div>

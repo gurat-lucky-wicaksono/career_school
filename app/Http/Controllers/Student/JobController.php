@@ -177,6 +177,17 @@ class JobController extends Controller
                 ->with('info', 'Anda sudah pernah mengajukan lamaran untuk posisi ini.');
         }
 
+        // Enforce maximum active applications per student from system settings
+        $maxActive = \App\Services\SchoolSettingService::getMaxActiveApplications();
+        $activeApplicationsCount = Application::where('student_id', $student->id)
+            ->whereIn('status', ['tertunda', 'ditinjau', 'wawancara'])
+            ->count();
+
+        if ($activeApplicationsCount >= $maxActive) {
+            return redirect()->route('student.jobs.show', $job)
+                ->with('error', "Anda telah mencapai batas maksimal {$maxActive} lamaran aktif secara bersamaan. Tunggu hasil seleksi sebelumnya atau batalkan lamaran yang masih menunggu.");
+        }
+
         $validated = $request->validate([
             'pesan' => 'nullable|string|max:1500',
         ]);

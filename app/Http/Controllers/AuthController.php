@@ -135,6 +135,11 @@ class AuthController extends Controller
      */
     protected function registerStudent(RegisterStudentRequest $request): RedirectResponse
     {
+        if (! \App\Services\SchoolSettingService::isStudentRegistrationAllowed()) {
+            return redirect()->route('register', ['type' => 'siswa'])
+                ->with('error', 'Pendaftaran akun siswa mandiri saat ini sedang ditutup oleh pihak sekolah.');
+        }
+
         $data = $request->validated();
 
         $siswaRole = Role::where('nama', 'siswa')->firstOrFail();
