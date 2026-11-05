@@ -13,7 +13,7 @@
                 <!-- Judul dengan Wavy Underline Khas Career School -->
                 <div class="space-y-3">
                     <h1 class="font-heading text-3xl sm:text-4xl lg:text-[42px] font-bold text-text-primary tracking-tight leading-[1.25]">
-                        Selamat Datang <x-wavy-underline>Kembali!</x-wavy-underline>
+                        Selamat datang <x-wavy-underline>kembali!</x-wavy-underline>
                     </h1>
                     <p class="text-sm sm:text-base text-text-secondary leading-relaxed">
                         Masuk ke akun <span class="font-semibold text-text-primary">Career School SMKN 1 Cirebon</span> untuk mengelola portofolio kejuruan, validasi guru, dan peluang kerja industri.
@@ -22,19 +22,19 @@
 
                 <!-- Notifikasi & Alert Validasi -->
                 @if (session('success'))
-                    <div class="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-xs sm:text-sm">
+                    <div class="p-4 rounded-card bg-state-success-bg border border-emerald-500/30 text-state-success-text text-xs sm:text-sm shadow-xs">
                         {{ session('success') }}
                     </div>
                 @endif
 
                 @if (session('info'))
-                    <div class="p-4 rounded-xl bg-brand-primary/10 border border-brand-primary/20 text-text-primary text-xs sm:text-sm">
+                    <div class="p-4 rounded-card bg-state-info-bg border border-sky-500/30 text-state-info-text text-xs sm:text-sm shadow-xs">
                         {{ session('info') }}
                     </div>
                 @endif
 
                 @if ($errors->any())
-                    <div class="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 text-xs sm:text-sm space-y-1">
+                    <div class="p-4 rounded-card bg-state-danger-bg border border-rose-500/30 text-state-danger-text text-xs sm:text-sm space-y-1 shadow-xs">
                         @foreach ($errors->all() as $error)
                             <p>• {{ $error }}</p>
                         @endforeach
@@ -48,7 +48,7 @@
                     <!-- Input Email atau Username -->
                     <div class="space-y-1.5">
                         <label for="login" class="block text-xs font-semibold text-text-primary">
-                            Email atau Username
+                            Email atau username
                         </label>
                         <input
                             type="text"
@@ -65,7 +65,7 @@
                     <!-- Input Kata Sandi dengan Animasi Ikon Mata -->
                     <div class="space-y-1.5">
                         <label for="password" class="block text-xs font-semibold text-text-primary">
-                            Kata Sandi
+                            Kata sandi
                         </label>
                         <div class="relative">
                             <input
@@ -118,7 +118,7 @@
                             onclick="alert('Untuk bantuan atur ulang kata sandi akun sekolah atau mitra, silakan menghubungi tim Admin BKK SMK Negeri 1 Cirebon.')"
                             class="text-text-secondary hover:text-text-primary transition-colors font-medium"
                         >
-                            Lupa Kata Sandi?
+                            Lupa kata sandi?
                         </a>
                     </div>
 
@@ -126,9 +126,9 @@
                     <div class="pt-2">
                         <button
                             type="submit"
-                            class="w-full py-3.5 px-6 rounded-full bg-brand-primary text-text-on-brand-primary font-semibold text-sm hover:brightness-105 transition-all duration-150 active:scale-[0.98] shadow-md shadow-brand-primary/20"
+                            class="w-full py-3.5 px-6 rounded-full bg-brand-primary text-text-on-brand-primary font-semibold text-sm hover:brightness-105 transition-all duration-150 active:scale-[0.96] shadow-xs"
                         >
-                            Masuk Sekarang
+                            Masuk sekarang
                         </button>
                     </div>
 
