@@ -8,7 +8,7 @@
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
             <h1 class="text-2xl sm:text-3xl font-heading font-bold text-text-primary tracking-tight">
-                Pemantauan siswa bimbingan & PKL
+                Pemantauan Siswa Bimbingan & PKL
             </h1>
             <p class="text-sm text-text-secondary mt-1">
                 Pantau progres persiapan karir, status lamaran kemitraan DUDI, serta penempatan Praktik Kerja Lapangan siswa.
@@ -31,7 +31,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="p-5 rounded-card bg-surface-card border border-border-subtle shadow-xs flex items-center justify-between">
             <div>
-                <p class="text-xs font-medium text-text-muted uppercase tracking-wider">Total siswa terdaftar</p>
+                <p class="text-xs font-medium text-text-muted uppercase tracking-wider">Total Siswa Terdaftar</p>
                 <h3 class="text-2xl font-heading font-bold text-text-primary mt-1">{{ number_format($stats['total_students']) }}</h3>
                 <p class="text-xs text-text-secondary mt-0.5">Siswa vokasi terpantau</p>
             </div>

@@ -26,7 +26,7 @@
     <!-- 2. KPI Stat Cards Row -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         <x-ui.stat-card 
-            title="Total siswa terdaftar" 
+            title="Total Siswa Terdaftar" 
             value="{{ number_format($stats['students_count']) }}" 
             icon="graduation-cap" 
             trend="+8.4%" 
@@ -191,7 +191,7 @@
             
             <!-- Card 1: Grafik Utama Tren Penyerapan Lulusan Vokasi -->
             <x-ui.card 
-                title="Tren keterserapan lulusan vokasi SMKN 1 Cirebon" 
+                title="Tren Keterserapan Lulusan Vokasi SMKN 1 Cirebon" 
                 subtitle="Data distribusi lulusan bekerja, kuliah, dan wirausaha (BMW)"
             >
                 <div id="chart-absorption" class="h-72 w-full"></div>
@@ -250,7 +250,7 @@
             <div class="p-6 sm:p-7 border-b border-border-subtle flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                     <h2 class="text-lg font-heading font-bold text-text-primary tracking-tight">
-                        Riwayat aktivitas & pendaftaran terkini
+                        Riwayat Aktivitas & Pendaftaran Terkini
                     </h2>
                     <p class="text-xs text-text-secondary mt-0.5">
                         Log rekaman pembaruan mitra industri, peserta didik, dan data master sekolah secara real-time

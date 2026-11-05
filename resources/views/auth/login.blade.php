@@ -13,7 +13,7 @@
                 <!-- Judul dengan Wavy Underline Khas Career School -->
                 <div class="space-y-3">
                     <h1 class="font-heading text-3xl sm:text-4xl lg:text-[42px] font-bold text-text-primary tracking-tight leading-[1.25]">
-                        Selamat datang <x-wavy-underline>kembali!</x-wavy-underline>
+                        Selamat Datang <x-wavy-underline>kembali!</x-wavy-underline>
                     </h1>
                     <p class="text-sm sm:text-base text-text-secondary leading-relaxed">
                         Masuk ke akun <span class="font-semibold text-text-primary">Career School SMKN 1 Cirebon</span> untuk mengelola portofolio kejuruan, validasi guru, dan peluang kerja industri.
@@ -128,7 +128,7 @@
                             type="submit"
                             class="w-full py-3.5 px-6 rounded-full bg-brand-primary text-text-on-brand-primary font-semibold text-sm hover:brightness-105 transition-all duration-150 active:scale-[0.96] shadow-xs"
                         >
-                            Masuk sekarang
+                            Masuk Sekarang
                         </button>
                     </div>
 

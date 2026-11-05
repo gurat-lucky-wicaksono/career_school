@@ -8,7 +8,7 @@
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
             <h1 class="text-2xl sm:text-3xl font-heading font-bold text-text-primary tracking-tight">
-                Dashboard mitra industri
+                Dashboard Mitra Industri
             </h1>
             <p class="text-sm text-text-secondary mt-1">
                 Selamat datang, <span class="font-semibold text-text-primary">{{ $company->nama }}</span>. Pantau rekrutmen talenta vokasi dan kelola lowongan kerja sekolah.
@@ -39,7 +39,7 @@
                 </div>
                 <div>
                     <h3 class="text-sm font-heading font-bold text-state-warning-text">
-                        Akun mitra sedang dalam proses verifikasi
+                        Akun Mitra Sedang Dalam Proses Verifikasi
                     </h3>
                     <p class="text-xs text-state-warning-text/90 mt-1 leading-relaxed">
                         Pengajuan kemitraan perusahaan Anda sedang ditinjau oleh tim BKK (Bursa Kerja Khusus) SMKN 1 Cirebon. Anda tetap dapat melengkapi profil perusahaan, namun penerbitan lowongan baru akan aktif setelah verifikasi disetujui.
@@ -56,11 +56,11 @@
     <!-- 3. KPI Stat Cards Row -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         <x-ui.stat-card 
-            title="Total lowongan kerja" 
+            title="Total Lowongan Kerja" 
             value="{{ number_format($stats['total_jobs']) }}" 
             icon="briefcase" 
             trend="{{ $stats['active_jobs'] }} Aktif" 
-            :trendUp="true"
+            :trendUp="true" 
         />
 
         <x-ui.stat-card 

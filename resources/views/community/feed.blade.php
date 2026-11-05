@@ -58,7 +58,7 @@
             <!-- Categories Filter Menu -->
             <div class="bg-surface-card border border-border-subtle rounded-card p-5 shadow-xs space-y-3">
                 <h4 class="text-xs font-heading font-bold text-text-primary uppercase tracking-wider">
-                    Kategori komunitas
+                    Kategori Komunitas
                 </h4>
                 <div class="space-y-1 text-xs">
                     <a 
@@ -148,7 +148,7 @@
                         href="{{ route('feed.index', array_merge(request()->except('tab'), ['tab' => 'all'])) }}" 
                         class="px-4 py-2 rounded-btn font-heading font-bold transition-all {{ $currentTab === 'all' ? 'bg-surface-card text-brand-secondary dark:text-brand-primary shadow-xs border border-border-subtle' : 'text-text-secondary hover:text-text-primary' }}"
                     >
-                        Semua kiriman
+                        Semua Kiriman
                     </a>
                     <a 
                         href="{{ route('feed.index', array_merge(request()->except('tab'), ['tab' => 'following'])) }}" 
@@ -364,7 +364,7 @@
             <div class="bg-surface-card border border-border-subtle rounded-card p-5 shadow-xs space-y-3">
                 <div class="flex items-center gap-2 text-xs font-heading font-bold text-text-primary uppercase tracking-wider">
                     <i data-lucide="hash" class="w-4 h-4 text-brand-secondary dark:text-brand-primary"></i>
-                    <span>Tagar populer</span>
+                    <span>Tagar Populer</span>
                 </div>
                 <div class="flex flex-wrap gap-1.5 text-xs">
                     @forelse ($popularHashtags as $hash)

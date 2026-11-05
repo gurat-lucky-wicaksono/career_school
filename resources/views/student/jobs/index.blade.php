@@ -85,7 +85,7 @@
         <span>Menampilkan <strong class="text-text-primary font-semibold">{{ $jobs->total() }}</strong> posisi lowongan industri</span>
         <span class="flex items-center gap-1 text-[11px] text-brand-secondary dark:text-brand-primary font-medium">
             <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-            Formula KAK 15 terapan (bobot keahlian 60%)
+            Formula KAK 15 Terapan (bobot keahlian 60%)
         </span>
     </div>
 

@@ -8,7 +8,7 @@
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-border-subtle">
         <div>
             <h1 class="text-2xl font-heading font-bold tracking-tight text-text-primary">
-                Audit trail & log aktivitas sistem
+                Audit Trail & Log Aktivitas Sistem
             </h1>
             <p class="text-sm text-text-secondary mt-1">
                 Rekam jejak operasional, peristiwa keamanan, dan riwayat tindakan pengguna di seluruh sistem CareerSchool SMKN 1 Cirebon.
@@ -117,7 +117,7 @@
                     id="role"
                     class="w-full text-xs rounded-btn border border-border-subtle bg-surface-bg text-text-primary focus:ring-1 focus:ring-brand-primary"
                 >
-                    <option value="">Semua peran</option>
+                    <option value="">Semua Peran</option>
                     <option value="admin" {{ request('role') === 'admin' ? 'selected' : '' }}>Administrator</option>
                     <option value="perusahaan" {{ request('role') === 'perusahaan' ? 'selected' : '' }}>Mitra industri</option>
                     <option value="guru" {{ request('role') === 'guru' ? 'selected' : '' }}>Guru kejuruan</option>
@@ -135,7 +135,7 @@
                     id="action"
                     class="w-full text-xs rounded-btn border border-border-subtle bg-surface-bg text-text-primary focus:ring-1 focus:ring-brand-primary"
                 >
-                    <option value="">Semua kategori aksi</option>
+                    <option value="">Semua Kategori Aksi</option>
                     <option value="auth.*" {{ request('action') === 'auth.*' ? 'selected' : '' }}>Autentikasi (Login / logout)</option>
                     <option value="company.*" {{ request('action') === 'company.*' ? 'selected' : '' }}>Kemitraan industri</option>
                     <option value="application.*" {{ request('action') === 'application.*' ? 'selected' : '' }}>Lamaran siswa & PKL</option>

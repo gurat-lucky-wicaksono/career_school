@@ -8,7 +8,7 @@
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
             <h1 class="text-2xl sm:text-3xl font-heading font-bold text-text-primary tracking-tight">
-                Pengaturan sistem & identitas lembaga
+                Pengaturan Sistem & Identitas Lembaga
             </h1>
             <p class="text-sm text-text-secondary mt-1">
                 Kelola profil resmi sekolah, struktur pengelola BKK, kop dokumen cetak, serta parameter tahun ajaran berjalan.
@@ -92,7 +92,7 @@
         <!-- TAB 1: IDENTITAS SEKOLAH -->
         <div x-show="activeTab === 'identity'" class="space-y-6">
             <x-ui.card 
-                title="Identitas pokok sekolah" 
+                title="Identitas Pokok Sekolah" 
                 subtitle="Data lembaga yang dicantumkan pada kop surat laporan BKK dan dokumen resmi siswa"
             >
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -301,7 +301,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
                         <label for="active_academic_year" class="block text-xs font-semibold text-text-secondary mb-1.5">
-                            Tahun ajaran berjalan <span class="text-state-danger-text">*</span>
+                            Tahun Ajaran Berjalan <span class="text-state-danger-text">*</span>
                         </label>
                         <input 
                             type="text" 

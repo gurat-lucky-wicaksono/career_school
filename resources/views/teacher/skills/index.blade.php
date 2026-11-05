@@ -21,7 +21,7 @@
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
             <h1 class="text-2xl sm:text-3xl font-heading font-bold text-text-primary tracking-tight">
-                Validasi keahlian siswa vokasi
+                Validasi Keahlian Siswa Vokasi
             </h1>
             <p class="text-sm text-text-secondary mt-1">
                 Verifikasi klaim kompetensi teknis siswa untuk menyuplai data akurat pada algoritma job matching KAK 15 (bobot 60%).
@@ -40,7 +40,7 @@
                 href="{{ route('teacher.skills.index', array_merge(request()->query(), ['status' => 'pending'])) }}" 
                 class="px-3.5 py-2 rounded-btn font-medium whitespace-nowrap transition-all flex items-center gap-2 {{ $currentStatus === 'pending' ? 'bg-brand-primary text-text-on-brand-primary font-semibold shadow-xs' : 'text-text-secondary hover:bg-surface-bg hover:text-text-primary' }}"
             >
-                <span>Menunggu validasi</span>
+                <span>Menunggu Validasi</span>
                 <span class="px-1.5 py-0.5 rounded-full text-[10px] font-bold {{ $currentStatus === 'pending' ? 'bg-black/10 text-text-on-brand-primary' : ($statusCounts['pending'] > 0 ? 'bg-state-warning-bg text-state-warning-text' : 'bg-neutral-100 dark:bg-neutral-800 text-text-secondary') }}">
                     {{ $statusCounts['pending'] }}
                 </span>
@@ -50,7 +50,7 @@
                 href="{{ route('teacher.skills.index', array_merge(request()->query(), ['status' => 'validated'])) }}" 
                 class="px-3.5 py-2 rounded-btn font-medium whitespace-nowrap transition-all flex items-center gap-2 {{ $currentStatus === 'validated' ? 'bg-brand-primary text-text-on-brand-primary font-semibold shadow-xs' : 'text-text-secondary hover:bg-surface-bg hover:text-text-primary' }}"
             >
-                <span>Telah tervalidasi</span>
+                <span>Telah Tervalidasi</span>
                 <span class="px-1.5 py-0.5 rounded-full text-[10px] font-bold {{ $currentStatus === 'validated' ? 'bg-black/10 text-text-on-brand-primary' : 'bg-neutral-100 dark:bg-neutral-800 text-text-secondary' }}">
                     {{ $statusCounts['validated'] }}
                 </span>
@@ -245,7 +245,7 @@
                                     @else
                                         <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-state-warning-bg text-state-warning-text border border-state-warning-border">
                                             <i data-lucide="clock" class="w-3 h-3"></i>
-                                            <span>Menunggu validasi</span>
+                                            <span>Menunggu Validasi</span>
                                         </span>
                                     @endif
                                 </td>

@@ -8,14 +8,14 @@
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
             <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-brand-secondary dark:text-brand-primary mb-1">
-                <span>Portal pembimbing vokasi</span>
+                <span>Portal Pembimbing Vokasi</span>
                 <span class="text-text-muted">&bull;</span>
                 <span>NIP: {{ $teacher->nip }}</span>
                 <span class="text-text-muted">&bull;</span>
                 <span>{{ $teacher->mata_pelajaran }}</span>
             </div>
             <h1 class="text-2xl sm:text-3xl font-heading font-bold text-text-primary tracking-tight">
-                Selamat datang, {{ $user->name }}
+                Selamat Datang, {{ $user->name }}
             </h1>
             <p class="text-sm text-text-secondary mt-1">
                 Validasi kompetensi keahlian siswa, pantau penempatan Praktik Kerja Lapangan (PKL), dan evaluasi portofolio kejuruan.
@@ -25,11 +25,11 @@
         <div class="flex items-center gap-3">
             <x-ui.button variant="secondary" size="md" href="{{ route('teacher.mentoring.index') }}">
                 <i data-lucide="users" class="w-4 h-4 mr-2"></i>
-                Siswa bimbingan
+                Siswa Bimbingan
             </x-ui.button>
             <x-ui.button variant="primary" size="md" href="{{ route('teacher.skills.index') }}">
                 <i data-lucide="award" class="w-4 h-4 mr-2"></i>
-                Validasi keahlian
+                Validasi Keahlian
             </x-ui.button>
         </div>
     </div>
@@ -241,7 +241,7 @@
                     </div>
                     <div>
                         <h2 class="text-sm font-heading font-bold text-text-primary">
-                            Pengumuman BKK sekolah
+                            Pengumuman BKK Sekolah
                         </h2>
                         <p class="text-[11px] text-text-secondary">
                             Pemberitahuan rekrutmen industri dan edaran sekolah.
@@ -294,7 +294,7 @@
                     </div>
                     <div>
                         <h2 class="text-sm font-heading font-bold text-text-primary">
-                            Agenda vokasi & PKL terdekat
+                            Agenda Vokasi & PKL Terdekat
                         </h2>
                         <p class="text-[11px] text-text-secondary">
                             Jadwal kunjungan industri, pembekalan, & seleksi.

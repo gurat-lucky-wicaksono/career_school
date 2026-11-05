@@ -47,7 +47,7 @@
         <!-- KPI Summary Cards -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div class="bg-surface-card border border-border-subtle rounded-card p-4 sm:p-5 shadow-xs text-center">
-                <span class="text-xs font-medium text-text-secondary block mb-1">Total alumni terdata</span>
+                <span class="text-xs font-medium text-text-secondary block mb-1">Total Alumni Terdata</span>
                 <span class="text-2xl sm:text-3xl font-extrabold text-text-primary font-heading">{{ $totalAlumni }}</span>
                 <span class="text-[11px] text-text-secondary block mt-1">Lulusan SMKN 1 Cirebon</span>
             </div>

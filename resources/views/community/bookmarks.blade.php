@@ -8,7 +8,7 @@
     <div class="flex items-center justify-between">
         <div>
             <h1 class="text-2xl font-heading font-bold text-text-primary tracking-tight">
-                Koleksi kiriman tersimpan
+                Koleksi Kiriman Tersimpan
             </h1>
             <p class="text-xs text-text-secondary mt-1">
                 Kumpulan postingan materi belajar, info proyek, dan diskusi komunitas yang Anda simpan.

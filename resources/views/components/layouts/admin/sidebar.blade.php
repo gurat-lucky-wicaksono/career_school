@@ -269,8 +269,8 @@
             <button 
                 type="button" 
                 onclick="confirmSidebarLogout()"
-                title="Keluar dari akun"
-                aria-label="Keluar dari akun"
+                title="Keluar Akun"
+                aria-label="Keluar Akun"
                 :class="{
                     'justify-center px-0': sidebarCollapsed,
                     'px-3': !sidebarCollapsed
@@ -281,7 +281,7 @@
                     <i data-lucide="log-out" class="w-4 h-4 transition-transform group-hover:scale-105"></i>
                 </div>
                 <span x-show="!sidebarCollapsed" x-cloak class="truncate">
-                    Keluar dari akun
+                    Keluar Akun
                 </span>
             </button>
         </form>
