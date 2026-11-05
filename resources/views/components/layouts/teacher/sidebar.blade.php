@@ -7,7 +7,7 @@
 
     $navSections = [
         [
-            'category' => 'Menu Utama',
+            'category' => 'Menu utama',
             'items' => [
                 [
                     'label' => 'Dashboard',
@@ -18,22 +18,22 @@
             ],
         ],
         [
-            'category' => 'Bimbingan & Validasi',
+            'category' => 'Bimbingan & validasi',
             'items' => [
                 [
-                    'label' => 'Validasi Keahlian',
+                    'label' => 'Validasi keahlian',
                     'route' => 'teacher.skills.index',
                     'icon' => 'award',
                     'badge' => $pendingSkillsCount > 0 ? (string)$pendingSkillsCount : null,
                 ],
                 [
-                    'label' => 'Siswa Bimbingan PKL',
+                    'label' => 'Siswa bimbingan PKL',
                     'route' => 'teacher.mentoring.index',
                     'icon' => 'users',
                     'badge' => null,
                 ],
                 [
-                    'label' => 'Tinjau Portofolio',
+                    'label' => 'Tinjau portofolio',
                     'route' => 'teacher.portfolios.index',
                     'icon' => 'folder-kanban',
                     'badge' => null,
@@ -41,16 +41,16 @@
             ],
         ],
         [
-            'category' => 'Jejaring & Komunitas',
+            'category' => 'Jejaring & komunitas',
             'items' => [
                 [
-                    'label' => 'Feed Komunitas',
+                    'label' => 'Feed komunitas',
                     'route' => 'feed.index',
                     'icon' => 'message-square',
                     'badge' => null,
                 ],
                 [
-                    'label' => 'Kiriman Tersimpan',
+                    'label' => 'Kiriman tersimpan',
                     'route' => 'bookmarks.index',
                     'icon' => 'bookmark',
                     'badge' => null,
@@ -61,7 +61,7 @@
             'category' => 'Lainnya',
             'items' => [
                 [
-                    'label' => 'Lihat Portal Publik',
+                    'label' => 'Lihat portal publik',
                     'route' => 'landing',
                     'icon' => 'external-link',
                     'badge' => null,
@@ -82,7 +82,7 @@
     x-transition:leave-start="opacity-100"
     x-transition:leave-end="opacity-0"
     @click="sidebarOpen = false"
-    class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-40 lg:hidden"
+    class="fixed inset-0 bg-neutral-950/60 backdrop-blur-sm z-40 lg:hidden"
     style="display: none;"
 ></div>
 
@@ -94,19 +94,19 @@
         'lg:w-20': sidebarCollapsed,
         'lg:w-64': !sidebarCollapsed
     }"
-    class="fixed inset-y-0 left-0 z-50 w-64 bg-surface-card border-r border-slate-200/80 dark:border-white/10 flex flex-col transition-all duration-300 ease-in-out shadow-sm"
+    class="fixed inset-y-0 left-0 z-50 w-64 bg-surface-card border-r border-border-subtle flex flex-col transition-all duration-300 ease-in-out shadow-xs"
 >
     <!-- Brand Header -->
-    <div class="h-16 flex items-center justify-between px-4 border-b border-slate-100 dark:border-white/5 flex-shrink-0">
+    <div class="h-16 flex items-center justify-between px-4 border-b border-border-subtle flex-shrink-0">
         <a href="{{ route('teacher.dashboard') }}" class="flex items-center gap-3 overflow-hidden group">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-primary to-emerald-600 flex items-center justify-center flex-shrink-0 shadow-sm shadow-brand-primary/20 text-white font-bold">
+            <div class="w-10 h-10 rounded-btn bg-brand-primary flex items-center justify-center flex-shrink-0 shadow-xs">
                 <img src="{{ asset('images/logos/logo-career-school.png') }}" alt="Career School Logo" class="w-6 h-6 object-contain">
             </div>
             <div x-show="!sidebarCollapsed" class="flex flex-col min-w-0 transition-opacity duration-200">
-                <span class="font-bold text-sm text-slate-900 dark:text-white truncate font-display tracking-tight leading-snug">
+                <span class="font-bold text-sm text-text-primary truncate font-heading tracking-tight leading-snug">
                     Portal Guru
                 </span>
-                <span class="text-[10px] font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 truncate">
+                <span class="text-[10px] font-semibold uppercase tracking-wider text-brand-secondary dark:text-brand-primary truncate">
                     SMKN 1 Cirebon
                 </span>
             </div>
@@ -116,7 +116,8 @@
         <button 
             type="button" 
             @click="sidebarOpen = false" 
-            class="lg:hidden w-8 h-8 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-neutral-800 flex items-center justify-center transition-colors"
+            aria-label="Tutup menu navigasi"
+            class="lg:hidden w-8 h-8 rounded-btn text-text-secondary hover:text-text-primary hover:bg-surface-bg flex items-center justify-center transition-colors"
         >
             <i data-lucide="x" class="w-4 h-4"></i>
         </button>
@@ -128,7 +129,7 @@
             <div class="space-y-1">
                 <!-- Section Header (Only if expanded) -->
                 <div x-show="!sidebarCollapsed" class="px-3 mb-2">
-                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-text-secondary/70">
                         {{ $section['category'] }}
                     </span>
                 </div>
@@ -141,11 +142,11 @@
                         href="{{ Route::has($item['route']) ? route($item['route']) : '#' }}"
                         @if (!empty($item['external'])) target="_blank" rel="noopener noreferrer" @endif
                         title="{{ $item['label'] }}"
-                        class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium transition-all group relative {{ $isActive ? 'bg-brand-primary text-white font-semibold shadow-sm shadow-brand-primary/25' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-neutral-800/60 hover:text-slate-900 dark:hover:text-white' }}"
+                        class="flex items-center gap-3 px-3 py-2.5 rounded-btn text-xs transition-all duration-150 group relative active:scale-[0.98] {{ $isActive ? 'bg-brand-primary text-text-on-brand-primary font-bold shadow-xs' : 'text-text-secondary hover:bg-surface-bg hover:text-text-primary font-medium' }}"
                     >
                         <i 
                             data-lucide="{{ $item['icon'] }}" 
-                            class="w-4 h-4 flex-shrink-0 transition-transform group-hover:scale-110 {{ $isActive ? 'text-white' : 'text-slate-400 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-200' }}"
+                            class="w-4 h-4 flex-shrink-0 transition-transform group-hover:scale-105 {{ $isActive ? 'text-text-on-brand-primary' : 'text-text-secondary group-hover:text-text-primary' }}"
                         ></i>
 
                         <span x-show="!sidebarCollapsed" class="truncate flex-1">
@@ -155,7 +156,7 @@
                         @if ($item['badge'])
                             <span 
                                 x-show="!sidebarCollapsed"
-                                class="px-1.5 py-0.5 text-[10px] font-bold rounded-full {{ $isActive ? 'bg-white text-brand-primary' : 'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300' }}"
+                                class="px-1.5 py-0.5 text-[10px] font-bold rounded-full {{ $isActive ? 'bg-neutral-900 text-brand-primary' : 'bg-state-warning-bg text-state-warning-text' }}"
                             >
                                 {{ $item['badge'] }}
                             </span>
@@ -164,11 +165,11 @@
                         <!-- Tooltip on collapsed state -->
                         <div 
                             x-show="sidebarCollapsed" 
-                            class="fixed left-20 px-2.5 py-1.5 bg-slate-900 text-white text-[11px] font-medium rounded-lg shadow-lg pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap dark:bg-neutral-800 border border-slate-700 dark:border-white/10"
+                            class="fixed left-20 px-2.5 py-1.5 bg-neutral-900 text-neutral-50 text-[11px] font-medium rounded-btn shadow-lg pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap border border-neutral-700"
                         >
                             {{ $item['label'] }}
                             @if ($item['badge'])
-                                <span class="ml-1 text-[9px] text-amber-300 font-bold">({{ $item['badge'] }})</span>
+                                <span class="ml-1 text-[9px] text-brand-primary font-bold">({{ $item['badge'] }})</span>
                             @endif
                         </div>
                     </a>
@@ -178,17 +179,17 @@
     </div>
 
     <!-- Teacher User Profile Footer Card -->
-    <div class="p-3 border-t border-slate-100 dark:border-white/5 flex-shrink-0">
-        <div class="p-2 rounded-xl bg-slate-50 dark:bg-neutral-800/50 flex items-center justify-between gap-2 border border-slate-200/50 dark:border-white/5">
+    <div class="p-3 border-t border-border-subtle flex-shrink-0">
+        <div class="p-2 rounded-btn bg-surface-bg flex items-center justify-between gap-2 border border-border-subtle">
             <div class="flex items-center gap-2.5 min-w-0 overflow-hidden flex-1 group">
-                <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-emerald-600 to-teal-700 text-white font-bold text-xs flex items-center justify-center flex-shrink-0 shadow-sm">
+                <div class="w-8 h-8 rounded-full bg-brand-primary text-text-on-brand-primary font-bold font-heading text-xs flex items-center justify-center flex-shrink-0 shadow-xs">
                     {{ strtoupper(substr($user->name ?? 'G', 0, 1)) }}
                 </div>
                 <div x-show="!sidebarCollapsed" class="min-w-0 flex-1">
-                    <p class="text-xs font-semibold text-slate-800 dark:text-slate-100 truncate">
-                        {{ $user->name ?? 'Guru Kejuruan' }}
+                    <p class="text-xs font-semibold text-text-primary truncate">
+                        {{ $user->name ?? 'Guru kejuruan' }}
                     </p>
-                    <p class="text-[10px] text-slate-400 dark:text-slate-400 truncate">
+                    <p class="text-[10px] text-text-secondary truncate">
                         {{ $teacher?->mata_pelajaran ?? 'PPLG SMKN 1' }}
                     </p>
                 </div>
@@ -199,8 +200,9 @@
                 @csrf
                 <button 
                     type="submit" 
-                    title="Keluar Akun"
-                    class="w-7 h-7 rounded-lg text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 flex items-center justify-center transition-colors"
+                    title="Keluar dari akun"
+                    aria-label="Keluar dari akun"
+                    class="w-7 h-7 rounded-btn text-text-secondary hover:text-state-danger-text hover:bg-state-danger-bg/20 flex items-center justify-center transition-all active:scale-[0.96]"
                 >
                     <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
                 </button>

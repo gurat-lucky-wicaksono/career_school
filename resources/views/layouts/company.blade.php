@@ -68,46 +68,46 @@
             <main class="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
                 <!-- Session Flash Alerts -->
                 @if (session('success'))
-                    <div class="mb-6 px-4 py-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 text-sm flex items-center justify-between gap-3 shadow-sm">
+                    <div class="mb-6 px-4 py-3.5 rounded-card bg-state-success-bg border border-emerald-500/30 text-state-success-text text-sm flex items-center justify-between gap-3 shadow-xs">
                         <div class="flex items-center gap-2.5">
-                            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0"></i>
+                            <i data-lucide="check-circle-2" class="w-4 h-4 flex-shrink-0"></i>
                             <span class="font-medium">{{ session('success') }}</span>
                         </div>
-                        <button type="button" @click="$el.parentElement.remove()" class="text-emerald-500 hover:text-emerald-700 dark:hover:text-emerald-300">
+                        <button type="button" @click="$el.parentElement.remove()" class="opacity-75 hover:opacity-100 transition-opacity" aria-label="Tutup notifikasi">
                             <i data-lucide="x" class="w-4 h-4"></i>
                         </button>
                     </div>
                 @endif
 
                 @if (session('warning'))
-                    <div class="mb-6 px-4 py-3.5 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-200 text-sm flex items-center justify-between gap-3 shadow-sm">
+                    <div class="mb-6 px-4 py-3.5 rounded-card bg-state-warning-bg border border-amber-500/30 text-state-warning-text text-sm flex items-center justify-between gap-3 shadow-xs">
                         <div class="flex items-center gap-2.5">
-                            <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0"></i>
+                            <i data-lucide="alert-triangle" class="w-4 h-4 flex-shrink-0"></i>
                             <span class="font-medium">{{ session('warning') }}</span>
                         </div>
-                        <button type="button" @click="$el.parentElement.remove()" class="text-amber-500 hover:text-amber-700 dark:hover:text-amber-300">
+                        <button type="button" @click="$el.parentElement.remove()" class="opacity-75 hover:opacity-100 transition-opacity" aria-label="Tutup notifikasi">
                             <i data-lucide="x" class="w-4 h-4"></i>
                         </button>
                     </div>
                 @endif
 
                 @if (session('error'))
-                    <div class="mb-6 px-4 py-3.5 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-200 text-sm flex items-center justify-between gap-3 shadow-sm">
+                    <div class="mb-6 px-4 py-3.5 rounded-card bg-state-danger-bg border border-rose-500/30 text-state-danger-text text-sm flex items-center justify-between gap-3 shadow-xs">
                         <div class="flex items-center gap-2.5">
-                            <i data-lucide="alert-circle" class="w-4 h-4 text-rose-600 dark:text-rose-400 flex-shrink-0"></i>
+                            <i data-lucide="alert-circle" class="w-4 h-4 flex-shrink-0"></i>
                             <span class="font-medium">{{ session('error') }}</span>
                         </div>
-                        <button type="button" @click="$el.parentElement.remove()" class="text-rose-500 hover:text-rose-700 dark:hover:text-rose-300">
+                        <button type="button" @click="$el.parentElement.remove()" class="opacity-75 hover:opacity-100 transition-opacity" aria-label="Tutup notifikasi">
                             <i data-lucide="x" class="w-4 h-4"></i>
                         </button>
                     </div>
                 @endif
 
                 @if ($errors->any())
-                    <div class="mb-6 px-4 py-3.5 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-200 text-sm shadow-sm">
+                    <div class="mb-6 px-4 py-3.5 rounded-card bg-state-danger-bg border border-rose-500/30 text-state-danger-text text-sm shadow-xs">
                         <div class="flex items-start justify-between gap-3">
                             <div class="flex items-start gap-2.5">
-                                <i data-lucide="alert-circle" class="w-4 h-4 text-rose-600 dark:text-rose-400 flex-shrink-0 mt-0.5"></i>
+                                <i data-lucide="alert-circle" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>
                                 <div>
                                     <span class="font-semibold block mb-1">Terdapat kesalahan pada isian formulir:</span>
                                     <ul class="list-disc list-inside text-xs space-y-0.5 opacity-90">
@@ -117,7 +117,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <button type="button" @click="$el.closest('div.rounded-2xl').remove()" class="text-rose-500 hover:text-rose-700 dark:hover:text-rose-300">
+                            <button type="button" @click="$el.closest('div.rounded-card').remove()" class="opacity-75 hover:opacity-100 transition-opacity" aria-label="Tutup notifikasi">
                                 <i data-lucide="x" class="w-4 h-4"></i>
                             </button>
                         </div>

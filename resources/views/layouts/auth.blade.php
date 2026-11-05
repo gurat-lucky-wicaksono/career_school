@@ -63,9 +63,9 @@
                 <button
                     type="button"
                     onclick="window.toggleTheme()"
-                    class="p-2 rounded-btn bg-surface-card border border-border-default/80 hover:border-text-primary text-text-secondary hover:text-text-primary transition-all duration-150 shadow-xs"
-                    aria-label="Alihkan tema gelap/terang"
-                    title="Ganti Tema"
+                    class="p-2 rounded-btn bg-surface-card border border-border-default/80 hover:border-text-primary text-text-secondary hover:text-text-primary transition-all duration-150 active:scale-[0.96] shadow-xs"
+                    aria-label="Alihkan tema gelap atau terang"
+                    title="Ganti tema"
                 >
                     <span class="dark:hidden flex items-center justify-center">
                         <x-icon name="moon" class="w-4 h-4" />
@@ -80,7 +80,7 @@
                     href="{{ route('landing') }}"
                     class="px-3.5 py-1.5 rounded-btn bg-surface-card border border-border-default/80 hover:border-text-primary text-text-primary text-xs font-semibold transition-all duration-150 active:scale-[0.96] shadow-xs flex items-center gap-1.5"
                 >
-                    Kembali ke Beranda
+                    Kembali ke beranda
                 </a>
             </div>
         </div>

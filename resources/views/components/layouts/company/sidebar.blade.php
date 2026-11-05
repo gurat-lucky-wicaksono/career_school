@@ -12,7 +12,7 @@
 
     $navSections = [
         [
-            'category' => 'Menu Utama',
+            'category' => 'Menu utama',
             'items' => [
                 [
                     'label' => 'Dashboard',
@@ -23,16 +23,16 @@
             ],
         ],
         [
-            'category' => 'Rekrutmen & Talenta',
+            'category' => 'Rekrutmen & talenta',
             'items' => [
                 [
-                    'label' => 'Lowongan Kerja',
+                    'label' => 'Lowongan kerja',
                     'route' => 'company.jobs.index',
                     'icon' => 'briefcase',
                     'badge' => null,
                 ],
                 [
-                    'label' => 'Pelamar Masuk',
+                    'label' => 'Pelamar masuk',
                     'route' => 'company.applications.index',
                     'icon' => 'users',
                     'badge' => $pendingAppsCount > 0 ? (string)$pendingAppsCount : null,
@@ -40,16 +40,16 @@
             ],
         ],
         [
-            'category' => 'Profil & Portal',
+            'category' => 'Profil & portal',
             'items' => [
                 [
-                    'label' => 'Profil Perusahaan',
+                    'label' => 'Profil perusahaan',
                     'route' => 'company.profile',
                     'icon' => 'building-2',
                     'badge' => null,
                 ],
                 [
-                    'label' => 'Lihat Portal Publik',
+                    'label' => 'Lihat portal publik',
                     'route' => 'landing',
                     'icon' => 'external-link',
                     'badge' => null,
@@ -84,14 +84,14 @@
         'lg:w-20': sidebarCollapsed,
         'lg:w-64': !sidebarCollapsed
     }"
-    class="fixed top-0 bottom-0 left-0 z-50 flex flex-col bg-surface-card border-r border-slate-200/80 dark:border-white/10 transition-all duration-300 ease-in-out w-64 select-none font-sans"
-    aria-label="Sidebar Navigasi Mitra"
+    class="fixed top-0 bottom-0 left-0 z-50 flex flex-col bg-surface-card border-r border-border-subtle transition-all duration-300 ease-in-out w-64 select-none font-sans"
+    aria-label="Bilah sisi navigasi mitra"
 >
     <!-- Brand Header -->
-    <div class="h-16 flex items-center px-4 border-b border-slate-200/80 dark:border-white/10 overflow-hidden flex-shrink-0 transition-colors">
+    <div class="h-16 flex items-center px-4 border-b border-border-subtle overflow-hidden flex-shrink-0 transition-colors">
         <a href="{{ route('company.dashboard') }}" class="flex items-center gap-3 w-full group">
             <!-- Icon / Logo Container with young lime background -->
-            <div class="w-10 h-10 rounded-xl bg-brand-primary flex items-center justify-center flex-shrink-0 shadow-sm group-hover:scale-105 transition-transform">
+            <div class="w-10 h-10 rounded-btn bg-brand-primary flex items-center justify-center flex-shrink-0 shadow-xs group-hover:scale-105 transition-transform">
                 <i data-lucide="briefcase" class="w-5 h-5 text-neutral-900 stroke-[2.2]"></i>
             </div>
 
@@ -103,16 +103,16 @@
                 x-transition:enter-end="opacity-100 translate-x-0"
                 class="truncate transition-opacity"
             >
-                <div class="font-bold text-sm text-slate-900 dark:text-white tracking-tight leading-none truncate">
-                    {{ $company->nama ?? 'Mitra Industri' }}
+                <div class="font-bold text-sm text-text-primary tracking-tight leading-none truncate font-heading">
+                    {{ $company->nama ?? 'Mitra industri' }}
                 </div>
-                <div class="text-[11px] font-medium text-slate-500 dark:text-neutral-400 mt-1 flex items-center gap-1.5 truncate">
+                <div class="text-[11px] font-medium text-text-secondary mt-1 flex items-center gap-1.5 truncate">
                     @if ($company && $company->isVerified())
                         <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                        <span class="text-emerald-600 dark:text-emerald-400 font-semibold">DUDI Terverifikasi</span>
+                        <span class="text-state-success-text font-semibold">DUDI terverifikasi</span>
                     @else
                         <span class="inline-block w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-                        <span class="text-amber-600 dark:text-amber-400 font-semibold">Menunggu Verifikasi</span>
+                        <span class="text-state-warning-text font-semibold">Menunggu verifikasi</span>
                     @endif
                 </div>
             </div>
@@ -126,7 +126,7 @@
                 <!-- Section Category Header -->
                 <div 
                     x-show="!sidebarCollapsed"
-                    class="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-neutral-500 mb-1"
+                    class="px-3 text-[10px] font-bold uppercase tracking-wider text-text-secondary/70 mb-1"
                 >
                     {{ $section['category'] }}
                 </div>
@@ -143,12 +143,12 @@
                             href="{{ route($item['route']) }}"
                             @click="if (window.innerWidth < 1024) sidebarOpen = false"
                             title="{{ $item['label'] }}"
-                            class="group relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-150 {{ $isActive ? 'bg-brand-primary text-neutral-900 shadow-xs' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-neutral-800/80 hover:text-slate-900 dark:hover:text-white' }}"
+                            class="group relative flex items-center gap-3 px-3 py-2.5 rounded-btn text-xs font-semibold transition-all duration-150 active:scale-[0.98] {{ $isActive ? 'bg-brand-primary text-neutral-900 shadow-xs' : 'text-text-secondary hover:bg-surface-bg hover:text-text-primary' }}"
                             :class="{ 'justify-center px-0': sidebarCollapsed }"
                         >
                             <i 
                                 data-lucide="{{ $item['icon'] }}" 
-                                class="w-4 h-4 flex-shrink-0 transition-transform group-hover:scale-110 {{ $isActive ? 'text-neutral-900 stroke-[2.2]' : 'text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200' }}"
+                                class="w-4 h-4 flex-shrink-0 transition-transform group-hover:scale-105 {{ $isActive ? 'text-neutral-900 stroke-[2.2]' : 'text-text-secondary group-hover:text-text-primary' }}"
                             ></i>
 
                             <!-- Label (Hidden on mini mode) -->
@@ -172,7 +172,7 @@
                             <!-- Floating Tooltip for Mini Sidebar Mode -->
                             <div 
                                 x-show="sidebarCollapsed"
-                                class="absolute left-full ml-3 px-2.5 py-1 bg-neutral-900 text-white text-[11px] font-medium rounded-lg shadow-xl opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap hidden lg:block"
+                                class="absolute left-full ml-3 px-2.5 py-1 bg-neutral-900 text-white text-[11px] font-medium rounded-btn shadow-xl opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap hidden lg:block border border-neutral-700"
                             >
                                 {{ $item['label'] }}
                                 @if (!empty($item['badge']))
@@ -187,17 +187,17 @@
     </nav>
 
     <!-- Sidebar Bottom Footer -->
-    <div class="p-3 border-t border-slate-200/80 dark:border-white/10 flex-shrink-0">
+    <div class="p-3 border-t border-border-subtle flex-shrink-0">
         <!-- Quick Logout Button -->
         <button 
             type="button" 
             onclick="confirmSidebarLogout()" 
-            title="Keluar dari Akun"
-            class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
+            title="Keluar dari akun"
+            class="w-full flex items-center gap-3 px-3 py-2.5 rounded-btn text-xs font-semibold text-state-danger-text hover:bg-state-danger-bg/20 transition-all active:scale-[0.96]"
             :class="{ 'justify-center px-0': sidebarCollapsed }"
         >
             <i data-lucide="log-out" class="w-4 h-4 flex-shrink-0"></i>
-            <span x-show="!sidebarCollapsed" class="truncate">Keluar Akun</span>
+            <span x-show="!sidebarCollapsed" class="truncate">Keluar dari akun</span>
         </button>
 
         <!-- Hidden Logout Form -->
