@@ -6,17 +6,17 @@
 <div class="space-y-6">
     @php
         $headers = [
-            ['key' => 'student', 'label' => 'Kandidat Siswa', 'sortable' => false],
-            ['key' => 'job', 'label' => 'Posisi Dilamar', 'sortable' => false],
-            ['key' => 'skor', 'label' => 'Skor Kecocokan', 'sortable' => true],
-            ['key' => 'created_at', 'label' => 'Tanggal Masuk', 'sortable' => true],
-            ['key' => 'status', 'label' => 'Status Seleksi', 'sortable' => true],
+            ['key' => 'student', 'label' => 'Kandidat siswa', 'sortable' => false],
+            ['key' => 'job', 'label' => 'Posisi dilamar', 'sortable' => false],
+            ['key' => 'skor', 'label' => 'Skor kecocokan', 'sortable' => true],
+            ['key' => 'created_at', 'label' => 'Tanggal masuk', 'sortable' => true],
+            ['key' => 'status', 'label' => 'Status seleksi', 'sortable' => true],
         ];
         $isFilterActive = request()->filled('job_id') || request()->filled('status') || (request()->filled('sort') && request('sort') !== 'skor');
     @endphp
 
     <x-admin.data-table 
-        title="Daftar Pelamar Masuk"
+        title="Daftar pelamar masuk"
         subtitle="Tinjau berkas kandidat siswa dan skor kecocokan kompetensi dengan lowongan industri"
         searchPlaceholder="Cari nama siswa atau NISN..."
         :search="request('search')"
@@ -29,7 +29,7 @@
             <button 
                 type="button" 
                 onclick="window.openModal('modal-filter-applications')"
-                class="relative h-11 px-4 text-xs sm:text-sm font-semibold rounded-full border border-border-default bg-surface-card text-text-primary hover:border-text-secondary/70 hover:bg-surface-bg flex items-center gap-2 transition-all shadow-xs"
+                class="relative h-11 px-4 text-xs sm:text-sm font-semibold rounded-btn border border-border-subtle bg-surface-card text-text-primary hover:border-text-secondary/70 hover:bg-surface-bg flex items-center gap-2 transition-all shadow-xs active:scale-[0.96]"
             >
                 <i data-lucide="filter" class="w-4 h-4 text-text-secondary"></i>
                 <span>Filter</span>
@@ -40,19 +40,19 @@
         </x-slot:filter>
 
         @forelse ($applications as $app)
-            <tr class="hover:bg-slate-50/80 dark:hover:bg-neutral-800/40 transition-colors group">
+            <tr class="hover:bg-surface-bg transition-colors group">
                 <!-- Kandidat Siswa -->
                 <td class="px-5 py-3.5">
                     <div class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-xl bg-brand-primary/20 border border-brand-primary/40 text-brand-secondary dark:text-brand-primary font-bold text-xs flex items-center justify-center flex-shrink-0">
+                        <div class="w-9 h-9 rounded-full bg-neutral-100 dark:bg-neutral-800 border border-border-subtle text-text-primary font-bold text-xs flex items-center justify-center flex-shrink-0">
                             {{ strtoupper(substr($app->student->user->name ?? 'S', 0, 2)) }}
                         </div>
 
                         <div class="min-w-0">
-                            <div class="font-bold text-slate-900 dark:text-white text-sm truncate">
+                            <div class="font-heading font-bold text-text-primary text-sm truncate">
                                 {{ $app->student->user->name ?? 'Siswa' }}
                             </div>
-                            <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate font-mono">
+                            <div class="text-[11px] text-text-muted truncate font-mono">
                                 {{ $app->student->major->nama ?? 'Jurusan Vokasi' }} &bull; NISN: {{ $app->student->nisn }}
                             </div>
                         </div>
@@ -61,10 +61,10 @@
 
                 <!-- Posisi Dilamar -->
                 <td class="px-5 py-3.5">
-                    <div class="font-semibold text-slate-800 dark:text-slate-200 text-xs">
+                    <div class="font-semibold text-text-primary text-xs">
                         {{ $app->job->judul }}
                     </div>
-                    <div class="text-[11px] text-slate-400 capitalize">
+                    <div class="text-[11px] text-text-muted capitalize">
                         {{ str_replace('_', ' ', $app->job->jenis) }}
                     </div>
                 </td>
@@ -73,37 +73,37 @@
                 <td class="px-5 py-3.5 text-center">
                     @php
                         $score = (float)$app->skor_kecocokan;
-                        $scoreColor = 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border-emerald-200/60';
+                        $scoreColor = 'bg-state-success-bg text-state-success-text border-state-success-border';
                         if ($score < 50) {
-                            $scoreColor = 'bg-slate-100 text-slate-600 dark:bg-neutral-800 dark:text-slate-400 border-slate-200/60';
+                            $scoreColor = 'bg-neutral-100 text-text-secondary dark:bg-neutral-800 border-border-subtle';
                         } elseif ($score < 75) {
-                            $scoreColor = 'bg-amber-50 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300 border-amber-200/60';
+                            $scoreColor = 'bg-state-warning-bg text-state-warning-text border-state-warning-border';
                         }
                     @endphp
                     <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold border {{ $scoreColor }}">
-                        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                        <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-secondary dark:text-brand-primary"></i>
                         <span>{{ number_format($score, 0) }}%</span>
                     </span>
                 </td>
 
                 <!-- Tanggal Masuk -->
-                <td class="px-5 py-3.5 text-[11px] text-slate-500 dark:text-slate-400">
+                <td class="px-5 py-3.5 text-[11px] text-text-muted">
                     <div>{{ $app->created_at ? $app->created_at->format('d M Y') : '-' }}</div>
-                    <div class="text-[10px] text-slate-400">{{ $app->created_at ? $app->created_at->diffForHumans() : '' }}</div>
+                    <div class="text-[10px] text-text-muted">{{ $app->created_at ? $app->created_at->diffForHumans() : '' }}</div>
                 </td>
 
                 <!-- Status Seleksi -->
                 <td class="px-5 py-3.5">
                     @php
                         $statusClasses = [
-                            'tertunda' => 'bg-slate-100 text-slate-700 dark:bg-neutral-800 dark:text-slate-300',
-                            'ditinjau' => 'bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-200/60',
-                            'wawancara' => 'bg-purple-50 text-purple-700 dark:bg-purple-950/60 dark:text-purple-300 border border-purple-200/60',
-                            'diterima' => 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200/60',
-                            'ditolak' => 'bg-rose-50 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300 border border-rose-200/60',
+                            'tertunda' => 'bg-neutral-100 text-text-secondary dark:bg-neutral-800 border-border-subtle',
+                            'ditinjau' => 'bg-state-warning-bg text-state-warning-text border-state-warning-border',
+                            'wawancara' => 'bg-state-info-bg text-state-info-text border-state-info-border',
+                            'diterima' => 'bg-state-success-bg text-state-success-text border-state-success-border',
+                            'ditolak' => 'bg-state-danger-bg text-state-danger-text border-state-danger-border',
                         ];
                     @endphp
-                    <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-semibold capitalize {{ $statusClasses[$app->status] ?? 'bg-slate-100' }}">
+                    <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-semibold border capitalize {{ $statusClasses[$app->status] ?? 'bg-neutral-100 text-text-secondary border-border-subtle' }}">
                         {{ $app->status }}
                     </span>
                 </td>
@@ -115,7 +115,7 @@
                         size="sm" 
                         href="{{ route('company.applications.show', $app) }}"
                     >
-                        Tinjau Berkas
+                        Tinjau berkas
                     </x-ui.button>
                 </td>
             </tr>
@@ -123,7 +123,7 @@
             <tr>
                 <td colspan="6">
                     <x-ui.empty-state 
-                        title="Belum Ada Pelamar" 
+                        title="Belum ada pelamar" 
                         description="Belum ada berkas pelamar yang memenuhi kriteria pencarian ini."
                         icon="users"
                     />
@@ -135,7 +135,7 @@
     <!-- MODAL FILTER PELAMAR (Choices.js Styled Dropdown) -->
     <x-ui.modal 
         id="modal-filter-applications" 
-        title="Filter Berkas Pelamar" 
+        title="Filter berkas pelamar" 
         subtitle="Saring daftar pelamar berdasarkan posisi lowongan dan status seleksi"
         size="md"
         overflow="visible"
@@ -147,13 +147,13 @@
 
             <div class="space-y-1.5">
                 <label class="block text-xs font-semibold text-text-primary">
-                    Pilihan Lowongan Kerja
+                    Pilihan lowongan kerja
                 </label>
                 <select 
                     name="job_id" 
                     class="choices-select w-full"
                 >
-                    <option value="">Semua Lowongan Posisi</option>
+                    <option value="">Semua lowongan posisi</option>
                     @foreach ($companyJobs as $cj)
                         <option value="{{ $cj->id }}" {{ request('job_id') == $cj->id ? 'selected' : '' }}>
                             {{ $cj->judul }}
@@ -164,31 +164,31 @@
 
             <div class="space-y-1.5">
                 <label class="block text-xs font-semibold text-text-primary">
-                    Status Tahapan Seleksi
+                    Status tahapan seleksi
                 </label>
                 <select 
                     name="status" 
                     class="choices-select w-full"
                 >
-                    <option value="">Semua Status Seleksi</option>
-                    <option value="tertunda" {{ request('status') === 'tertunda' ? 'selected' : '' }}>Tertunda (Antrean Baru)</option>
-                    <option value="ditinjau" {{ request('status') === 'ditinjau' ? 'selected' : '' }}>Sedang Ditinjau</option>
-                    <option value="wawancara" {{ request('status') === 'wawancara' ? 'selected' : '' }}>Tahap Wawancara</option>
-                    <option value="diterima" {{ request('status') === 'diterima' ? 'selected' : '' }}>Diterima Bekerja / Magang</option>
-                    <option value="ditolak" {{ request('status') === 'ditolak' ? 'selected' : '' }}>Ditolak / Tidak Lolos</option>
+                    <option value="">Semua status seleksi</option>
+                    <option value="tertunda" {{ request('status') === 'tertunda' ? 'selected' : '' }}>Tertunda (Antrean baru)</option>
+                    <option value="ditinjau" {{ request('status') === 'ditinjau' ? 'selected' : '' }}>Sedang ditinjau</option>
+                    <option value="wawancara" {{ request('status') === 'wawancara' ? 'selected' : '' }}>Tahap wawancara</option>
+                    <option value="diterima" {{ request('status') === 'diterima' ? 'selected' : '' }}>Diterima bekerja / magang</option>
+                    <option value="ditolak" {{ request('status') === 'ditolak' ? 'selected' : '' }}>Ditolak / tidak lolos</option>
                 </select>
             </div>
 
             <div class="space-y-1.5">
                 <label class="block text-xs font-semibold text-text-primary">
-                    Urutan Prioritas
+                    Urutan prioritas
                 </label>
                 <select 
                     name="sort" 
                     class="choices-select w-full"
                 >
-                    <option value="skor" {{ request('sort') !== 'tanggal' ? 'selected' : '' }}>Skor Job Match Tertinggi</option>
-                    <option value="tanggal" {{ request('sort') === 'tanggal' ? 'selected' : '' }}>Waktu Lamaran Terbaru</option>
+                    <option value="skor" {{ request('sort') !== 'tanggal' ? 'selected' : '' }}>Skor job match tertinggi</option>
+                    <option value="tanggal" {{ request('sort') === 'tanggal' ? 'selected' : '' }}>Waktu lamaran terbaru</option>
                 </select>
             </div>
 
@@ -197,21 +197,21 @@
                     href="{{ route('company.applications.index') }}" 
                     class="px-4 py-2 text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors"
                 >
-                    Reset Filter
+                    Reset filter
                 </a>
                 <div class="flex items-center gap-3">
                     <button 
                         type="button" 
                         onclick="window.closeModal('modal-filter-applications')"
-                        class="px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-full border border-border-default text-text-secondary hover:text-text-primary hover:bg-surface-bg transition-colors focus:outline-none"
+                        class="px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-btn border border-border-subtle text-text-secondary hover:text-text-primary hover:bg-surface-bg active:scale-[0.96] transition-transform focus:outline-none"
                     >
                         Batal
                     </button>
                     <button 
                         type="submit" 
-                        class="px-6 py-2.5 text-xs sm:text-sm font-semibold rounded-full bg-brand-primary text-text-on-brand-primary hover:brightness-105 transition-all shadow-md shadow-brand-primary/20 focus:outline-none"
+                        class="px-6 py-2.5 text-xs sm:text-sm font-semibold rounded-btn bg-brand-primary text-text-on-brand-primary hover:brightness-105 active:scale-[0.96] transition-transform shadow-xs focus:outline-none"
                     >
-                        Terapkan Filter
+                        Terapkan filter
                     </button>
                 </div>
             </div>
