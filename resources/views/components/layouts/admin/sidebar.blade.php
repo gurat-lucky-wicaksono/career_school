@@ -4,7 +4,7 @@
 
     $navSections = [
         [
-            'category' => 'Menu Utama',
+            'category' => 'Menu utama',
             'items' => [
                 [
                     'label' => 'Dashboard',
@@ -15,34 +15,34 @@
             ],
         ],
         [
-            'category' => 'Data Master',
+            'category' => 'Data master',
             'items' => [
                 [
-                    'label' => 'Data Guru',
+                    'label' => 'Data guru',
                     'route' => 'admin.teachers.index',
                     'icon' => 'user-check',
                     'badge' => null,
                 ],
                 [
-                    'label' => 'Data Siswa',
+                    'label' => 'Data siswa',
                     'route' => 'admin.students.index',
                     'icon' => 'graduation-cap',
                     'badge' => null,
                 ],
                 [
-                    'label' => 'Data Jurusan',
+                    'label' => 'Data jurusan',
                     'route' => 'admin.majors.index',
                     'icon' => 'book-open',
                     'badge' => null,
                 ],
                 [
-                    'label' => 'Data Kelas',
+                    'label' => 'Data kelas',
                     'route' => 'admin.classes.index',
                     'icon' => 'school',
                     'badge' => null,
                 ],
                 [
-                    'label' => 'Master Keahlian',
+                    'label' => 'Master keahlian',
                     'route' => 'admin.skills.index',
                     'icon' => 'award',
                     'badge' => null,
@@ -50,22 +50,22 @@
             ],
         ],
         [
-            'category' => 'Kemitraan Industri',
+            'category' => 'Kemitraan industri',
             'items' => [
                 [
-                    'label' => 'Mitra Industri',
+                    'label' => 'Mitra industri',
                     'route' => 'admin.companies.index',
                     'icon' => 'building-2',
                     'badge' => null,
                 ],
                 [
-                    'label' => 'Verifikasi Mitra',
+                    'label' => 'Verifikasi mitra',
                     'route' => 'admin.companies.verification',
                     'icon' => 'shield-check',
                     'badge' => $pendingCompaniesCount > 0 ? (string)$pendingCompaniesCount : null,
                 ],
                 [
-                    'label' => 'Lowongan Kerja',
+                    'label' => 'Lowongan kerja',
                     'route' => 'admin.jobs.index',
                     'icon' => 'briefcase',
                     'badge' => null,
@@ -73,7 +73,7 @@
             ],
         ],
         [
-            'category' => 'Informasi BKK & Komunitas',
+            'category' => 'Informasi BKK & komunitas',
             'items' => [
                 [
                     'label' => 'Pengumuman BKK',
@@ -82,25 +82,25 @@
                     'badge' => null,
                 ],
                 [
-                    'label' => 'Agenda Kegiatan',
+                    'label' => 'Agenda kegiatan',
                     'route' => 'admin.agendas.index',
                     'icon' => 'calendar',
                     'badge' => null,
                 ],
                 [
-                    'label' => 'Tracer Study Alumni',
+                    'label' => 'Tracer study alumni',
                     'route' => 'admin.tracer.index',
                     'icon' => 'line-chart',
                     'badge' => null,
                 ],
                 [
-                    'label' => 'Laporan & Rekap BKK',
+                    'label' => 'Laporan & rekap BKK',
                     'route' => 'admin.reports.index',
                     'icon' => 'file-text',
                     'badge' => null,
                 ],
                 [
-                    'label' => 'Feed Komunitas Vokasi',
+                    'label' => 'Feed komunitas vokasi',
                     'route' => 'feed.index',
                     'icon' => 'message-square',
                     'badge' => null,
@@ -108,22 +108,22 @@
             ],
         ],
         [
-            'category' => 'Sistem & Portal',
+            'category' => 'Sistem & portal',
             'items' => [
                 [
-                    'label' => 'Audit Trail & Log',
+                    'label' => 'Audit trail & log',
                     'route' => 'admin.activity-logs.index',
                     'icon' => 'history',
                     'badge' => null,
                 ],
                 [
-                    'label' => 'Pengaturan Sistem',
+                    'label' => 'Pengaturan sistem',
                     'route' => 'admin.settings',
                     'icon' => 'settings',
                     'badge' => null,
                 ],
                 [
-                    'label' => 'Lihat Portal Publik',
+                    'label' => 'Lihat portal publik',
                     'route' => 'landing',
                     'icon' => 'external-link',
                     'badge' => null,
@@ -156,20 +156,20 @@
         'lg:w-64': !sidebarCollapsed,
         'lg:w-20': sidebarCollapsed
     }"
-    class="fixed inset-y-0 left-0 z-50 flex flex-col bg-surface-card border-r border-slate-200/80 dark:border-white/10 transition-all duration-300 ease-in-out select-none shadow-sm"
+    class="fixed inset-y-0 left-0 z-50 flex flex-col bg-surface-card border-r border-border-subtle transition-all duration-300 ease-in-out select-none shadow-xs"
 >
     <!-- Sidebar Header & Branding -->
-    <div class="h-16 flex items-center px-4 border-b border-slate-100 dark:border-white/5 transition-all duration-300"
+    <div class="h-16 flex items-center px-4 border-b border-border-subtle transition-all duration-300"
          :class="sidebarCollapsed ? 'justify-center' : 'justify-between'">
         
         <!-- Logo & Title -->
-        <a href="{{ route('admin.dashboard') ?? url('/admin') }}" class="flex items-center gap-3 overflow-hidden">
-            <div class="w-10 h-10 rounded-xl bg-slate-50 dark:bg-neutral-800 p-1.5 flex items-center justify-center border border-slate-200/60 dark:border-white/10 flex-shrink-0">
-                <img src="{{ asset('images/logos/logo-career-school.png') }}" alt="Career School Logo" class="w-full h-full object-contain">
+        <a href="{{ route('admin.dashboard') ?? url('/admin') }}" class="flex items-center gap-3 overflow-hidden group">
+            <div class="w-10 h-10 rounded-btn bg-brand-primary flex items-center justify-center flex-shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+                <img src="{{ asset('images/logos/logo-career-school.png') }}" alt="Career School Logo" class="w-6 h-6 object-contain">
             </div>
             
             <div x-show="!sidebarCollapsed" x-cloak class="transition-opacity duration-200 whitespace-nowrap">
-                <span class="block text-sm font-bold text-slate-900 dark:text-white font-sans tracking-tight">
+                <span class="block text-sm font-bold text-text-primary font-heading tracking-tight">
                     Career School
                 </span>
                 <span class="block text-[11px] font-medium text-brand-secondary dark:text-brand-primary">
@@ -184,8 +184,8 @@
             x-show="!sidebarCollapsed" 
             x-cloak
             @click="toggleSidebar()" 
-            aria-label="Ciutkan Sidebar"
-            class="hidden lg:flex w-7 h-7 rounded-lg border border-slate-200/80 dark:border-white/10 text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-neutral-800 items-center justify-center transition-colors"
+            aria-label="Ciutkan bilah sisi"
+            class="hidden lg:flex w-7 h-7 rounded-btn border border-border-subtle text-text-secondary hover:text-text-primary hover:bg-surface-bg items-center justify-center transition-all active:scale-[0.96]"
         >
             <i data-lucide="chevrons-left" class="w-4 h-4"></i>
         </button>
@@ -197,11 +197,11 @@
             <div>
                 <!-- Category Heading -->
                 <div x-show="!sidebarCollapsed" x-cloak class="px-3 mb-2">
-                    <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-neutral-500 font-sans">
+                    <p class="text-[10px] font-bold uppercase tracking-wider text-text-secondary/70 font-sans">
                         {{ $section['category'] }}
                     </p>
                 </div>
-                <div x-show="sidebarCollapsed" x-cloak class="my-2 border-t border-slate-100 dark:border-white/5"></div>
+                <div x-show="sidebarCollapsed" x-cloak class="my-2 border-t border-border-subtle"></div>
 
                 <!-- Nav Items -->
                 <nav class="space-y-1">
@@ -223,14 +223,14 @@
                             :class="{
                                 'justify-center px-0': sidebarCollapsed,
                                 'px-3': !sidebarCollapsed,
-                                'bg-brand-primary text-neutral-900 font-semibold shadow-sm': {{ $isActive ? 'true' : 'false' }},
-                                'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-neutral-800/80 hover:text-slate-900 dark:hover:text-white font-medium': !{{ $isActive ? 'true' : 'false' }}
+                                'bg-brand-primary text-text-on-brand-primary font-bold shadow-xs': {{ $isActive ? 'true' : 'false' }},
+                                'text-text-secondary hover:bg-surface-bg hover:text-text-primary font-medium': !{{ $isActive ? 'true' : 'false' }}
                             }"
-                            class="relative flex items-center h-10 rounded-xl transition-all duration-150 group text-sm"
+                            class="relative flex items-center h-10 rounded-btn transition-all duration-150 group text-xs active:scale-[0.98]"
                         >
                             <!-- Nav Icon -->
                             <div class="flex items-center justify-center flex-shrink-0" :class="sidebarCollapsed ? 'w-full' : 'w-5 mr-3'">
-                                <i data-lucide="{{ $item['icon'] }}" class="w-4 h-4 transition-transform group-hover:scale-105"></i>
+                                <i data-lucide="{{ $item['icon'] }}" class="w-4 h-4 transition-transform group-hover:scale-105 {{ $isActive ? 'text-text-on-brand-primary' : 'text-text-secondary group-hover:text-text-primary' }}"></i>
                             </div>
 
                             <!-- Nav Label & Badge (Expanded) -->
@@ -240,7 +240,7 @@
                                 </span>
 
                                 @if (!empty($item['badge']))
-                                    <span class="ml-2 px-2 py-0.5 text-[11px] font-bold rounded-full {{ $isActive ? 'bg-neutral-900 text-white' : 'bg-brand-secondary text-white dark:bg-brand-primary dark:text-neutral-900' }}">
+                                    <span class="ml-2 px-2 py-0.5 text-[11px] font-bold rounded-full {{ $isActive ? 'bg-neutral-900 text-brand-primary' : 'bg-brand-secondary text-white dark:bg-brand-primary dark:text-neutral-900' }}">
                                         {{ $item['badge'] }}
                                     </span>
                                 @endif
@@ -262,7 +262,7 @@
     </div>
 
     <!-- Sidebar Bottom Footer: Logout & Version/Expand -->
-    <div class="p-3 border-t border-slate-100 dark:border-white/5 space-y-1.5">
+    <div class="p-3 border-t border-border-subtle space-y-1.5">
         <!-- Logout Form & Button -->
         <form id="sidebar-logout-form" action="{{ route('logout') }}" method="POST" class="w-full">
             @csrf
@@ -275,7 +275,7 @@
                     'justify-center px-0': sidebarCollapsed,
                     'px-3': !sidebarCollapsed
                 }"
-                class="w-full h-10 rounded-xl text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 flex items-center transition-all duration-150 group text-sm font-medium border border-transparent hover:border-rose-200 dark:hover:border-rose-900/40"
+                class="w-full h-10 rounded-btn text-state-danger-text hover:bg-state-danger-bg/20 flex items-center transition-all duration-150 group text-xs font-semibold border border-transparent hover:border-state-danger-bg active:scale-[0.96]"
             >
                 <div class="flex items-center justify-center flex-shrink-0" :class="sidebarCollapsed ? 'w-full' : 'w-5 mr-3'">
                     <i data-lucide="log-out" class="w-4 h-4 transition-transform group-hover:scale-105"></i>
@@ -292,14 +292,14 @@
             x-show="sidebarCollapsed" 
             x-cloak
             @click="toggleSidebar()" 
-            aria-label="Perluas Sidebar"
-            class="hidden lg:flex w-full h-10 rounded-xl border border-slate-200/80 dark:border-white/10 text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-neutral-800 items-center justify-center transition-colors"
+            aria-label="Perluas bilah sisi"
+            class="hidden lg:flex w-full h-10 rounded-btn border border-border-subtle text-text-secondary hover:text-text-primary hover:bg-surface-bg items-center justify-center transition-colors active:scale-[0.96]"
         >
             <i data-lucide="chevrons-right" class="w-4 h-4"></i>
         </button>
 
         <div x-show="!sidebarCollapsed" x-cloak class="text-center pt-1">
-            <p class="text-[11px] text-slate-400 dark:text-neutral-500">
+            <p class="text-[11px] text-text-secondary">
                 Career School v1.0 &copy; {{ date('Y') }}
             </p>
         </div>

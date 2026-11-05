@@ -4,7 +4,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="@yield('meta_description', $description ?? 'Career School — Platform karier, portofolio karya, dan jejaring resmi SMK Negeri 1 Cirebon.')">
-    <title>@yield('title', $title ?? 'Career School Smkn 1 Cirebon')</title>
+
+    <!-- Anti-FOUC Inline Theme Script (Executes synchronously before paint) -->
+    <script>
+        (function () {
+            try {
+                const savedTheme = localStorage.getItem('theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            } catch (_) {}
+        })();
+    </script>
+
+    <title>@yield('title', $title ?? 'Career School SMKN 1 Cirebon')</title>
     <link rel="icon" type="image/png" href="{{ asset('images/logos/logo-career-school.png') }}">
 
     <!-- Google Fonts -->

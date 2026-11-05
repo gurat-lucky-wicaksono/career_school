@@ -14,10 +14,10 @@
                 <span class="text-slate-300 dark:text-neutral-600">&bull;</span>
                 <span>NISN: {{ $student->nisn }}</span>
             </div>
-            <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white font-sans tracking-tight">
+            <h1 class="text-2xl sm:text-3xl font-bold text-text-primary font-heading tracking-tight">
                 Halo, {{ $user->name }}
             </h1>
-            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
+            <p class="text-sm text-text-secondary mt-1">
                 Pantau progres lamaran PKL/kerja, tingkatkan keahlian kejuruan, dan pamerkan portofolio terbaikmu.
             </p>
         </div>
@@ -25,11 +25,11 @@
         <div class="flex items-center gap-3">
             <x-ui.button variant="secondary" size="md" href="{{ route('student.portfolios.index') }}">
                 <i data-lucide="folder-kanban" class="w-4 h-4 mr-2"></i>
-                Kelola Portofolio
+                Kelola portofolio
             </x-ui.button>
             <x-ui.button variant="primary" size="md" href="{{ route('student.jobs.index') }}">
                 <i data-lucide="compass" class="w-4 h-4 mr-2"></i>
-                Jelajahi Lowongan
+                Jelajahi lowongan
             </x-ui.button>
         </div>
     </div>
@@ -40,29 +40,29 @@
             $isInterview = $activeApplication->status === 'wawancara';
             $isReview = $activeApplication->status === 'ditinjau';
         @endphp
-        <div class="p-5 rounded-2xl border transition-all {{ $isInterview ? 'bg-indigo-50/90 dark:bg-indigo-950/30 border-indigo-200 dark:border-indigo-800/50' : 'bg-sky-50/90 dark:bg-sky-950/30 border-sky-200 dark:border-sky-800/50' }} flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="p-5 rounded-card border transition-all {{ $isInterview ? 'bg-state-info-bg border-sky-500/30 text-state-info-text' : 'bg-surface-card border-border-subtle text-text-primary' }} flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xs">
             <div class="flex items-start gap-3.5">
-                <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5 {{ $isInterview ? 'bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300' : 'bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300' }}">
+                <div class="w-10 h-10 rounded-btn flex items-center justify-center flex-shrink-0 mt-0.5 {{ $isInterview ? 'bg-sky-500/20 text-state-info-text' : 'bg-surface-bg text-text-secondary' }}">
                     <i data-lucide="{{ $isInterview ? 'calendar-check-2' : 'clock' }}" class="w-5 h-5"></i>
                 </div>
                 <div>
                     <div class="flex items-center gap-2">
-                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wider {{ $isInterview ? 'bg-indigo-600 text-white' : 'bg-sky-600 text-white' }}">
-                            {{ $isInterview ? 'Panggilan Wawancara' : 'Sedang Ditinjau' }}
+                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wider {{ $isInterview ? 'bg-sky-600 text-white' : 'bg-brand-secondary text-white' }}">
+                            {{ $isInterview ? 'Panggilan wawancara' : 'Sedang ditinjau' }}
                         </span>
-                        <span class="text-xs font-semibold text-slate-800 dark:text-slate-200">
-                            {{ $activeApplication->job->company->nama ?? 'Mitra Industri' }}
+                        <span class="text-xs font-semibold text-text-primary">
+                            {{ $activeApplication->job->company->nama ?? 'Mitra industri' }}
                         </span>
                     </div>
-                    <h3 class="text-sm font-bold text-slate-900 dark:text-white mt-1">
+                    <h3 class="text-sm font-bold text-text-primary font-heading mt-1">
                         {{ $activeApplication->job->judul }}
                     </h3>
                     @if ($activeApplication->catatan_hrd)
-                        <div class="mt-1.5 p-2.5 rounded-lg bg-white/70 dark:bg-neutral-900/60 border border-slate-200/50 dark:border-white/5 text-xs text-slate-700 dark:text-slate-300">
-                            <span class="font-semibold text-slate-900 dark:text-white">Catatan HRD:</span> {{ $activeApplication->catatan_hrd }}
+                        <div class="mt-1.5 p-2.5 rounded-btn bg-surface-card/80 border border-border-subtle text-xs text-text-secondary">
+                            <span class="font-semibold text-text-primary">Catatan HRD:</span> {{ $activeApplication->catatan_hrd }}
                         </div>
                     @else
-                        <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">
+                        <p class="text-xs text-text-secondary mt-1">
                             Lamaran Anda telah diterima oleh HRD dan sedang dievaluasi bersama portofolio kejuruan Anda.
                         </p>
                     @endif
@@ -70,7 +70,7 @@
             </div>
 
             <x-ui.button variant="secondary" size="sm" href="{{ route('student.applications.index') }}">
-                Detail Lamaran
+                Detail lamaran
             </x-ui.button>
         </div>
     @endif

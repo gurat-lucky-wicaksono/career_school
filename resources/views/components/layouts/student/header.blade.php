@@ -7,15 +7,15 @@
     $student = $user?->student;
 @endphp
 
-<header class="h-16 bg-surface-card/95 backdrop-blur-md border-b border-slate-200/80 dark:border-white/10 sticky top-0 z-30 flex items-center justify-between px-4 sm:px-6 transition-all duration-150">
+<header class="h-16 bg-surface-card/95 backdrop-blur-md border-b border-border-subtle sticky top-0 z-30 flex items-center justify-between px-4 sm:px-6 transition-all duration-150">
     <!-- Left Section: Mobile Toggle & Breadcrumbs -->
     <div class="flex items-center gap-3 sm:gap-4 overflow-hidden flex-shrink-0">
         <!-- Mobile Sidebar Hamburger -->
         <button 
             type="button" 
             @click="sidebarOpen = !sidebarOpen" 
-            aria-label="Buka Menu Navigasi"
-            class="lg:hidden w-9 h-9 rounded-xl border border-slate-200/80 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-neutral-800 flex items-center justify-center transition-colors"
+            aria-label="Buka menu navigasi"
+            class="lg:hidden w-9 h-9 rounded-btn border border-border-subtle text-text-secondary hover:bg-surface-bg flex items-center justify-center transition-all active:scale-[0.96]"
         >
             <i data-lucide="menu" class="w-4 h-4"></i>
         </button>
@@ -24,8 +24,8 @@
         <button 
             type="button" 
             @click="toggleSidebar()" 
-            aria-label="Ubah Lebar Sidebar"
-            class="hidden lg:flex w-8 h-8 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-neutral-800 items-center justify-center transition-colors"
+            aria-label="Ubah lebar bilah sisi"
+            class="hidden lg:flex w-8 h-8 rounded-btn text-text-secondary hover:text-text-primary hover:bg-surface-bg items-center justify-center transition-all active:scale-[0.96]"
         >
             <i data-lucide="panel-left" class="w-4 h-4"></i>
         </button>
@@ -39,16 +39,16 @@
     <!-- Center Section: Quick Search Form (Redirects to /student/jobs?search=...) -->
     <div class="hidden md:flex items-center flex-1 max-w-md mx-6">
         <form action="{{ route('student.jobs.index') }}" method="GET" class="w-full relative">
-            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+            <i data-lucide="search" class="w-4 h-4 text-text-secondary absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"></i>
             <input 
                 type="text" 
                 name="q" 
                 id="global-search-input"
                 placeholder="Cari lowongan, keahlian, atau mitra DUDI... (Ctrl + K)" 
                 value="{{ request('q', request('search')) }}"
-                class="w-full pl-9 pr-14 py-1.5 text-xs rounded-full bg-slate-100/80 dark:bg-neutral-800/80 border border-transparent focus:border-brand-primary focus:bg-white dark:focus:bg-neutral-900 focus:ring-2 focus:ring-brand-primary/20 text-slate-800 dark:text-slate-100 placeholder-slate-400 transition-all outline-none"
+                class="w-full pl-9 pr-14 py-1.5 text-xs rounded-full bg-surface-bg border border-border-default/50 focus:border-brand-primary focus:bg-surface-card focus:ring-2 focus:ring-brand-primary/20 text-text-primary placeholder:text-text-secondary transition-all outline-none"
             >
-            <div class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-0.5 pointer-events-none text-[10px] font-semibold text-slate-400 bg-slate-200/60 dark:bg-neutral-700/60 px-1.5 py-0.5 rounded">
+            <div class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-0.5 pointer-events-none text-[10px] font-semibold text-text-secondary bg-surface-card border border-border-subtle px-1.5 py-0.5 rounded">
                 <span>Ctrl</span>
                 <span>K</span>
             </div>
@@ -61,11 +61,11 @@
         <button 
             type="button" 
             onclick="window.toggleTheme()" 
-            aria-label="Ganti Tema Tampilan"
-            class="w-9 h-9 rounded-xl text-slate-500 hover:text-slate-800 dark:text-slate-300 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-neutral-800 flex items-center justify-center transition-colors"
+            aria-label="Ganti tema tampilan"
+            class="w-9 h-9 rounded-btn text-text-secondary hover:text-text-primary hover:bg-surface-bg border border-border-subtle flex items-center justify-center transition-all active:scale-[0.96]"
         >
             <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-amber-400"></i>
-            <i data-lucide="moon" class="w-4 h-4 block dark:hidden text-slate-600"></i>
+            <i data-lucide="moon" class="w-4 h-4 block dark:hidden text-text-primary"></i>
         </button>
 
         <!-- Notification Bell -->
@@ -77,20 +77,20 @@
                 type="button" 
                 @click="open = !open" 
                 @click.outside="open = false" 
-                class="flex items-center gap-2 p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-neutral-800 transition-colors"
+                class="flex items-center gap-2 p-1.5 rounded-btn hover:bg-surface-bg transition-colors"
             >
-                <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-primary to-indigo-600 text-white font-bold text-xs flex items-center justify-center shadow-sm">
+                <div class="w-8 h-8 rounded-full bg-brand-primary text-text-on-brand-primary font-bold font-heading text-xs flex items-center justify-center shadow-xs">
                     {{ strtoupper(substr($user->name ?? 'S', 0, 1)) }}
                 </div>
                 <div class="hidden sm:block text-left pr-1">
-                    <span class="block text-xs font-semibold text-slate-800 dark:text-slate-100 leading-tight">
+                    <span class="block text-xs font-semibold text-text-primary leading-tight">
                         {{ Str::limit($user->name ?? 'Siswa', 15) }}
                     </span>
-                    <span class="block text-[10px] text-brand-primary font-medium">
+                    <span class="block text-[10px] text-brand-secondary dark:text-brand-primary font-medium">
                         {{ $student?->schoolClass?->nama ?? 'PPLG' }}
                     </span>
                 </div>
-                <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 transition-transform" :class="open ? 'rotate-180' : ''"></i>
+                <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-text-secondary transition-transform" :class="open ? 'rotate-180' : ''"></i>
             </button>
 
             <!-- Dropdown Menu -->
@@ -102,38 +102,38 @@
                 x-transition:leave="transition ease-in duration-75" 
                 x-transition:leave-start="transform opacity-100 scale-100" 
                 x-transition:leave-end="transform opacity-0 scale-95" 
-                class="absolute right-0 mt-2 w-56 bg-surface-card border border-slate-200/80 dark:border-white/10 rounded-2xl shadow-xl py-2 z-50 divide-y divide-slate-100 dark:divide-white/5"
+                class="absolute right-0 mt-2 w-56 bg-surface-card border border-border-subtle rounded-card shadow-xl py-2 z-50 divide-y divide-border-subtle"
                 style="display: none;"
             >
                 <div class="px-4 py-2.5">
-                    <p class="text-xs font-semibold text-slate-900 dark:text-white truncate">{{ $user->name }}</p>
-                    <p class="text-[11px] text-slate-400 truncate mt-0.5">NISN: {{ $student?->nisn ?? '-' }}</p>
-                    <p class="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium mt-1">
-                        Siswa Aktif Angkatan {{ $student?->angkatan ?? '2024' }}
+                    <p class="text-xs font-semibold text-text-primary truncate">{{ $user->name }}</p>
+                    <p class="text-[11px] text-text-secondary truncate mt-0.5">NISN: {{ $student?->nisn ?? '-' }}</p>
+                    <p class="text-[10px] text-state-success-text font-medium mt-1">
+                        Siswa aktif angkatan {{ $student?->angkatan ?? '2024' }}
                     </p>
                 </div>
 
                 <div class="py-1.5">
-                    <a href="{{ route('student.profile') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-neutral-800">
-                        <i data-lucide="user-check" class="w-4 h-4 text-slate-400"></i>
-                        <span>Profil & Keahlian Saya</span>
+                    <a href="{{ route('student.profile') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-text-primary hover:bg-surface-bg transition-colors">
+                        <i data-lucide="user-check" class="w-4 h-4 text-text-secondary"></i>
+                        <span>Profil & keahlian saya</span>
                     </a>
-                    <a href="{{ route('student.portfolios.index') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-neutral-800">
-                        <i data-lucide="folder-kanban" class="w-4 h-4 text-slate-400"></i>
-                        <span>Portofolio Karya</span>
+                    <a href="{{ route('student.portfolios.index') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-text-primary hover:bg-surface-bg transition-colors">
+                        <i data-lucide="folder-kanban" class="w-4 h-4 text-text-secondary"></i>
+                        <span>Portofolio karya</span>
                     </a>
-                    <a href="{{ route('student.applications.index') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-neutral-800">
-                        <i data-lucide="send" class="w-4 h-4 text-slate-400"></i>
-                        <span>Lamaran Terkirim</span>
+                    <a href="{{ route('student.applications.index') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-text-primary hover:bg-surface-bg transition-colors">
+                        <i data-lucide="send" class="w-4 h-4 text-text-secondary"></i>
+                        <span>Lamaran terkirim</span>
                     </a>
                 </div>
 
                 <div class="py-1.5">
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit" class="w-full flex items-center gap-2.5 px-4 py-2 text-xs text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 text-left font-medium">
+                        <button type="submit" class="w-full flex items-center gap-2.5 px-4 py-2 text-xs text-state-danger-text hover:bg-state-danger-bg/20 text-left font-medium transition-colors">
                             <i data-lucide="log-out" class="w-4 h-4"></i>
-                            <span>Keluar Sistem</span>
+                            <span>Keluar dari akun</span>
                         </button>
                     </form>
                 </div>
