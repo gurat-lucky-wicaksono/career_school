@@ -44,6 +44,11 @@ class Company extends Model
         return $this->hasMany(Job::class);
     }
 
+    public function internshipEvaluations(): HasMany
+    {
+        return $this->hasMany(InternshipEvaluation::class);
+    }
+
     public function isVerified(): bool
     {
         return $this->status_verifikasi === 'terverifikasi';

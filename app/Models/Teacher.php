@@ -36,4 +36,9 @@ class Teacher extends Model
     {
         return $this->hasMany(Endorsement::class);
     }
+
+    public function verifiedEvaluations(): HasMany
+    {
+        return $this->hasMany(InternshipEvaluation::class);
+    }
 }
