@@ -86,6 +86,14 @@ Route::middleware(['auth', 'role:perusahaan'])->prefix('company')->name('company
     Route::get('/applications/{application}', [\App\Http\Controllers\Company\ApplicationController::class, 'show'])->name('applications.show');
     Route::patch('/applications/{application}/status', [\App\Http\Controllers\Company\ApplicationController::class, 'updateStatus'])->name('applications.update-status');
 
+    // Evaluasi & Penilaian Kinerja Magang (PKL) Siswa
+    Route::get('/evaluations', [\App\Http\Controllers\Company\InternshipEvaluationController::class, 'index'])->name('evaluations.index');
+    Route::get('/evaluations/{application}/create', [\App\Http\Controllers\Company\InternshipEvaluationController::class, 'create'])->name('evaluations.create');
+    Route::post('/evaluations/{application}', [\App\Http\Controllers\Company\InternshipEvaluationController::class, 'store'])->name('evaluations.store');
+    Route::get('/evaluations/{evaluation}/edit', [\App\Http\Controllers\Company\InternshipEvaluationController::class, 'edit'])->name('evaluations.edit');
+    Route::put('/evaluations/{evaluation}', [\App\Http\Controllers\Company\InternshipEvaluationController::class, 'update'])->name('evaluations.update');
+    Route::get('/evaluations/{evaluation}', [\App\Http\Controllers\Company\InternshipEvaluationController::class, 'show'])->name('evaluations.show');
+
     // Profil Perusahaan
     Route::get('/profile', [\App\Http\Controllers\Company\ProfileController::class, 'index'])->name('profile');
     Route::put('/profile', [\App\Http\Controllers\Company\ProfileController::class, 'update'])->name('profile.update');

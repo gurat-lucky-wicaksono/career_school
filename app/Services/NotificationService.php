@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Application;
 use App\Models\Comment;
+use App\Models\InternshipEvaluation;
 use App\Models\Notification;
 use App\Models\Post;
 use App\Models\StudentSkill;
@@ -180,5 +181,68 @@ class NotificationService
             ),
             default => null,
         };
+    }
+
+    /**
+     * Notify student and teachers when evaluation is submitted by company.
+     */
+    public static function notifyEvaluationSubmitted(InternshipEvaluation $evaluation): void
+    {
+        $studentUser = $evaluation->student?->user;
+        $companyName = $evaluation->company?->nama ?? 'Mitra Industri';
+
+        if ($studentUser) {
+            self::create(
+                $studentUser->id,
+                'evaluasi',
+                "Penilaian PKL Anda telah dikirimkan oleh {$companyName} dan sedang menunggu validasi pembimbing sekolah.",
+                'evaluation',
+                $evaluation->id
+            );
+        }
+
+        // Notify teachers with role 'guru'
+        $teachers = User::whereHas('role', fn($q) => $q->where('nama', 'guru'))->get();
+        $studentName = $studentUser?->name ?? 'Siswa';
+        foreach ($teachers as $teacherUser) {
+            self::create(
+                $teacherUser->id,
+                'evaluasi',
+                "Nilai PKL baru untuk siswa {$studentName} dari {$companyName} siap untuk diverifikasi.",
+                'evaluation',
+                $evaluation->id
+            );
+        }
+    }
+
+    /**
+     * Notify student and company when evaluation is verified by teacher.
+     */
+    public static function notifyEvaluationVerified(InternshipEvaluation $evaluation): void
+    {
+        $studentUser = $evaluation->student?->user;
+        $companyUser = $evaluation->company?->user;
+        $studentName = $studentUser?->name ?? 'Siswa';
+        $companyName = $evaluation->company?->nama ?? 'Mitra Industri';
+
+        if ($studentUser) {
+            self::create(
+                $studentUser->id,
+                'evaluasi',
+                "Selamat! Penilaian PKL Anda di {$companyName} telah diverifikasi sekolah dengan predikat {$evaluation->predikat} ({$evaluation->predicate_label}).",
+                'evaluation',
+                $evaluation->id
+            );
+        }
+
+        if ($companyUser) {
+            self::create(
+                $companyUser->id,
+                'evaluasi',
+                "Penilaian PKL untuk siswa {$studentName} telah diverifikasi dan disahkan oleh pihak sekolah.",
+                'evaluation',
+                $evaluation->id
+            );
+        }
     }
 }

@@ -37,6 +37,12 @@
                     'icon' => 'users',
                     'badge' => $pendingAppsCount > 0 ? (string)$pendingAppsCount : null,
                 ],
+                [
+                    'label' => 'Evaluasi PKL',
+                    'route' => 'company.evaluations.index',
+                    'icon' => 'award',
+                    'badge' => null,
+                ],
             ],
         ],
         [
