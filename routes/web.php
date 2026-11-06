@@ -120,6 +120,11 @@ Route::middleware(['auth', 'role:siswa'])->prefix('student')->name('student.')->
     Route::get('/applications/{application}/print', [\App\Http\Controllers\Student\ApplicationController::class, 'printProof'])->name('applications.print');
     Route::delete('/applications/{application}', [\App\Http\Controllers\Student\ApplicationController::class, 'destroy'])->name('applications.destroy');
 
+    // Sertifikat & Evaluasi Capaian PKL Siswa
+    Route::get('/evaluations', [\App\Http\Controllers\Student\InternshipEvaluationController::class, 'index'])->name('evaluations.index');
+    Route::get('/evaluations/{evaluation}', [\App\Http\Controllers\Student\InternshipEvaluationController::class, 'show'])->name('evaluations.show');
+    Route::get('/evaluations/{evaluation}/print', [\App\Http\Controllers\Student\InternshipEvaluationController::class, 'printCertificate'])->name('evaluations.print');
+
     // Karya & Portofolio Siswa (CRUD)
     Route::resource('portfolios', \App\Http\Controllers\Student\PortfolioController::class);
 
