@@ -148,6 +148,11 @@ Route::middleware(['auth', 'role:guru'])->prefix('teacher')->name('teacher.')->g
 
     // Portofolio Siswa Bimbingan
     Route::get('/portfolios', [\App\Http\Controllers\Teacher\StudentMentoringController::class, 'portfolios'])->name('portfolios.index');
+
+    // Validasi Evaluasi & Nilai PKL dari Industri
+    Route::get('/evaluations', [\App\Http\Controllers\Teacher\InternshipEvaluationController::class, 'index'])->name('evaluations.index');
+    Route::get('/evaluations/{evaluation}', [\App\Http\Controllers\Teacher\InternshipEvaluationController::class, 'show'])->name('evaluations.show');
+    Route::post('/evaluations/{evaluation}/verify', [\App\Http\Controllers\Teacher\InternshipEvaluationController::class, 'verify'])->name('evaluations.verify');
 });
 
 // Komunitas Vokasi & Social Network Routes (Protected by Auth for All Roles)

@@ -4,6 +4,7 @@
     $teacher = $user?->teacher;
 
     $pendingSkillsCount = \App\Models\StudentSkill::where('tervalidasi', false)->count();
+    $pendingEvaluationsCount = \App\Models\InternshipEvaluation::where('status', 'submitted')->count();
 
     $navSections = [
         [
@@ -37,6 +38,12 @@
                     'route' => 'teacher.portfolios.index',
                     'icon' => 'folder-kanban',
                     'badge' => null,
+                ],
+                [
+                    'label' => 'Evaluasi & Nilai PKL',
+                    'route' => 'teacher.evaluations.index',
+                    'icon' => 'file-check-2',
+                    'badge' => $pendingEvaluationsCount > 0 ? (string)$pendingEvaluationsCount : null,
                 ],
             ],
         ],
