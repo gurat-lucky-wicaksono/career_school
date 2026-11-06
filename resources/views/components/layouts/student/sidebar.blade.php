@@ -37,6 +37,12 @@
                     'icon' => 'send',
                     'badge' => $activeAppsCount > 0 ? (string)$activeAppsCount : null,
                 ],
+                [
+                    'label' => 'Nilai & Sertifikat PKL',
+                    'route' => 'student.evaluations.index',
+                    'icon' => 'award',
+                    'badge' => null,
+                ],
             ],
         ],
         [

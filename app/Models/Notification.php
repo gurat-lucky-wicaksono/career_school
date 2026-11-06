@@ -59,6 +59,12 @@ class Notification extends Model
                 'siswa' => route('student.profile'),
                 default => route('notifications.index'),
             },
+            'evaluasi' => match ($role) {
+                'perusahaan' => route('company.evaluations.index'),
+                'guru' => route('teacher.evaluations.index'),
+                'siswa' => route('student.evaluations.index'),
+                default => route('notifications.index'),
+            },
             'komunitas' => route('feed.index'),
             'kemitraan' => route('admin.companies.verification'),
             'lowongan' => $role === 'siswa' ? route('student.jobs.index') : route('admin.jobs.index'),
@@ -72,6 +78,7 @@ class Notification extends Model
         return match ($this->jenis) {
             'lamaran' => 'briefcase',
             'keahlian' => 'award',
+            'evaluasi' => 'award',
             'komunitas' => 'message-square',
             'kemitraan' => 'building-2',
             'lowongan' => 'compass',
@@ -85,6 +92,7 @@ class Notification extends Model
         return match ($this->jenis) {
             'lamaran' => 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20',
             'keahlian' => 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20',
+            'evaluasi' => 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20',
             'komunitas' => 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20',
             'kemitraan' => 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20',
             default => 'bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-500/20',

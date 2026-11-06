@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\ActivityLog;
 use App\Models\Application;
 use App\Models\Company;
+use App\Models\InternshipEvaluation;
 use App\Models\StudentSkill;
 use App\Models\Teacher;
 use App\Models\User;
@@ -166,6 +167,66 @@ class ActivityLogService
                 'skor_kecocokan' => $application->skor_kecocokan,
             ],
             user: $student
+        );
+    }
+
+    /**
+     * Record company evaluation submission for internship.
+     */
+    public static function logEvaluationCreated(
+        InternshipEvaluation $evaluation,
+        string $status,
+        ?User $user = null
+    ): ActivityLog {
+        $companyName = $evaluation->company->nama ?? 'Mitra Industri';
+        $studentName = $evaluation->student->user->name ?? 'Siswa';
+        $action = $status === 'submitted' ? 'evaluation.submitted' : 'evaluation.drafted';
+        $desc = $status === 'submitted'
+            ? "Mitra {$companyName} mengirimkan formulir penilaian PKL untuk siswa {$studentName} dengan nilai akhir {$evaluation->nilai_akhir} (Predikat {$evaluation->predikat})."
+            : "Mitra {$companyName} menyimpan draf penilaian PKL untuk siswa {$studentName}.";
+
+        return self::log(
+            action: $action,
+            description: $desc,
+            subject: $evaluation,
+            properties: [
+                'evaluation_id' => $evaluation->id,
+                'student_name' => $studentName,
+                'company_name' => $companyName,
+                'nilai_akhir' => $evaluation->nilai_akhir,
+                'predikat' => $evaluation->predikat,
+                'status' => $status,
+            ],
+            user: $user
+        );
+    }
+
+    /**
+     * Record teacher verification of internship evaluation.
+     */
+    public static function logEvaluationVerified(
+        InternshipEvaluation $evaluation,
+        Teacher $teacher,
+        ?User $user = null
+    ): ActivityLog {
+        $teacherName = $teacher->user->name ?? 'Guru Kejuruan';
+        $studentName = $evaluation->student->user->name ?? 'Siswa';
+        $companyName = $evaluation->company->nama ?? 'Mitra Industri';
+
+        return self::log(
+            action: 'evaluation.verified',
+            description: "Guru {$teacherName} memvalidasi dan mengesahkan transkrip nilai PKL siswa {$studentName} dari {$companyName} dengan predikat {$evaluation->predikat}.",
+            subject: $evaluation,
+            properties: [
+                'evaluation_id' => $evaluation->id,
+                'student_name' => $studentName,
+                'company_name' => $companyName,
+                'teacher_name' => $teacherName,
+                'nilai_akhir' => $evaluation->nilai_akhir,
+                'predikat' => $evaluation->predikat,
+                'nomor_sertifikat' => $evaluation->nomor_sertifikat,
+            ],
+            user: $user ?? $teacher->user
         );
     }
 

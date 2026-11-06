@@ -387,5 +387,59 @@
             </div>
         </div>
     </div>
+
+    <!-- 4. Evaluasi & Mutu Kinerja Praktik Kerja Lapangan (PKL) -->
+    <div class="bg-surface-card border border-slate-200/80 dark:border-white/10 rounded-2xl p-6 shadow-sm space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 dark:border-white/5 pb-4">
+            <div>
+                <h2 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <i data-lucide="award" class="w-5 h-5 text-brand-primary"></i>
+                    <span>Evaluasi & Mutu Kinerja Praktik Kerja Lapangan (PKL)</span>
+                </h2>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                    Rekapitulasi instrumen penilaian kemitraan DUDI dan transkrip kelulusan magang siswa
+                </p>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="text-right">
+                    <span class="text-xs text-slate-500 dark:text-slate-400">Rata-rata Skor PKL</span>
+                    <div class="text-2xl font-bold font-mono text-slate-900 dark:text-white">
+                        {{ $reportData['metrics']['avg_internship_score'] }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="p-4 rounded-xl bg-slate-50 dark:bg-neutral-800/60 border border-slate-200/60 dark:border-white/5">
+                <span class="text-xs text-slate-500 dark:text-slate-400">Total Evaluasi Berjalan</span>
+                <div class="text-xl font-bold text-slate-900 dark:text-white mt-1">{{ $reportData['metrics']['total_evaluations'] }}</div>
+                <span class="text-[11px] text-slate-400">Siswa berstatus dinilai DUDI</span>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-50 dark:bg-neutral-800/60 border border-slate-200/60 dark:border-white/5">
+                <span class="text-xs text-emerald-600 dark:text-emerald-400 font-medium">Sertifikat Sah Terbit</span>
+                <div class="text-xl font-bold text-emerald-600 dark:text-emerald-400 mt-1">{{ $reportData['metrics']['verified_evaluations'] }}</div>
+                <span class="text-[11px] text-slate-400">Tervalidasi pembimbing sekolah</span>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-50 dark:bg-neutral-800/60 border border-slate-200/60 dark:border-white/5">
+                <span class="text-xs text-indigo-600 dark:text-indigo-400 font-medium">Menunggu Pengesahan</span>
+                <div class="text-xl font-bold text-indigo-600 dark:text-indigo-400 mt-1">{{ $reportData['metrics']['submitted_evaluations'] }}</div>
+                <span class="text-[11px] text-slate-400">Telah dikirimkan supervisor DUDI</span>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-50 dark:bg-neutral-800/60 border border-slate-200/60 dark:border-white/5">
+                <span class="text-xs text-amber-600 dark:text-amber-400 font-medium">Distribusi Predikat Lulus</span>
+                <div class="flex items-center gap-2 mt-1 text-xs font-bold">
+                    <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">A: {{ $reportData['internship_grades']['A'] }}</span>
+                    <span class="px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 dark:bg-sky-950/60 dark:text-sky-300">B: {{ $reportData['internship_grades']['B'] }}</span>
+                    <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300">C: {{ $reportData['internship_grades']['C'] }}</span>
+                </div>
+                <span class="text-[11px] text-slate-400 mt-1 block">Skala mutu standar BKK</span>
+            </div>
+        </div>
+    </div>
+    </div>
 </div>
 @endsection

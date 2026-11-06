@@ -453,6 +453,46 @@
             </tbody>
         </table>
 
+        <!-- 5. Evaluasi & Capaian Nilai PKL Siswa -->
+        <div class="section-header">
+            <span>V. Rekapitulasi Evaluasi & Kinerja Praktik Kerja Lapangan (PKL)</span>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Indikator Capaian Evaluasi</th>
+                    <th style="width: 140px;" class="text-center">Kuantitas</th>
+                    <th>Catatan & Standar Kelulusan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Total Berkas Evaluasi Masuk</td>
+                    <td class="text-center font-bold">{{ $reportData['metrics']['total_evaluations'] }} berkas</td>
+                    <td>Siswa yang telah dievaluasi oleh supervisor industri</td>
+                </tr>
+                <tr>
+                    <td>Transkrip Sah & Sertifikat Terbit</td>
+                    <td class="text-center font-bold">{{ $reportData['metrics']['verified_evaluations'] }} sertifikat</td>
+                    <td>Telah diverifikasi dan disahkan oleh guru pembimbing kejuruan</td>
+                </tr>
+                <tr>
+                    <td>Rata-rata Skor Komposit PKL</td>
+                    <td class="text-center font-bold">{{ $reportData['metrics']['avg_internship_score'] }} / 100</td>
+                    <td>Akumulasi aspek teknis (40%), disiplin (30%), kerjasama (30%)</td>
+                </tr>
+                <tr>
+                    <td>Distribusi Predikat Kelulusan</td>
+                    <td class="text-center font-bold" colspan="2">
+                        A (Amat Baik): {{ $reportData['internship_grades']['A'] }} &bull;
+                        B (Baik): {{ $reportData['internship_grades']['B'] }} &bull;
+                        C (Cukup): {{ $reportData['internship_grades']['C'] }} &bull;
+                        D (Kurang): {{ $reportData['internship_grades']['D'] }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
         <!-- Bagian Pengesahan & Tanda Tangan -->
         <div class="signature-section">
             <div class="sig-box">

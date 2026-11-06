@@ -23,6 +23,7 @@ Dokumen ini memetakan seluruh modul sistem yang telah selesai dibangun pada plat
 | 11 | **Laporan BKK & Cetak Kop Resmi** | `/admin/reports/*`, `/student/applications/{id}/print` | `admin`, `siswa` | `Admin\ReportController`, `ReportExportService.php` |
 | 12 | **Audit Trail & Keamanan Sistem** | `/admin/activity-logs/*` | `admin` | `Admin\ActivityLogController`, `ActivityLogService.php` |
 | 13 | **Pengaturan Lembaga & Akademik** | `/admin/settings` | `admin` | `Admin\SettingController`, `SchoolSettingService.php` |
+| 14 | **Penilaian & Evaluasi Kinerja PKL** | `/company/evaluations/*`, `/teacher/evaluations/*`, `/student/evaluations/*` | `perusahaan`, `guru`, `siswa` | `Company\InternshipEvaluationController`, `Teacher\InternshipEvaluationController`, `Student\InternshipEvaluationController` |
 
 ---
 

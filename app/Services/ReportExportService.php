@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Alumni;
 use App\Models\Application;
 use App\Models\Company;
+use App\Models\InternshipEvaluation;
 use App\Models\Job;
 use App\Models\Major;
 use App\Models\SchoolProfile;
@@ -146,6 +147,22 @@ class ReportExportService
             ->take(6)
             ->get();
 
+        // Internship Evaluation Metrics
+        $evalQuery = InternshipEvaluation::query();
+        if ($majorId) {
+            $evalQuery->whereHas('student', fn($sq) => $sq->where('major_id', $majorId));
+        }
+        $totalEvaluations = (clone $evalQuery)->count();
+        $verifiedEvaluations = (clone $evalQuery)->where('status', 'verified')->count();
+        $submittedEvaluations = (clone $evalQuery)->where('status', 'submitted')->count();
+        $avgInternshipScore = (clone $evalQuery)->where('status', 'verified')->avg('nilai_akhir');
+        $gradeDistribution = [
+            'A' => (clone $evalQuery)->where('status', 'verified')->where('predikat', 'A')->count(),
+            'B' => (clone $evalQuery)->where('status', 'verified')->where('predikat', 'B')->count(),
+            'C' => (clone $evalQuery)->where('status', 'verified')->where('predikat', 'C')->count(),
+            'D' => (clone $evalQuery)->where('status', 'verified')->where('predikat', 'D')->count(),
+        ];
+
         return [
             'school_profile' => $schoolProfile,
             'majors' => $majors,
@@ -168,7 +185,12 @@ class ReportExportService
                 'rejected_applications' => $rejectedApplications,
                 'absorption_rate' => $absorptionRate,
                 'avg_wait_time' => $avgWaitTime ? round($avgWaitTime, 1) : 0,
+                'total_evaluations' => $totalEvaluations,
+                'verified_evaluations' => $verifiedEvaluations,
+                'submitted_evaluations' => $submittedEvaluations,
+                'avg_internship_score' => $avgInternshipScore ? round($avgInternshipScore, 1) : 0,
             ],
+            'internship_grades' => $gradeDistribution,
             'top_companies' => $topCompanies,
             'bmw_stats' => $bmwStats,
             'keselarasan_stats' => $keselarasanStats,
