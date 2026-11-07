@@ -25,7 +25,7 @@ class AgendaController extends Controller
         }
 
         // Search Filter
-        if ($search = $request->query('q')) {
+        if ($search = $request->query('search', $request->query('q'))) {
             $query->where(function ($q) use ($search) {
                 $q->where('judul', 'like', "%{$search}%")
                   ->orWhere('deskripsi', 'like', "%{$search}%")

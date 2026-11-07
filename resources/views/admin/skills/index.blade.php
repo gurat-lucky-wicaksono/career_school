@@ -79,11 +79,11 @@
                     @endif
                 </td>
 
-                <td class="px-5 py-3.5 font-mono text-xs text-slate-700 dark:text-slate-200">
+                <td class="px-5 py-3.5 text-xs font-semibold text-slate-700 dark:text-slate-200">
                     {{ $skill->students_count }} Siswa
                 </td>
 
-                <td class="px-5 py-3.5 font-mono text-xs text-slate-700 dark:text-slate-200">
+                <td class="px-5 py-3.5 text-xs font-semibold text-slate-700 dark:text-slate-200">
                     {{ $skill->jobs_count }} Lowongan
                 </td>
 

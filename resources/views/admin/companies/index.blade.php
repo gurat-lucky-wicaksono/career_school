@@ -72,7 +72,7 @@
                             <span class="font-semibold text-slate-900 dark:text-white block">
                                 {{ $company->nama }}
                             </span>
-                            <span class="text-xs text-slate-500 dark:text-slate-400 block font-mono">
+                            <span class="text-xs text-slate-500 dark:text-slate-400 block">
                                 {{ $company->user->email ?? '-' }}
                             </span>
                         </div>
@@ -87,7 +87,7 @@
                     {{ $company->kota ?? '-' }}
                 </td>
 
-                <td class="px-5 py-3.5 font-mono text-xs font-semibold text-slate-700 dark:text-slate-200">
+                <td class="px-5 py-3.5 text-xs font-semibold text-slate-700 dark:text-slate-200">
                     {{ $company->jobs_count }} Loker
                 </td>
 
@@ -524,7 +524,7 @@
                 <h4 id="detail-company-nama" class="font-bold text-text-primary text-base">
                     Nama Mitra
                 </h4>
-                <p id="detail-company-email" class="text-xs text-text-secondary font-mono">
+                <p id="detail-company-email" class="text-xs text-text-secondary">
                     email@perusahaan.com
                 </p>
             </div>
@@ -549,7 +549,7 @@
             </div>
             <div class="py-2.5 flex items-center justify-between">
                 <span class="text-text-secondary">Situs Resmi:</span>
-                <span id="detail-company-situs" class="font-mono text-xs text-text-primary">-</span>
+                <span id="detail-company-situs" class="text-xs text-text-primary">-</span>
             </div>
         </div>
 

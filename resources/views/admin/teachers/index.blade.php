@@ -71,14 +71,14 @@
                             <span class="font-semibold text-slate-900 dark:text-white block">
                                 {{ $teacher->user->name ?? 'Guru Kejuruan' }}
                             </span>
-                            <span class="text-xs text-slate-500 dark:text-slate-400 block font-mono">
+                            <span class="text-xs text-slate-500 dark:text-slate-400 block">
                                 {{ $teacher->user->email ?? '-' }}
                             </span>
                         </div>
                     </div>
                 </td>
 
-                <td class="px-5 py-3.5 font-mono text-xs text-slate-600 dark:text-slate-300">
+                <td class="px-5 py-3.5 text-xs text-slate-600 dark:text-slate-300">
                     {{ $teacher->nip ?? '-' }}
                 </td>
 
@@ -272,7 +272,7 @@
                     name="nip" 
                     required 
                     placeholder="Contoh: 198501152010011002"
-                    class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary placeholder:text-text-secondary/50 text-sm transition-all outline-none shadow-xs font-mono"
+                    class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary placeholder:text-text-secondary/50 text-sm transition-all outline-none shadow-xs"
                 >
             </div>
 
@@ -384,7 +384,7 @@
                     id="edit-teacher-nip" 
                     name="nip" 
                     required 
-                    class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary text-sm transition-all outline-none shadow-xs font-mono"
+                    class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary text-sm transition-all outline-none shadow-xs"
                 >
             </div>
 
@@ -464,7 +464,7 @@
                 <h4 id="detail-teacher-name" class="font-bold text-text-primary text-base">
                     Nama Guru
                 </h4>
-                <p id="detail-teacher-email" class="text-xs text-text-secondary font-mono">
+                <p id="detail-teacher-email" class="text-xs text-text-secondary">
                     email@smkn1cirebon.sch.id
                 </p>
             </div>
@@ -473,7 +473,7 @@
         <div class="divide-y divide-border-subtle text-xs sm:text-sm">
             <div class="py-2.5 flex items-center justify-between">
                 <span class="text-text-secondary">NIP:</span>
-                <span id="detail-teacher-nip" class="font-mono font-semibold text-text-primary">-</span>
+                <span id="detail-teacher-nip" class="font-semibold text-text-primary">-</span>
             </div>
             <div class="py-2.5 flex items-center justify-between">
                 <span class="text-text-secondary">Mata Pelajaran:</span>
@@ -485,7 +485,7 @@
             </div>
             <div class="py-2.5 flex items-center justify-between">
                 <span class="text-text-secondary">Username Akun:</span>
-                <span id="detail-teacher-username" class="font-mono text-text-primary">-</span>
+                <span id="detail-teacher-username" class="text-text-primary">-</span>
             </div>
             <div class="py-2.5 flex items-center justify-between">
                 <span class="text-text-secondary">Terdaftar Sejak:</span>

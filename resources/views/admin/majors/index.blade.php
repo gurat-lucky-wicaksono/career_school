@@ -48,8 +48,8 @@
                     >
                 </td>
 
-                <td class="px-5 py-3.5 font-mono text-xs font-bold text-slate-900 dark:text-white">
-                    <span class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-neutral-800 border border-slate-200/80 dark:border-white/10">
+                <td class="px-5 py-3.5 text-xs font-bold text-slate-900 dark:text-white">
+                    <span class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-neutral-800 border border-slate-200/80 dark:border-white/10 font-sans">
                         {{ $major->kode }}
                     </span>
                 </td>
@@ -71,11 +71,11 @@
                     {{ $major->kepala_jurusan ?? '-' }}
                 </td>
 
-                <td class="px-5 py-3.5 font-medium text-slate-700 dark:text-slate-200 text-xs font-mono">
+                <td class="px-5 py-3.5 font-semibold text-slate-700 dark:text-slate-200 text-xs">
                     {{ $major->classes_count }} Rombel
                 </td>
 
-                <td class="px-5 py-3.5 font-medium text-slate-700 dark:text-slate-200 text-xs font-mono">
+                <td class="px-5 py-3.5 font-semibold text-slate-700 dark:text-slate-200 text-xs">
                     {{ $major->students_count }} Siswa
                 </td>
 
@@ -152,7 +152,7 @@
                     name="kode" 
                     required 
                     placeholder="PPLG"
-                    class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary uppercase font-mono text-sm transition-all outline-none shadow-xs font-normal"
+                    class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary uppercase text-sm transition-all outline-none shadow-xs font-normal"
                 >
             </div>
 
@@ -233,7 +233,7 @@
                     id="edit-major-kode" 
                     name="kode" 
                     required 
-                    class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary uppercase font-mono text-sm transition-all outline-none shadow-xs font-normal"
+                    class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary uppercase text-sm transition-all outline-none shadow-xs font-normal"
                 >
             </div>
 
@@ -302,7 +302,7 @@
 >
     <div class="space-y-4">
         <div class="p-4 rounded-2xl bg-surface-bg border border-border-default">
-            <span id="detail-major-kode" class="font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-brand-primary/20 text-brand-secondary dark:text-brand-primary">
+            <span id="detail-major-kode" class="font-sans text-xs font-bold px-2.5 py-1 rounded-lg bg-brand-primary/20 text-brand-secondary dark:text-brand-primary">
                 KODE
             </span>
             <h4 id="detail-major-nama" class="font-bold text-text-primary text-lg mt-2">

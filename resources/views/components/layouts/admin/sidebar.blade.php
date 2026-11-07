@@ -164,9 +164,7 @@
         
         <!-- Logo & Title -->
         <a href="{{ route('admin.dashboard') ?? url('/admin') }}" class="flex items-center gap-3 overflow-hidden group">
-            <div class="w-10 h-10 rounded-btn bg-brand-primary flex items-center justify-center flex-shrink-0 shadow-xs group-hover:scale-105 transition-transform">
-                <img src="{{ asset('images/logos/logo-career-school.png') }}" alt="Career School Logo" class="w-6 h-6 object-contain">
-            </div>
+            <img src="{{ asset('images/logos/logo-career-school.png') }}" alt="Career School Logo" class="w-8 h-8 object-contain flex-shrink-0 group-hover:scale-105 transition-transform">
             
             <div x-show="!sidebarCollapsed" x-cloak class="transition-opacity duration-200 whitespace-nowrap">
                 <span class="block text-sm font-bold text-text-primary font-heading tracking-tight">

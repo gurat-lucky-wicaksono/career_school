@@ -7,7 +7,7 @@
     <!-- Header Section -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-border-subtle">
         <div>
-            <h1 class="text-2xl font-heading font-bold tracking-tight text-text-primary">
+            <h1 class="text-2xl font-bold font-sans tracking-tight text-text-primary">
                 Audit Trail & Log Aktivitas Sistem
             </h1>
             <p class="text-sm text-text-secondary mt-1">
@@ -17,13 +17,12 @@
 
         <!-- Quick Export Action -->
         <div class="flex items-center gap-2.5">
-            <a 
+            <x-ui.button 
+                variant="secondary"
                 href="{{ route('admin.activity-logs.export', request()->all()) }}" 
-                class="inline-flex items-center px-4 py-2 rounded-btn text-xs font-semibold bg-surface-card text-text-primary border border-border-subtle hover:bg-surface-bg active:scale-[0.96] transition-transform shadow-xs"
             >
-                <i data-lucide="download" class="w-4 h-4 mr-2 text-text-muted"></i>
-                <span>Ekspor log audit (CSV)</span>
-            </a>
+                Ekspor log audit (CSV)
+            </x-ui.button>
         </div>
     </div>
 
@@ -33,7 +32,7 @@
         <div class="bg-surface-card border border-border-subtle rounded-card p-4 shadow-xs space-y-1.5">
             <div class="flex items-center justify-between">
                 <span class="text-xs font-medium text-text-secondary">Log hari ini</span>
-                <div class="w-8 h-8 rounded-btn bg-state-info-bg text-state-info-text flex items-center justify-center">
+                <div class="w-8 h-8 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center">
                     <i data-lucide="clock" class="w-4 h-4"></i>
                 </div>
             </div>
@@ -47,7 +46,7 @@
         <div class="bg-surface-card border border-border-subtle rounded-card p-4 shadow-xs space-y-1.5">
             <div class="flex items-center justify-between">
                 <span class="text-xs font-medium text-text-secondary">Aktivitas autentikasi</span>
-                <div class="w-8 h-8 rounded-btn bg-neutral-100 dark:bg-neutral-800 text-text-secondary flex items-center justify-center">
+                <div class="w-8 h-8 rounded-full bg-surface-bg border border-border-default text-text-secondary flex items-center justify-center">
                     <i data-lucide="key-round" class="w-4 h-4"></i>
                 </div>
             </div>
@@ -61,7 +60,7 @@
         <div class="bg-surface-card border border-border-subtle rounded-card p-4 shadow-xs space-y-1.5">
             <div class="flex items-center justify-between">
                 <span class="text-xs font-medium text-text-secondary">Aktivitas kemitraan & seleksi</span>
-                <div class="w-8 h-8 rounded-btn bg-brand-primary/10 text-brand-secondary dark:text-brand-primary flex items-center justify-center">
+                <div class="w-8 h-8 rounded-full bg-brand-primary/10 text-brand-secondary dark:text-brand-primary flex items-center justify-center">
                     <i data-lucide="building-2" class="w-4 h-4"></i>
                 </div>
             </div>
@@ -75,7 +74,7 @@
         <div class="bg-surface-card border border-border-subtle rounded-card p-4 shadow-xs space-y-1.5">
             <div class="flex items-center justify-between">
                 <span class="text-xs font-medium text-text-secondary">Validasi kompetensi siswa</span>
-                <div class="w-8 h-8 rounded-btn bg-state-success-bg text-state-success-text flex items-center justify-center">
+                <div class="w-8 h-8 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
                     <i data-lucide="award" class="w-4 h-4"></i>
                 </div>
             </div>
@@ -86,144 +85,112 @@
         </div>
     </div>
 
-    <!-- 2. Multi-Parameter Filter Bar -->
-    <div class="bg-surface-card border border-border-subtle rounded-card p-4 shadow-xs">
-        <form method="GET" action="{{ route('admin.activity-logs.index') }}" class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
-            <!-- Search Keyword -->
-            <div class="sm:col-span-3">
-                <label for="q" class="block text-xs font-semibold text-text-secondary mb-1">
-                    Cari deskripsi / pengguna / IP
-                </label>
-                <div class="relative">
-                    <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-text-muted"></i>
-                    <input 
-                        type="text" 
-                        name="q" 
-                        id="q" 
-                        value="{{ request('q') }}" 
-                        placeholder="Cari aktivitas..."
-                        class="w-full pl-9 text-xs rounded-btn border border-border-subtle bg-surface-bg text-text-primary placeholder:text-text-muted focus:ring-1 focus:ring-brand-primary"
-                    >
-                </div>
-            </div>
+    @php
+        $isFilterActive = request()->filled('role') || request()->filled('action') || request()->filled('start_date');
+    @endphp
 
-            <!-- Role Filter -->
-            <div class="sm:col-span-2">
-                <label for="role" class="block text-xs font-semibold text-text-secondary mb-1">
-                    Peran (Role)
-                </label>
-                <select 
-                    name="role" 
-                    id="role"
-                    class="w-full text-xs rounded-btn border border-border-subtle bg-surface-bg text-text-primary focus:ring-1 focus:ring-brand-primary"
+    <!-- 2. Standardized Search & Filter Toolbar -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <form method="GET" action="{{ route('admin.activity-logs.index') }}" class="relative flex-1 sm:max-w-md">
+            @if (request('role'))
+                <input type="hidden" name="role" value="{{ request('role') }}">
+            @endif
+            @if (request('action'))
+                <input type="hidden" name="action" value="{{ request('action') }}">
+            @endif
+            @if (request('start_date'))
+                <input type="hidden" name="start_date" value="{{ request('start_date') }}">
+            @endif
+
+            <i data-lucide="search" class="w-4 h-4 text-text-secondary/70 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+            <input 
+                type="text" 
+                name="q"
+                id="q"
+                value="{{ request('q') }}"
+                placeholder="Cari deskripsi, pengguna, atau IP..."
+                class="w-full h-11 pl-10 pr-9 text-xs sm:text-sm rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary placeholder:text-text-secondary/50 transition-all outline-none shadow-xs font-normal"
+            >
+            @if (request('q'))
+                <a 
+                    href="{{ route('admin.activity-logs.index', request()->except('q')) }}" 
+                    class="absolute right-3.5 top-1/2 -translate-y-1/2 text-text-secondary hover:text-text-primary transition-colors"
+                    title="Hapus Pencarian"
                 >
-                    <option value="">Semua Peran</option>
-                    <option value="admin" {{ request('role') === 'admin' ? 'selected' : '' }}>Administrator</option>
-                    <option value="perusahaan" {{ request('role') === 'perusahaan' ? 'selected' : '' }}>Mitra industri</option>
-                    <option value="guru" {{ request('role') === 'guru' ? 'selected' : '' }}>Guru kejuruan</option>
-                    <option value="siswa" {{ request('role') === 'siswa' ? 'selected' : '' }}>Siswa vokasi</option>
-                </select>
-            </div>
-
-            <!-- Action Category Filter -->
-            <div class="sm:col-span-3">
-                <label for="action" class="block text-xs font-semibold text-text-secondary mb-1">
-                    Kategori aksi
-                </label>
-                <select 
-                    name="action" 
-                    id="action"
-                    class="w-full text-xs rounded-btn border border-border-subtle bg-surface-bg text-text-primary focus:ring-1 focus:ring-brand-primary"
-                >
-                    <option value="">Semua Kategori Aksi</option>
-                    <option value="auth.*" {{ request('action') === 'auth.*' ? 'selected' : '' }}>Autentikasi (Login / logout)</option>
-                    <option value="company.*" {{ request('action') === 'company.*' ? 'selected' : '' }}>Kemitraan industri</option>
-                    <option value="application.*" {{ request('action') === 'application.*' ? 'selected' : '' }}>Lamaran siswa & PKL</option>
-                    <option value="skill.*" {{ request('action') === 'skill.*' ? 'selected' : '' }}>Validasi keahlian guru</option>
-                    <option value="report.*" {{ request('action') === 'report.*' ? 'selected' : '' }}>Ekspor & cetak laporan BKK</option>
-                </select>
-            </div>
-
-            <!-- Date Range: Start -->
-            <div class="sm:col-span-2">
-                <label for="start_date" class="block text-xs font-semibold text-text-secondary mb-1">
-                    Tanggal mulai
-                </label>
-                <input 
-                    type="date" 
-                    name="start_date" 
-                    id="start_date" 
-                    value="{{ request('start_date') }}"
-                    class="w-full text-xs rounded-btn border border-border-subtle bg-surface-bg text-text-primary focus:ring-1 focus:ring-brand-primary"
-                >
-            </div>
-
-            <!-- Buttons -->
-            <div class="sm:col-span-2 flex items-center gap-2">
-                <button 
-                    type="submit" 
-                    class="flex-1 inline-flex items-center justify-center px-3 py-2 rounded-btn text-xs font-semibold bg-brand-primary text-text-on-brand-primary hover:brightness-105 active:scale-[0.96] transition-transform shadow-xs"
-                >
-                    <i data-lucide="filter" class="w-3.5 h-3.5 mr-1.5"></i>
-                    <span>Terapkan</span>
-                </button>
-
-                @if (request()->hasAny(['q', 'role', 'action', 'start_date', 'end_date']))
-                    <a 
-                        href="{{ route('admin.activity-logs.index') }}" 
-                        class="p-2 rounded-btn text-text-muted hover:text-text-primary border border-border-subtle hover:bg-surface-bg active:scale-[0.96] transition-transform"
-                        title="Reset filter"
-                    >
-                        <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
-                    </a>
-                @endif
-            </div>
+                    <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                </a>
+            @endif
         </form>
+
+        <div class="flex items-center gap-2.5">
+            <button 
+                type="button" 
+                onclick="window.openModal('modal-filter-activity-logs')"
+                class="relative h-11 px-4 text-xs sm:text-sm font-semibold rounded-full border border-border-default bg-surface-card text-text-primary hover:border-text-secondary/70 hover:bg-surface-bg flex items-center gap-2 transition-all shadow-xs"
+            >
+                <i data-lucide="filter" class="w-4 h-4 text-text-secondary"></i>
+                <span>Filter</span>
+                @if ($isFilterActive)
+                    <span class="w-2 h-2 rounded-full bg-brand-primary"></span>
+                @endif
+            </button>
+
+            @if ($isFilterActive || request('q'))
+                <a 
+                    href="{{ route('admin.activity-logs.index') }}" 
+                    class="h-11 px-4 text-xs font-semibold rounded-full border border-border-default bg-surface-card text-text-secondary hover:text-text-primary hover:bg-surface-bg flex items-center gap-1.5 transition-all shadow-xs"
+                    title="Reset semua filter"
+                >
+                    <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                    <span>Reset</span>
+                </a>
+            @endif
+        </div>
     </div>
 
     <!-- 3. Logs Table Section -->
     <div class="bg-surface-card border border-border-subtle rounded-card shadow-xs overflow-hidden">
-        <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs">
-                <thead class="bg-surface-bg border-b border-border-subtle text-text-secondary font-semibold uppercase tracking-wider text-[10px]">
+        <div class="overflow-x-auto custom-scrollbar">
+            <table class="w-full text-left text-xs border-collapse">
+                <thead class="bg-surface-bg/50 border-b border-border-subtle text-text-muted font-bold uppercase tracking-wider text-[11px]">
                     <tr>
-                        <th class="py-3 px-4">Waktu (WIB)</th>
-                        <th class="py-3 px-4">Pengguna (Aktor)</th>
-                        <th class="py-3 px-4">Aksi / kategori</th>
-                        <th class="py-3 px-4">Rincian peristiwa</th>
-                        <th class="py-3 px-4">Alamat IP & perangkat</th>
-                        <th class="py-3 px-4 text-right">Data teknis</th>
+                        <th class="py-3.5 px-5">Waktu (WIB)</th>
+                        <th class="py-3.5 px-5">Pengguna (Aktor)</th>
+                        <th class="py-3.5 px-5">Aksi / Kategori</th>
+                        <th class="py-3.5 px-5">Rincian Peristiwa</th>
+                        <th class="py-3.5 px-5">Alamat IP & Perangkat</th>
+                        <th class="py-3.5 px-5 text-right">Data Teknis</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-border-subtle">
                     @forelse ($logs as $log)
-                        <tr class="hover:bg-surface-bg transition-colors">
+                        <tr class="hover:bg-surface-bg/50 transition-colors">
                             <!-- Waktu -->
-                            <td class="py-3 px-4 whitespace-nowrap">
+                            <td class="py-3.5 px-5 whitespace-nowrap">
                                 <span class="font-heading font-semibold text-text-primary block">
                                     {{ $log->created_at->format('H:i:s') }} WIB
                                 </span>
-                                <span class="text-[11px] text-text-muted block" title="{{ $log->created_at->format('Y-m-d H:i:s') }}">
+                                <span class="text-[11px] text-text-muted block mt-0.5" title="{{ $log->created_at->format('Y-m-d H:i:s') }}">
                                     {{ $log->created_at->translatedFormat('d M Y') }} &bull; {{ $log->created_at->diffForHumans() }}
                                 </span>
                             </td>
 
                             <!-- Aktor -->
-                            <td class="py-3 px-4">
+                            <td class="py-3.5 px-5">
                                 <div class="flex items-center gap-2.5 min-w-0">
-                                    <div class="w-7 h-7 rounded-full bg-neutral-100 dark:bg-neutral-800 border border-border-subtle flex items-center justify-center font-bold text-xs text-text-primary flex-shrink-0">
+                                    <div class="w-8 h-8 rounded-full bg-surface-bg border border-border-default flex items-center justify-center font-bold text-xs text-brand-secondary dark:text-brand-primary flex-shrink-0">
                                         {{ strtoupper(substr($log->user->name ?? 'S', 0, 1)) }}
                                     </div>
                                     <div class="min-w-0">
-                                        <span class="font-heading font-semibold text-text-primary truncate block">
+                                        <span class="font-semibold text-text-primary truncate block text-xs sm:text-sm">
                                             {{ $log->user->name ?? 'Sistem otomatis' }}
                                         </span>
-                                        <span class="inline-flex items-center px-1.5 py-0.2 rounded-full text-[10px] font-semibold uppercase tracking-wider {{ match($log->role) {
-                                            'admin' => 'bg-neutral-100 text-text-secondary dark:bg-neutral-800',
-                                            'perusahaan' => 'bg-state-info-bg text-state-info-text',
-                                            'guru' => 'bg-state-warning-bg text-state-warning-text',
-                                            'siswa' => 'bg-state-success-bg text-state-success-text',
-                                            default => 'bg-neutral-100 text-text-secondary dark:bg-neutral-800',
+                                        <span class="inline-flex items-center px-1.5 py-0.2 rounded-full text-[10px] font-semibold uppercase tracking-wider mt-0.5 {{ match($log->role) {
+                                            'admin' => 'bg-surface-bg text-text-secondary border border-border-subtle',
+                                            'perusahaan' => 'bg-sky-500/10 text-sky-600 dark:text-sky-400',
+                                            'guru' => 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
+                                            'siswa' => 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
+                                            default => 'bg-surface-bg text-text-secondary border border-border-subtle',
                                         } }}">
                                             {{ $log->role ?? 'Sistem' }}
                                         </span>
@@ -232,54 +199,59 @@
                             </td>
 
                             <!-- Aksi -->
-                            <td class="py-3 px-4 whitespace-nowrap">
-                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold border {{ $log->badge_class }}">
-                                    <i data-lucide="{{ $log->icon }}" class="w-3.5 h-3.5"></i>
-                                    <span>{{ $log->action_label }}</span>
-                                </span>
+                            <td class="py-3.5 px-5 whitespace-nowrap">
+                                @php
+                                    $actionPrefix = explode('.', $log->action)[0] ?? '';
+                                    $badgeVariant = match($actionPrefix) {
+                                        'auth' => 'secondary',
+                                        'company' => 'brand',
+                                        'application' => 'success',
+                                        'skill' => 'warning',
+                                        'report' => 'info',
+                                        default => 'secondary'
+                                    };
+                                @endphp
+                                <x-ui.badge :variant="$badgeVariant">
+                                    <i data-lucide="{{ $log->icon }}" class="w-3.5 h-3.5 mr-1 inline"></i>
+                                    {{ $log->action_label }}
+                                </x-ui.badge>
                             </td>
 
                             <!-- Deskripsi -->
-                            <td class="py-3 px-4 max-w-md">
+                            <td class="py-3.5 px-5 max-w-md">
                                 <p class="text-xs text-text-secondary leading-relaxed">
                                     {{ $log->description }}
                                 </p>
                             </td>
 
                             <!-- IP Address & Perangkat -->
-                            <td class="py-3 px-4 whitespace-nowrap">
-                                <span class="font-mono text-[11px] text-text-primary block">
+                            <td class="py-3.5 px-5 whitespace-nowrap">
+                                <span class="text-[11px] text-text-primary block font-medium">
                                     {{ $log->ip_address ?? '127.0.0.1' }}
                                 </span>
-                                <span class="text-[10px] text-text-muted truncate block max-w-xs" title="{{ $log->user_agent }}">
+                                <span class="text-[10px] text-text-muted truncate block max-w-xs mt-0.5" title="{{ $log->user_agent }}">
                                     {{ Str::limit($log->user_agent ?? 'Internal system', 28) }}
                                 </span>
                             </td>
 
                             <!-- Aksi Detail -->
-                            <td class="py-3 px-4 text-right whitespace-nowrap">
-                                <button 
-                                    type="button" 
+                            <td class="py-3.5 px-5 text-right whitespace-nowrap">
+                                <x-ui.icon-button 
+                                    size="sm" 
+                                    icon="info" 
                                     @click="openDetail({{ $log->id }})"
-                                    class="inline-flex items-center px-2.5 py-1.5 rounded-btn border border-border-subtle text-text-secondary hover:text-text-primary hover:bg-surface-bg active:scale-[0.96] transition-transform text-xs font-medium"
-                                >
-                                    <i data-lucide="info" class="w-3.5 h-3.5 mr-1 text-text-muted"></i>
-                                    <span>Detail</span>
-                                </button>
+                                    label="Lihat Rincian Teknis" 
+                                />
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="py-12 text-center text-text-muted">
-                                <div class="w-12 h-12 rounded-card bg-surface-bg border border-border-subtle flex items-center justify-center mx-auto text-text-muted mb-3">
-                                    <i data-lucide="inbox" class="w-6 h-6"></i>
+                            <td colspan="6" class="p-8 text-center text-text-secondary text-sm">
+                                <div class="flex flex-col items-center justify-center gap-2">
+                                    <i data-lucide="shield-alert" class="w-8 h-8 text-text-muted"></i>
+                                    <p class="font-semibold text-text-primary">Tidak ada log aktivitas yang cocok</p>
+                                    <p class="text-xs text-text-muted">Belum ada catatan aktivitas yang sesuai dengan kriteria filter saat ini.</p>
                                 </div>
-                                <p class="text-sm font-heading font-semibold text-text-primary">
-                                    Tidak ada log aktivitas yang cocok
-                                </p>
-                                <p class="text-xs text-text-secondary mt-1">
-                                    Belum ada catatan aktivitas yang sesuai dengan kriteria filter saat ini.
-                                </p>
                             </td>
                         </tr>
                     @endforelse
@@ -289,7 +261,7 @@
 
         <!-- Pagination -->
         @if ($logs->hasPages())
-            <div class="p-4 border-t border-border-subtle flex justify-center">
+            <div class="px-5 py-4 border-t border-border-subtle flex justify-center">
                 {{ $logs->links() }}
             </div>
         @endif
@@ -328,22 +300,23 @@
                 x-transition:leave="ease-in duration-150"
                 x-transition:leave-start="opacity-100 scale-100"
                 x-transition:leave-end="opacity-0 scale-95"
-                class="w-full max-w-xl transform overflow-hidden rounded-modal bg-surface-card border border-border-subtle p-6 text-left shadow-2xl transition-all space-y-5"
+                class="w-full max-w-xl transform overflow-hidden rounded-card bg-surface-card border border-border-subtle p-6 text-left shadow-2xl transition-all space-y-5"
             >
                 <!-- Modal Header -->
                 <div class="flex items-center justify-between pb-3 border-b border-border-subtle">
                     <div>
                         <h3 class="text-base font-heading font-bold text-text-primary" id="modal-title">
-                            Rincian log audit
+                            Rincian Log Audit
                         </h3>
                         <p class="text-xs text-text-muted mt-0.5" x-text="'ID Peristiwa: #LOG-' + String(detailData?.id || '').padStart(6, '0')"></p>
                     </div>
                     <button 
                         type="button" 
                         @click="modalOpen = false"
-                        class="p-1 rounded-btn text-text-muted hover:text-text-primary hover:bg-surface-bg transition-colors"
+                        class="w-8 h-8 rounded-full flex items-center justify-center text-text-muted hover:text-text-primary hover:bg-surface-bg transition-colors"
+                        aria-label="Tutup Modal"
                     >
-                        <i data-lucide="x" class="w-5 h-5"></i>
+                        <i data-lucide="x" class="w-4 h-4"></i>
                     </button>
                 </div>
 
@@ -351,7 +324,7 @@
                 <div class="space-y-3 text-xs">
                     <div class="grid grid-cols-2 gap-3 bg-surface-bg border border-border-subtle rounded-card p-3">
                         <div>
-                            <span class="text-text-muted block text-[11px]">Aktor / pengguna</span>
+                            <span class="text-text-muted block text-[11px]">Aktor / Pengguna</span>
                             <span class="font-heading font-bold text-text-primary" x-text="detailData?.actor?.name || '-'"></span>
                             <span class="text-text-secondary block text-[10px]" x-text="detailData?.actor?.email || '-'"></span>
                         </div>
@@ -363,30 +336,30 @@
 
                     <div class="grid grid-cols-2 gap-3 bg-surface-bg border border-border-subtle rounded-card p-3">
                         <div>
-                            <span class="text-text-muted block text-[11px]">Waktu kejadian</span>
+                            <span class="text-text-muted block text-[11px]">Waktu Kejadian</span>
                             <span class="font-semibold text-text-primary" x-text="detailData?.created_at || '-'"></span>
                             <span class="text-text-secondary block text-[10px]" x-text="detailData?.time_ago || '-'"></span>
                         </div>
                         <div>
                             <span class="text-text-muted block text-[11px]">Alamat IP</span>
-                            <span class="font-mono text-text-primary" x-text="detailData?.ip_address || '-'"></span>
+                            <span class="text-text-primary font-medium" x-text="detailData?.ip_address || '-'"></span>
                         </div>
                     </div>
 
                     <div>
-                        <span class="text-text-muted block text-[11px] mb-1">Deskripsi lengkap</span>
-                        <p class="text-text-primary bg-surface-bg border border-border-subtle rounded-card p-3" x-text="detailData?.description || '-'"></p>
+                        <span class="text-text-muted block text-[11px] mb-1">Deskripsi Lengkap</span>
+                        <p class="text-text-primary bg-surface-bg border border-border-subtle rounded-card p-3 leading-relaxed" x-text="detailData?.description || '-'"></p>
                     </div>
 
                     <div>
-                        <span class="text-text-muted block text-[11px] mb-1">Perangkat / user agent</span>
-                        <p class="font-mono text-[10px] text-text-muted bg-surface-bg border border-border-subtle rounded-card p-2.5 break-all" x-text="detailData?.user_agent || '-'"></p>
+                        <span class="text-text-muted block text-[11px] mb-1">Perangkat / User Agent</span>
+                        <p class="text-[11px] text-text-muted bg-surface-bg border border-border-subtle rounded-card p-2.5 break-all leading-normal" x-text="detailData?.user_agent || '-'"></p>
                     </div>
 
                     <!-- JSON Properties / Metadata Diff -->
                     <template x-if="detailData?.properties">
                         <div>
-                            <span class="text-text-muted block text-[11px] mb-1">Data perubahan / payload metadata (JSON)</span>
+                            <span class="text-text-muted block text-[11px] mb-1">Data Perubahan / Payload Metadata (JSON)</span>
                             <pre class="bg-neutral-900 text-neutral-200 text-[11px] font-mono p-3 rounded-card overflow-x-auto max-h-48 border border-neutral-800" x-text="JSON.stringify(detailData.properties, null, 2)"></pre>
                         </div>
                     </template>
@@ -397,15 +370,101 @@
                     <button 
                         type="button" 
                         @click="modalOpen = false"
-                        class="px-4 py-2 rounded-btn text-xs font-semibold bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:bg-neutral-800 dark:hover:bg-neutral-100 active:scale-[0.96] transition-transform shadow-xs"
+                        class="px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold border border-border-default text-text-secondary hover:text-text-primary hover:bg-surface-bg transition-colors"
                     >
-                        Tutup rincian
+                        Tutup Rincian
                     </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Modal Filter Activity Logs -->
+<x-ui.modal 
+    id="modal-filter-activity-logs" 
+    title="Filter Log Audit Aktivitas" 
+    subtitle="Saring aktivitas berdasarkan peran pengguna, kategori aksi, dan tanggal"
+    size="md"
+>
+    <form method="GET" action="{{ route('admin.activity-logs.index') }}" class="space-y-4">
+        @if (request('q'))
+            <input type="hidden" name="q" value="{{ request('q') }}">
+        @endif
+
+        <div class="space-y-1.5">
+            <label class="block text-xs font-semibold text-text-primary">
+                Peran Pengguna (Role)
+            </label>
+            <select 
+                name="role" 
+                id="role"
+                class="choices-select w-full"
+            >
+                <option value="">Semua Peran</option>
+                <option value="admin" {{ request('role') === 'admin' ? 'selected' : '' }}>Administrator</option>
+                <option value="perusahaan" {{ request('role') === 'perusahaan' ? 'selected' : '' }}>Mitra industri</option>
+                <option value="guru" {{ request('role') === 'guru' ? 'selected' : '' }}>Guru kejuruan</option>
+                <option value="siswa" {{ request('role') === 'siswa' ? 'selected' : '' }}>Siswa vokasi</option>
+            </select>
+        </div>
+
+        <div class="space-y-1.5">
+            <label class="block text-xs font-semibold text-text-primary">
+                Kategori Aksi
+            </label>
+            <select 
+                name="action" 
+                id="action"
+                class="choices-select w-full"
+            >
+                <option value="">Semua Kategori Aksi</option>
+                <option value="auth.*" {{ request('action') === 'auth.*' ? 'selected' : '' }}>Autentikasi (Login / logout)</option>
+                <option value="company.*" {{ request('action') === 'company.*' ? 'selected' : '' }}>Kemitraan industri</option>
+                <option value="application.*" {{ request('action') === 'application.*' ? 'selected' : '' }}>Lamaran siswa & PKL</option>
+                <option value="skill.*" {{ request('action') === 'skill.*' ? 'selected' : '' }}>Validasi keahlian guru</option>
+                <option value="report.*" {{ request('action') === 'report.*' ? 'selected' : '' }}>Ekspor & cetak laporan BKK</option>
+            </select>
+        </div>
+
+        <div class="space-y-1.5">
+            <label class="block text-xs font-semibold text-text-primary">
+                Tanggal Mulai
+            </label>
+            <input 
+                type="date" 
+                name="start_date" 
+                id="start_date" 
+                value="{{ request('start_date') }}"
+                class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary text-sm transition-all outline-none shadow-xs font-normal"
+            >
+        </div>
+
+        <div class="pt-5 border-t border-border-subtle flex items-center justify-between gap-3">
+            <a 
+                href="{{ route('admin.activity-logs.index') }}" 
+                class="px-4 py-2 text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors"
+            >
+                Reset Filter
+            </a>
+            <div class="flex items-center gap-3">
+                <button 
+                    type="button" 
+                    onclick="window.closeModal('modal-filter-activity-logs')"
+                    class="px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-full border border-border-default text-text-secondary hover:text-text-primary hover:bg-surface-bg transition-colors focus:outline-none"
+                >
+                    Batal
+                </button>
+                <button 
+                    type="submit" 
+                    class="px-6 py-2.5 text-xs sm:text-sm font-semibold rounded-full bg-brand-primary text-text-on-brand-primary hover:brightness-105 transition-all shadow-md shadow-brand-primary/20 focus:outline-none"
+                >
+                    Terapkan Filter
+                </button>
+            </div>
+        </div>
+    </form>
+</x-ui.modal>
 
 @push('scripts')
 <script>

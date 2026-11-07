@@ -14,15 +14,14 @@
                 Kelola profil resmi sekolah, struktur pengelola BKK, kop dokumen cetak, serta parameter tahun ajaran berjalan.
             </p>
         </div>
-        <div class="flex items-center gap-2">
-            <a 
+        <div class="flex items-center gap-2 shrink-0">
+            <x-ui.button 
+                variant="secondary"
                 href="{{ route('admin.reports.print-summary') }}" 
                 target="_blank"
-                class="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-btn border border-border-subtle text-text-secondary hover:text-text-primary hover:bg-surface-bg active:scale-[0.96] transition-transform shadow-xs"
             >
-                <i data-lucide="printer" class="w-4 h-4 text-text-muted"></i>
-                <span>Lihat contoh kop laporan</span>
-            </a>
+                Lihat contoh kop laporan
+            </x-ui.button>
         </div>
     </div>
 
@@ -120,7 +119,7 @@
                             id="school_npsn" 
                             value="{{ old('school_npsn', $settings['school_npsn']->value ?? '20222159') }}" 
                             required
-                            class="w-full h-10 px-3.5 text-xs rounded-btn bg-surface-bg border border-border-subtle text-text-primary font-mono focus:border-brand-primary focus:ring-1 focus:ring-brand-primary"
+                            class="w-full h-10 px-3.5 text-xs rounded-btn bg-surface-bg border border-border-subtle text-text-primary focus:border-brand-primary focus:ring-1 focus:ring-brand-primary"
                         >
                     </div>
 
@@ -207,7 +206,7 @@
                             id="principal_nip" 
                             value="{{ old('principal_nip', $settings['principal_nip']->value ?? '19680512 199303 1 008') }}" 
                             required
-                            class="w-full h-10 px-3.5 text-xs rounded-btn bg-surface-bg border border-border-subtle text-text-primary font-mono focus:border-brand-primary focus:ring-1 focus:ring-brand-primary"
+                            class="w-full h-10 px-3.5 text-xs rounded-btn bg-surface-bg border border-border-subtle text-text-primary focus:border-brand-primary focus:ring-1 focus:ring-brand-primary"
                         >
                     </div>
                 </div>
@@ -259,7 +258,7 @@
                             id="bkk_leader_nip" 
                             value="{{ old('bkk_leader_nip', $settings['bkk_leader_nip']->value ?? '19820719 200902 1 003') }}" 
                             required
-                            class="w-full h-10 px-3.5 text-xs rounded-btn bg-surface-bg border border-border-subtle text-text-primary font-mono focus:border-brand-primary focus:ring-1 focus:ring-brand-primary"
+                            class="w-full h-10 px-3.5 text-xs rounded-btn bg-surface-bg border border-border-subtle text-text-primary focus:border-brand-primary focus:ring-1 focus:ring-brand-primary"
                         >
                     </div>
 
@@ -310,7 +309,7 @@
                             value="{{ old('active_academic_year', $settings['active_academic_year']->value ?? '2025/2026') }}" 
                             placeholder="Contoh: 2025/2026"
                             required
-                            class="w-full h-10 px-3.5 text-xs rounded-btn bg-surface-bg border border-border-subtle text-text-primary font-mono focus:border-brand-primary focus:ring-1 focus:ring-brand-primary"
+                            class="w-full h-10 px-3.5 text-xs rounded-btn bg-surface-bg border border-border-subtle text-text-primary focus:border-brand-primary focus:ring-1 focus:ring-brand-primary"
                         >
                     </div>
 
@@ -353,7 +352,7 @@
                                 max="20" 
                                 value="{{ old('max_active_applications_per_student', $settings['max_active_applications_per_student']->value ?? '3') }}" 
                                 required
-                                class="w-24 h-10 px-3.5 text-xs rounded-btn bg-surface-bg border border-border-subtle text-text-primary font-mono focus:border-brand-primary focus:ring-1 focus:ring-brand-primary text-center"
+                                class="w-24 h-10 px-3.5 text-xs rounded-btn bg-surface-bg border border-border-subtle text-text-primary focus:border-brand-primary focus:ring-1 focus:ring-brand-primary text-center"
                             >
                             <span class="text-xs text-text-secondary">lowongan bersamaan</span>
                         </div>
@@ -391,14 +390,13 @@
                 <i data-lucide="info" class="w-4 h-4 text-text-muted"></i>
                 <span>Perubahan konfigurasi akan langsung mempengaruhi kop surat dan seluruh modul terkait.</span>
             </div>
-            <div class="flex items-center gap-3">
-                <button 
+            <div class="flex items-center gap-3 shrink-0">
+                <x-ui.button 
                     type="submit" 
-                    class="px-5 py-2.5 rounded-btn text-xs font-semibold bg-brand-primary text-text-on-brand-primary hover:brightness-105 active:scale-[0.96] transition-transform shadow-xs inline-flex items-center gap-2"
+                    variant="primary"
                 >
-                    <i data-lucide="save" class="w-4 h-4"></i>
-                    <span>Simpan seluruh pengaturan</span>
-                </button>
+                    Simpan seluruh pengaturan
+                </x-ui.button>
             </div>
         </div>
     </form>

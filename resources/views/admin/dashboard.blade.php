@@ -81,14 +81,14 @@
                         <div class="p-3.5 rounded-btn bg-surface-bg border border-border-subtle space-y-2">
                             <div class="flex items-center justify-between text-xs">
                                 <div class="flex items-center gap-2">
-                                    <span class="px-2 py-0.5 rounded-btn font-mono font-bold text-[10px] bg-brand-primary text-text-on-brand-primary">
+                                    <span class="px-2 py-0.5 rounded-btn font-bold text-[10px] bg-brand-primary text-text-on-brand-primary font-sans">
                                         {{ $major->kode }}
                                     </span>
                                     <span class="font-heading font-semibold text-text-primary truncate max-w-[170px] sm:max-w-[210px]" title="{{ $major->nama }}">
                                         {{ $major->nama }}
                                     </span>
                                 </div>
-                                <span class="font-mono text-text-secondary font-medium">
+                                <span class="text-text-secondary font-medium font-sans">
                                     {{ $major->students_count }} Siswa
                                 </span>
                             </div>
@@ -217,15 +217,15 @@
                     <div class="space-y-3.5 pt-1">
                         <div class="flex items-center justify-between pb-2.5 border-b border-border-subtle">
                             <span class="text-xs text-text-secondary">Total program keahlian:</span>
-                            <span class="font-heading font-bold text-xs text-text-primary font-mono">{{ $stats['majors_count'] }} Jurusan</span>
+                            <span class="font-heading font-bold text-xs text-text-primary">{{ $stats['majors_count'] }} Jurusan</span>
                         </div>
                         <div class="flex items-center justify-between pb-2.5 border-b border-border-subtle">
                             <span class="text-xs text-text-secondary">Rombongan belajar:</span>
-                            <span class="font-heading font-bold text-xs text-text-primary font-mono">{{ $stats['classes_count'] }} Kelas</span>
+                            <span class="font-heading font-bold text-xs text-text-primary">{{ $stats['classes_count'] }} Kelas</span>
                         </div>
                         <div class="flex items-center justify-between pb-2.5 border-b border-border-subtle">
                             <span class="text-xs text-text-secondary">Mitra terverifikasi:</span>
-                            <span class="font-heading font-bold text-xs text-text-primary font-mono">{{ $stats['companies_count'] }} DUDI</span>
+                            <span class="font-heading font-bold text-xs text-text-primary">{{ $stats['companies_count'] }} DUDI</span>
                         </div>
                         <div class="flex items-center justify-between">
                             <span class="text-xs text-text-secondary">Antrean verifikasi:</span>
@@ -307,7 +307,7 @@
                                 </td>
 
                                 <!-- Column: Time -->
-                                <td class="px-5 py-3.5 text-xs font-mono text-text-muted whitespace-nowrap">
+                                <td class="px-5 py-3.5 text-xs text-text-muted whitespace-nowrap">
                                     {{ $activity['time'] }}
                                 </td>
 
