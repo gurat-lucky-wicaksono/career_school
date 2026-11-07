@@ -120,7 +120,7 @@
                             id="school_npsn" 
                             value="{{ old('school_npsn', $settings['school_npsn']->value ?? '20222159') }}" 
                             required
-                            class="w-full h-10 px-3.5 text-xs rounded-btn bg-surface-bg border border-border-subtle text-text-primary font-mono focus:border-brand-primary focus:ring-1 focus:ring-brand-primary"
+                            class="w-full h-10 px-3.5 text-xs rounded-btn bg-surface-bg border border-border-subtle text-text-primary focus:border-brand-primary focus:ring-1 focus:ring-brand-primary"
                         >
                     </div>
 
@@ -207,7 +207,7 @@
                             id="principal_nip" 
                             value="{{ old('principal_nip', $settings['principal_nip']->value ?? '19680512 199303 1 008') }}" 
                             required
-                            class="w-full h-10 px-3.5 text-xs rounded-btn bg-surface-bg border border-border-subtle text-text-primary font-mono focus:border-brand-primary focus:ring-1 focus:ring-brand-primary"
+                            class="w-full h-10 px-3.5 text-xs rounded-btn bg-surface-bg border border-border-subtle text-text-primary focus:border-brand-primary focus:ring-1 focus:ring-brand-primary"
                         >
                     </div>
                 </div>
@@ -259,7 +259,7 @@
                             id="bkk_leader_nip" 
                             value="{{ old('bkk_leader_nip', $settings['bkk_leader_nip']->value ?? '19820719 200902 1 003') }}" 
                             required
-                            class="w-full h-10 px-3.5 text-xs rounded-btn bg-surface-bg border border-border-subtle text-text-primary font-mono focus:border-brand-primary focus:ring-1 focus:ring-brand-primary"
+                            class="w-full h-10 px-3.5 text-xs rounded-btn bg-surface-bg border border-border-subtle text-text-primary focus:border-brand-primary focus:ring-1 focus:ring-brand-primary"
                         >
                     </div>
 
@@ -310,7 +310,7 @@
                             value="{{ old('active_academic_year', $settings['active_academic_year']->value ?? '2025/2026') }}" 
                             placeholder="Contoh: 2025/2026"
                             required
-                            class="w-full h-10 px-3.5 text-xs rounded-btn bg-surface-bg border border-border-subtle text-text-primary font-mono focus:border-brand-primary focus:ring-1 focus:ring-brand-primary"
+                            class="w-full h-10 px-3.5 text-xs rounded-btn bg-surface-bg border border-border-subtle text-text-primary focus:border-brand-primary focus:ring-1 focus:ring-brand-primary"
                         >
                     </div>
 
@@ -353,7 +353,7 @@
                                 max="20" 
                                 value="{{ old('max_active_applications_per_student', $settings['max_active_applications_per_student']->value ?? '3') }}" 
                                 required
-                                class="w-24 h-10 px-3.5 text-xs rounded-btn bg-surface-bg border border-border-subtle text-text-primary font-mono focus:border-brand-primary focus:ring-1 focus:ring-brand-primary text-center"
+                                class="w-24 h-10 px-3.5 text-xs rounded-btn bg-surface-bg border border-border-subtle text-text-primary focus:border-brand-primary focus:ring-1 focus:ring-brand-primary text-center"
                             >
                             <span class="text-xs text-text-secondary">lowongan bersamaan</span>
                         </div>

@@ -53,7 +53,7 @@
                         <span class="font-semibold text-slate-900 dark:text-white block">
                             {{ $company->nama }}
                         </span>
-                        <span class="text-xs text-slate-500 dark:text-slate-400 block font-mono">
+                        <span class="text-xs text-slate-500 dark:text-slate-400 block">
                             {{ $company->user->email ?? '-' }}
                         </span>
                     </div>
@@ -67,7 +67,7 @@
                     {{ $company->kota ?? '-' }}
                 </td>
 
-                <td class="px-5 py-3.5 text-slate-600 dark:text-slate-300 text-xs font-mono">
+                <td class="px-5 py-3.5 text-slate-600 dark:text-slate-300 text-xs">
                     {{ $company->created_at->format('d M Y, H:i') }}
                 </td>
 

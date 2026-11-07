@@ -127,9 +127,7 @@
     <!-- Brand Header -->
     <div class="h-16 flex items-center justify-between px-4 border-b border-border-subtle flex-shrink-0">
         <a href="{{ route('student.dashboard') }}" class="flex items-center gap-3 overflow-hidden group">
-            <div class="w-10 h-10 rounded-btn bg-brand-primary flex items-center justify-center flex-shrink-0 shadow-xs">
-                <img src="{{ asset('images/logos/logo-career-school.png') }}" alt="Career School Logo" class="w-6 h-6 object-contain">
-            </div>
+            <img src="{{ asset('images/logos/logo-career-school.png') }}" alt="Career School Logo" class="w-8 h-8 object-contain flex-shrink-0 group-hover:scale-105 transition-transform">
             <div x-show="!sidebarCollapsed" class="flex flex-col min-w-0 transition-opacity duration-200">
                 <span class="font-bold text-sm text-text-primary truncate font-heading tracking-tight leading-snug">
                     Portal Siswa

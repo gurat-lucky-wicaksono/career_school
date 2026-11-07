@@ -403,7 +403,7 @@
             <div class="flex items-center gap-3">
                 <div class="text-right">
                     <span class="text-xs text-slate-500 dark:text-slate-400">Rata-rata Skor PKL</span>
-                    <div class="text-2xl font-bold font-mono text-slate-900 dark:text-white">
+                    <div class="text-2xl font-bold text-slate-900 dark:text-white">
                         {{ $reportData['metrics']['avg_internship_score'] }}
                     </div>
                 </div>

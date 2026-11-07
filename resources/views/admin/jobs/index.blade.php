@@ -69,7 +69,7 @@
                         <span class="font-bold text-slate-900 dark:text-white block">
                             {{ $job->judul }}
                         </span>
-                        <span class="text-xs text-slate-500 dark:text-slate-400 block font-mono">
+                        <span class="text-xs text-slate-500 dark:text-slate-400 block">
                             Kuota: {{ $job->kuota }} posisi &bull; {{ $job->applications_count }} pelamar
                         </span>
                     </div>
@@ -97,7 +97,7 @@
                     {{ $job->lokasi ?? '-' }}
                 </td>
 
-                <td class="px-5 py-3.5 font-mono text-xs text-slate-600 dark:text-slate-400">
+                <td class="px-5 py-3.5 text-xs text-slate-600 dark:text-slate-400">
                     {{ $job->batas_lamaran ? date('d M Y', strtotime($job->batas_lamaran)) : 'Terbuka' }}
                 </td>
 
@@ -335,7 +335,7 @@
                     required 
                     value="1" 
                     min="1"
-                    class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary font-mono text-sm transition-all outline-none shadow-xs font-normal"
+                    class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary text-sm transition-all outline-none shadow-xs font-normal"
                 >
             </div>
 
@@ -481,7 +481,7 @@
                     name="kuota" 
                     required 
                     min="1"
-                    class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary font-mono text-sm transition-all outline-none shadow-xs font-normal"
+                    class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary text-sm transition-all outline-none shadow-xs font-normal"
                 >
             </div>
 
@@ -595,7 +595,7 @@
             </div>
             <div class="py-2.5 flex items-center justify-between">
                 <span class="text-text-secondary">Tenggat Lamaran:</span>
-                <span id="detail-job-batas" class="font-mono text-text-primary">-</span>
+                <span id="detail-job-batas" class="text-text-primary">-</span>
             </div>
             <div class="py-2.5 flex items-center justify-between">
                 <span class="text-text-secondary">Status:</span>

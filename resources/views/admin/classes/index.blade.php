@@ -73,7 +73,7 @@
                     <span class="block text-[11px] text-slate-400">({{ $class->major->kode ?? '-' }})</span>
                 </td>
 
-                <td class="px-5 py-3.5 font-mono text-xs font-semibold text-slate-700 dark:text-slate-200">
+                <td class="px-5 py-3.5 text-xs font-semibold text-slate-700 dark:text-slate-200">
                     Kelas {{ $class->tingkat }}
                 </td>
 
@@ -81,11 +81,11 @@
                     {{ $class->waliKelas->user->name ?? 'Belum Ditentukan' }}
                 </td>
 
-                <td class="px-5 py-3.5 font-mono text-xs text-slate-600 dark:text-slate-400">
+                <td class="px-5 py-3.5 text-xs text-slate-600 dark:text-slate-400">
                     {{ $class->tahun_ajaran }}
                 </td>
 
-                <td class="px-5 py-3.5 font-mono text-xs font-semibold text-slate-800 dark:text-slate-200">
+                <td class="px-5 py-3.5 text-xs font-semibold text-slate-800 dark:text-slate-200">
                     {{ $class->students_count }} Siswa
                 </td>
 
@@ -304,7 +304,7 @@
                     required 
                     value="2025/2026"
                     placeholder="2025/2026"
-                    class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary font-mono text-sm transition-all outline-none shadow-xs font-normal"
+                    class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary text-sm transition-all outline-none shadow-xs font-normal"
                 >
             </div>
         </div>
@@ -409,7 +409,7 @@
                     id="edit-class-tahun" 
                     name="tahun_ajaran" 
                     required 
-                    class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary font-mono text-sm transition-all outline-none shadow-xs font-normal"
+                    class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary text-sm transition-all outline-none shadow-xs font-normal"
                 >
             </div>
         </div>
@@ -476,7 +476,7 @@
             </div>
             <div class="py-2.5 flex items-center justify-between">
                 <span class="text-text-secondary">Tahun Ajaran:</span>
-                <span id="detail-class-tahun" class="font-mono font-semibold text-text-primary">-</span>
+                <span id="detail-class-tahun" class="font-semibold text-text-primary">-</span>
             </div>
             <div class="py-2.5 flex items-center justify-between">
                 <span class="text-text-secondary">Jumlah Siswa:</span>

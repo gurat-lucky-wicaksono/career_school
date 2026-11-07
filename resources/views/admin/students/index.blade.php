@@ -72,14 +72,14 @@
                             <span class="font-semibold text-slate-900 dark:text-white block">
                                 {{ $student->user->name ?? 'Siswa Vokasi' }}
                             </span>
-                            <span class="text-xs text-slate-500 dark:text-slate-400 block font-mono">
+                            <span class="text-xs text-slate-500 dark:text-slate-400 block">
                                 {{ $student->user->email ?? '-' }}
                             </span>
                         </div>
                     </div>
                 </td>
 
-                <td class="px-5 py-3.5 font-mono text-xs text-slate-600 dark:text-slate-300">
+                <td class="px-5 py-3.5 text-xs text-slate-600 dark:text-slate-300">
                     {{ $student->nisn ?? '-' }}
                 </td>
 
@@ -92,7 +92,7 @@
                     </div>
                 </td>
 
-                <td class="px-5 py-3.5 font-mono text-xs text-slate-600 dark:text-slate-300">
+                <td class="px-5 py-3.5 text-xs text-slate-600 dark:text-slate-300">
                     {{ $student->angkatan ?? '-' }}
                 </td>
 
@@ -328,7 +328,7 @@
                     name="nisn" 
                     required 
                     placeholder="Contoh: 0061234567"
-                    class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary placeholder:text-text-secondary/50 text-sm transition-all outline-none shadow-xs font-mono"
+                    class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary placeholder:text-text-secondary/50 text-sm transition-all outline-none shadow-xs"
                 >
             </div>
 
@@ -341,7 +341,7 @@
                     name="angkatan" 
                     required 
                     value="{{ date('Y') }}"
-                    class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary text-sm transition-all outline-none shadow-xs font-mono"
+                    class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary text-sm transition-all outline-none shadow-xs"
                 >
             </div>
         </div>
@@ -474,7 +474,7 @@
                     id="edit-student-nisn" 
                     name="nisn" 
                     required 
-                    class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary text-sm transition-all outline-none shadow-xs font-mono"
+                    class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary text-sm transition-all outline-none shadow-xs"
                 >
             </div>
 
@@ -487,7 +487,7 @@
                     id="edit-student-angkatan" 
                     name="angkatan" 
                     required 
-                    class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary text-sm transition-all outline-none shadow-xs font-mono"
+                    class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary text-sm transition-all outline-none shadow-xs"
                 >
             </div>
         </div>
@@ -588,7 +588,7 @@
                 <h4 id="detail-student-name" class="font-bold text-text-primary text-base">
                     Nama Siswa
                 </h4>
-                <p id="detail-student-email" class="text-xs text-text-secondary font-mono">
+                <p id="detail-student-email" class="text-xs text-text-secondary">
                     siswa@smkn1cirebon.sch.id
                 </p>
             </div>
@@ -597,7 +597,7 @@
         <div class="divide-y divide-border-subtle text-xs sm:text-sm">
             <div class="py-2.5 flex items-center justify-between">
                 <span class="text-text-secondary">NISN:</span>
-                <span id="detail-student-nisn" class="font-mono font-semibold text-text-primary">-</span>
+                <span id="detail-student-nisn" class="font-semibold text-text-primary">-</span>
             </div>
             <div class="py-2.5 flex items-center justify-between">
                 <span class="text-text-secondary">Kelas:</span>
@@ -609,7 +609,7 @@
             </div>
             <div class="py-2.5 flex items-center justify-between">
                 <span class="text-text-secondary">Tahun Angkatan:</span>
-                <span id="detail-student-angkatan" class="font-mono font-semibold text-text-primary">-</span>
+                <span id="detail-student-angkatan" class="font-semibold text-text-primary">-</span>
             </div>
             <div class="py-2.5 flex items-center justify-between">
                 <span class="text-text-secondary">Status Kesiswaan:</span>
@@ -617,7 +617,7 @@
             </div>
             <div class="py-2.5 flex items-center justify-between">
                 <span class="text-text-secondary">Username Akun:</span>
-                <span id="detail-student-username" class="font-mono text-text-primary">-</span>
+                <span id="detail-student-username" class="text-text-primary">-</span>
             </div>
             <div class="py-2.5 flex items-center justify-between">
                 <span class="text-text-secondary">Terdaftar Sejak:</span>
