@@ -86,7 +86,6 @@
 
         <x-slot:action>
             <x-ui.button variant="primary" href="{{ route('admin.agendas.create') }}">
-                <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
                 Tambah Agenda Kegiatan
             </x-ui.button>
         </x-slot:action>

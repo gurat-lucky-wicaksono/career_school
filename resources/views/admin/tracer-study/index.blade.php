@@ -21,21 +21,19 @@
         </div>
 
         <div class="flex items-center gap-2.5">
-            <a
+            <x-ui.button
+                variant="secondary"
                 href="{{ route('alumni.index') }}"
                 target="_blank"
-                class="h-11 px-4 text-xs sm:text-sm font-semibold rounded-full border border-border-default bg-surface-card text-text-primary hover:border-text-secondary/70 hover:bg-surface-bg flex items-center gap-2 transition-all shadow-xs"
             >
-                <i data-lucide="external-link" class="w-4 h-4 text-text-secondary"></i>
-                <span>Buka Direktori Publik</span>
-            </a>
+                Buka Direktori Publik
+            </x-ui.button>
             <x-ui.button
                 variant="primary"
                 href="{{ route('tracer.create') }}"
                 target="_blank"
             >
-                <i data-lucide="plus-circle" class="w-4 h-4 mr-2"></i>
-                <span>Input Data Mandiri</span>
+                Input Data Mandiri
             </x-ui.button>
         </div>
     </div>

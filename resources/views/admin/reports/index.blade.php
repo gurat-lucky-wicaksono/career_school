@@ -17,25 +17,23 @@
 
         <!-- Quick Actions -->
         <div class="flex flex-wrap items-center gap-2.5">
-            <a 
+            <x-ui.button 
+                variant="primary"
                 href="{{ route('admin.reports.print-summary', request()->all()) }}" 
                 target="_blank"
-                class="h-11 px-5 rounded-full text-xs sm:text-sm font-semibold bg-brand-primary text-text-on-brand-primary hover:brightness-105 shadow-md shadow-brand-primary/20 transition-all inline-flex items-center"
             >
-                <i data-lucide="printer" class="w-4 h-4 mr-2"></i>
-                <span>Cetak Laporan Resmi (PDF)</span>
-            </a>
+                Cetak Laporan Resmi (PDF)
+            </x-ui.button>
 
             <div class="relative" x-data="{ open: false }">
-                <button 
+                <x-ui.button 
+                    variant="secondary"
                     type="button" 
                     @click="open = !open" 
-                    class="h-11 px-5 rounded-full text-xs sm:text-sm font-semibold bg-surface-card border border-border-default hover:border-text-secondary/70 hover:bg-surface-bg text-text-primary transition-all inline-flex items-center shadow-xs"
                 >
-                    <i data-lucide="download" class="w-4 h-4 mr-2 text-text-muted"></i>
-                    <span>Ekspor CSV / Excel</span>
+                    Ekspor CSV / Excel
                     <i data-lucide="chevron-down" class="w-4 h-4 ml-1.5 text-text-muted"></i>
-                </button>
+                </x-ui.button>
 
                 <div 
                     x-show="open" 
@@ -72,7 +70,7 @@
                 <select 
                     name="major_id" 
                     id="major_id"
-                    class="w-full h-11 px-4 text-xs sm:text-sm rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary transition-all outline-none shadow-xs font-normal"
+                    class="choices-select w-full"
                 >
                     <option value="">Semua Konsentrasi Keahlian</option>
                     @foreach ($majors as $m)
@@ -93,23 +91,23 @@
                     id="tahun" 
                     placeholder="Contoh: {{ date('Y') }}" 
                     value="{{ $filters['tahun'] ?? '' }}"
-                    class="w-full h-11 px-4 text-xs sm:text-sm rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary transition-all outline-none shadow-xs font-normal"
+                    class="w-full h-10 px-4 text-xs sm:text-sm rounded-btn bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary transition-all outline-none shadow-xs font-normal"
                 >
             </div>
 
             <div class="sm:col-span-3 flex items-center gap-2">
-                <button 
+                <x-ui.button 
                     type="submit" 
-                    class="flex-1 h-11 px-6 rounded-full text-xs sm:text-sm font-semibold bg-brand-primary text-text-on-brand-primary hover:brightness-105 transition-all shadow-md shadow-brand-primary/20 inline-flex items-center justify-center"
+                    variant="primary"
+                    class="flex-1"
                 >
-                    <i data-lucide="filter" class="w-4 h-4 mr-1.5"></i>
-                    <span>Terapkan</span>
-                </button>
+                    Terapkan
+                </x-ui.button>
 
                 @if (!empty($filters['major_id']) || !empty($filters['tahun']))
                     <a 
                         href="{{ route('admin.reports.index') }}" 
-                        class="h-11 w-11 rounded-full border border-border-default hover:border-text-secondary/70 hover:bg-surface-bg text-text-secondary hover:text-text-primary flex items-center justify-center transition-all shadow-xs"
+                        class="h-10 w-10 rounded-btn border border-border-default hover:border-text-secondary/70 hover:bg-surface-bg text-text-secondary hover:text-text-primary flex items-center justify-center transition-all shadow-xs shrink-0"
                         title="Reset Filter"
                     >
                         <i data-lucide="rotate-ccw" class="w-4 h-4"></i>

@@ -17,13 +17,12 @@
 
         <!-- Quick Export Action -->
         <div class="flex items-center gap-2.5">
-            <a 
+            <x-ui.button 
+                variant="secondary"
                 href="{{ route('admin.activity-logs.export', request()->all()) }}" 
-                class="h-11 px-5 rounded-full text-xs sm:text-sm font-semibold bg-surface-card border border-border-default hover:border-text-secondary/70 hover:bg-surface-bg text-text-primary transition-all inline-flex items-center shadow-xs"
             >
-                <i data-lucide="download" class="w-4 h-4 mr-2 text-text-muted"></i>
-                <span>Ekspor log audit (CSV)</span>
-            </a>
+                Ekspor log audit (CSV)
+            </x-ui.button>
         </div>
     </div>
 

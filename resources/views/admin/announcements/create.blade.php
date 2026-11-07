@@ -16,7 +16,6 @@
         </div>
 
         <x-ui.button variant="secondary" size="md" href="{{ route('admin.announcements.index') }}">
-            <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i>
             Kembali
         </x-ui.button>
     </div>
@@ -164,7 +163,6 @@
                     Batal
                 </x-ui.button>
                 <x-ui.button variant="primary" size="md" type="submit">
-                    <i data-lucide="check" class="w-4 h-4 mr-2"></i>
                     Simpan & Publikasikan
                 </x-ui.button>
             </div>
