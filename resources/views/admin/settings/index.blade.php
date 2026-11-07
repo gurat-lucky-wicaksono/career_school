@@ -14,15 +14,14 @@
                 Kelola profil resmi sekolah, struktur pengelola BKK, kop dokumen cetak, serta parameter tahun ajaran berjalan.
             </p>
         </div>
-        <div class="flex items-center gap-2">
-            <a 
+        <div class="flex items-center gap-2 shrink-0">
+            <x-ui.button 
+                variant="secondary"
                 href="{{ route('admin.reports.print-summary') }}" 
                 target="_blank"
-                class="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-btn border border-border-subtle text-text-secondary hover:text-text-primary hover:bg-surface-bg active:scale-[0.96] transition-transform shadow-xs"
             >
-                <i data-lucide="printer" class="w-4 h-4 text-text-muted"></i>
-                <span>Lihat contoh kop laporan</span>
-            </a>
+                Lihat contoh kop laporan
+            </x-ui.button>
         </div>
     </div>
 
@@ -391,14 +390,13 @@
                 <i data-lucide="info" class="w-4 h-4 text-text-muted"></i>
                 <span>Perubahan konfigurasi akan langsung mempengaruhi kop surat dan seluruh modul terkait.</span>
             </div>
-            <div class="flex items-center gap-3">
-                <button 
+            <div class="flex items-center gap-3 shrink-0">
+                <x-ui.button 
                     type="submit" 
-                    class="px-5 py-2.5 rounded-btn text-xs font-semibold bg-brand-primary text-text-on-brand-primary hover:brightness-105 active:scale-[0.96] transition-transform shadow-xs inline-flex items-center gap-2"
+                    variant="primary"
                 >
-                    <i data-lucide="save" class="w-4 h-4"></i>
-                    <span>Simpan seluruh pengaturan</span>
-                </button>
+                    Simpan seluruh pengaturan
+                </x-ui.button>
             </div>
         </div>
     </form>

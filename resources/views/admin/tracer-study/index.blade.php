@@ -8,10 +8,6 @@
     <!-- Header Section -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-semibold bg-brand-primary/10 text-brand-secondary dark:text-brand-primary border border-brand-primary/20 mb-2">
-                <i data-lucide="line-chart" class="w-3.5 h-3.5"></i>
-                <span>Standar Penelusuran Tamatan Vokasi Kemdikbud</span>
-            </div>
             <h1 class="text-2xl font-bold text-slate-900 dark:text-white font-sans tracking-tight">
                 Tracer Study & Keterserapan Alumni
             </h1>
@@ -20,7 +16,7 @@
             </p>
         </div>
 
-        <div class="flex items-center gap-2.5">
+        <div class="flex items-center gap-2.5 shrink-0">
             <x-ui.button
                 variant="secondary"
                 href="{{ route('alumni.index') }}"

@@ -7,7 +7,7 @@
 ])
 
 @php
-    $baseClasses = 'inline-flex items-center justify-center font-sans transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-brand-primary/40 disabled:opacity-50 disabled:pointer-events-none select-none active:scale-[0.96]';
+    $baseClasses = 'inline-flex items-center justify-center font-sans whitespace-nowrap shrink-0 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-brand-primary/40 disabled:opacity-50 disabled:pointer-events-none select-none active:scale-[0.96]';
 
     $sizes = [
         'sm' => 'px-3 py-1.5 text-xs rounded-btn',

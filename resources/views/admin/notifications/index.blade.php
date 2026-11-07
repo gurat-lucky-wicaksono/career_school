@@ -18,13 +18,12 @@
         @if ($unreadCount > 0)
             <form method="POST" action="{{ route('admin.notifications.markAllRead') }}">
                 @csrf
-                <button 
+                <x-ui.button 
                     type="submit" 
-                    class="px-5 py-2.5 rounded-full border border-border-default hover:border-brand-primary bg-surface-card hover:bg-surface-bg text-text-primary text-xs font-semibold flex items-center gap-2 transition-all shadow-xs"
+                    variant="secondary"
                 >
-                    <i data-lucide="check-check" class="w-3.5 h-3.5 text-brand-secondary dark:text-brand-primary"></i>
-                    <span>Tandai Semua Dibaca</span>
-                </button>
+                    Tandai Semua Dibaca
+                </x-ui.button>
             </form>
         @endif
     </div>
