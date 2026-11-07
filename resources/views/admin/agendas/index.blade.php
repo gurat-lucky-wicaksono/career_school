@@ -4,211 +4,248 @@
 
 @section('content')
 <div class="space-y-6">
-    <!-- Header -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-            <h1 class="text-2xl font-bold text-slate-900 dark:text-white font-sans tracking-tight">
-                Agenda Kegiatan BKK SMKN 1 Cirebon
-            </h1>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                Jadwalkan agenda kunjungan industri, workshop karir, pembekalan PKL, dan job fair vokasi.
-            </p>
-        </div>
+    @php
+        $headers = [
+            ['key' => 'judul', 'label' => 'Nama Agenda Kegiatan', 'sortable' => false],
+            ['key' => 'jenis', 'label' => 'Kategori Jenis', 'sortable' => false],
+            ['key' => 'jadwal', 'label' => 'Jadwal & Waktu', 'sortable' => false],
+            ['key' => 'lokasi', 'label' => 'Lokasi Pelaksanaan', 'sortable' => false],
+            ['key' => 'penulis', 'label' => 'Penyelenggara', 'sortable' => false],
+        ];
+        $isFilterActive = request()->filled('jenis');
+    @endphp
 
-        <div class="flex items-center gap-3">
-            <x-ui.button variant="primary" size="md" href="{{ route('admin.agendas.create') }}">
+    <!-- Quick Filter Tabs -->
+    <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs">
+        @php
+            $currentJenis = request('jenis', '');
+        @endphp
+        <a 
+            href="{{ route('admin.agendas.index', request()->except('jenis', 'page')) }}" 
+            class="px-4 py-2 rounded-full font-medium whitespace-nowrap transition-all flex items-center gap-2 {{ $currentJenis === '' ? 'bg-brand-primary text-text-on-brand-primary font-bold shadow-xs' : 'bg-surface-card border border-border-default text-text-secondary hover:text-text-primary hover:bg-surface-bg' }}"
+        >
+            <span>Semua Agenda</span>
+            <span class="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-black/10 dark:bg-white/10">
+                {{ $jenisCounts['all'] }}
+            </span>
+        </a>
+
+        <a 
+            href="{{ route('admin.agendas.index', array_merge(request()->except('page'), ['jenis' => 'akademik'])) }}" 
+            class="px-4 py-2 rounded-full font-medium whitespace-nowrap transition-all flex items-center gap-2 {{ $currentJenis === 'akademik' ? 'bg-brand-primary text-text-on-brand-primary font-bold shadow-xs' : 'bg-surface-card border border-border-default text-text-secondary hover:text-text-primary hover:bg-surface-bg' }}"
+        >
+            <span>Akademik / PKL</span>
+            <span class="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-sky-500/20 text-sky-600 dark:text-sky-400">
+                {{ $jenisCounts['akademik'] }}
+            </span>
+        </a>
+
+        <a 
+            href="{{ route('admin.agendas.index', array_merge(request()->except('page'), ['jenis' => 'umum'])) }}" 
+            class="px-4 py-2 rounded-full font-medium whitespace-nowrap transition-all flex items-center gap-2 {{ $currentJenis === 'umum' ? 'bg-brand-primary text-text-on-brand-primary font-bold shadow-xs' : 'bg-surface-card border border-border-default text-text-secondary hover:text-text-primary hover:bg-surface-bg' }}"
+        >
+            <span>Umum / Job Fair</span>
+            <span class="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">
+                {{ $jenisCounts['umum'] }}
+            </span>
+        </a>
+
+        <a 
+            href="{{ route('admin.agendas.index', array_merge(request()->except('page'), ['jenis' => 'ujian'])) }}" 
+            class="px-4 py-2 rounded-full font-medium whitespace-nowrap transition-all flex items-center gap-2 {{ $currentJenis === 'ujian' ? 'bg-brand-primary text-text-on-brand-primary font-bold shadow-xs' : 'bg-surface-card border border-border-default text-text-secondary hover:text-text-primary hover:bg-surface-bg' }}"
+        >
+            <span>Uji Kompetensi / Seleksi</span>
+            <span class="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-purple-500/20 text-purple-600 dark:text-purple-400">
+                {{ $jenisCounts['ujian'] }}
+            </span>
+        </a>
+    </div>
+
+    <!-- Data Table Component -->
+    <x-admin.data-table 
+        title="Agenda Kegiatan BKK SMKN 1 Cirebon"
+        subtitle="Jadwalkan agenda kunjungan industri, workshop karir, pembekalan PKL, dan job fair vokasi"
+        searchPlaceholder="Cari judul agenda atau lokasi..."
+        :search="request('search', request('q'))"
+        :items="$agendas"
+        :headers="$headers"
+    >
+        <x-slot:filter>
+            <button 
+                type="button" 
+                onclick="window.openModal('modal-filter-agendas')"
+                class="relative h-11 px-4 text-xs sm:text-sm font-semibold rounded-full border border-border-default bg-surface-card text-text-primary hover:border-text-secondary/70 hover:bg-surface-bg flex items-center gap-2 transition-all shadow-xs"
+            >
+                <i data-lucide="filter" class="w-4 h-4 text-text-secondary"></i>
+                <span>Filter</span>
+                @if ($isFilterActive)
+                    <span class="w-2 h-2 rounded-full bg-brand-primary"></span>
+                @endif
+            </button>
+        </x-slot:filter>
+
+        <x-slot:action>
+            <x-ui.button variant="primary" href="{{ route('admin.agendas.create') }}">
                 <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
                 Tambah Agenda Kegiatan
             </x-ui.button>
-        </div>
-    </div>
+        </x-slot:action>
 
-    <!-- Filter & Search Toolbar -->
-    <div class="bg-surface-card border border-slate-200/80 dark:border-white/10 rounded-2xl p-4 shadow-sm space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <!-- Jenis Filter Tabs -->
-            <div class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 text-xs">
-                @php
-                    $currentJenis = request('jenis', '');
-                @endphp
-                <a 
-                    href="{{ route('admin.agendas.index') }}" 
-                    class="px-3.5 py-2 rounded-xl font-medium whitespace-nowrap transition-all flex items-center gap-2 {{ $currentJenis === '' ? 'bg-brand-primary text-neutral-900 font-semibold shadow-sm' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-neutral-800' }}"
-                >
-                    <span>Semua Agenda</span>
-                    <span class="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-black/10 dark:bg-white/10">
-                        {{ $jenisCounts['all'] }}
-                    </span>
-                </a>
+        @forelse ($agendas as $item)
+            <tr class="hover:bg-surface-bg/50 transition-colors group">
+                <!-- Column: Nama Agenda & Deskripsi -->
+                <td class="px-5 py-3.5 max-w-xs">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full bg-surface-bg border border-border-default flex items-center justify-center font-bold text-xs text-brand-secondary dark:text-brand-primary shrink-0">
+                            <i data-lucide="calendar" class="w-4 h-4"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <span class="font-semibold text-text-primary block truncate text-xs sm:text-sm" title="{{ $item->judul }}">
+                                {{ $item->judul }}
+                            </span>
+                            @if ($item->deskripsi)
+                                <span class="text-xs text-text-secondary block line-clamp-1 mt-0.5">
+                                    {{ Str::limit(strip_tags($item->deskripsi), 70) }}
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                </td>
 
-                <a 
-                    href="{{ route('admin.agendas.index', ['jenis' => 'akademik']) }}" 
-                    class="px-3.5 py-2 rounded-xl font-medium whitespace-nowrap transition-all flex items-center gap-2 {{ $currentJenis === 'akademik' ? 'bg-brand-primary text-neutral-900 font-semibold shadow-sm' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-neutral-800' }}"
-                >
-                    <span>Akademik / PKL</span>
-                    <span class="px-1.5 py-0.5 rounded-full text-[10px] font-bold {{ $currentJenis === 'akademik' ? 'bg-black/10' : 'bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300' }}">
-                        {{ $jenisCounts['akademik'] }}
-                    </span>
-                </a>
+                <!-- Column: Kategori Jenis -->
+                <td class="px-5 py-3.5 whitespace-nowrap">
+                    @if ($item->jenis === 'akademik')
+                        <x-ui.badge variant="info">Akademik / PKL</x-ui.badge>
+                    @elseif ($item->jenis === 'umum')
+                        <x-ui.badge variant="success">Umum / Job Fair</x-ui.badge>
+                    @elseif ($item->jenis === 'ujian')
+                        <x-ui.badge variant="warning">Uji Kompetensi</x-ui.badge>
+                    @else
+                        <x-ui.badge variant="secondary">Lainnya</x-ui.badge>
+                    @endif
+                </td>
 
-                <a 
-                    href="{{ route('admin.agendas.index', ['jenis' => 'umum']) }}" 
-                    class="px-3.5 py-2 rounded-xl font-medium whitespace-nowrap transition-all flex items-center gap-2 {{ $currentJenis === 'umum' ? 'bg-brand-primary text-neutral-900 font-semibold shadow-sm' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-neutral-800' }}"
-                >
-                    <span>Umum / Job Fair</span>
-                    <span class="px-1.5 py-0.5 rounded-full text-[10px] font-bold {{ $currentJenis === 'umum' ? 'bg-black/10' : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' }}">
-                        {{ $jenisCounts['umum'] }}
-                    </span>
-                </a>
+                <!-- Column: Jadwal & Waktu -->
+                <td class="px-5 py-3.5 text-xs text-text-secondary whitespace-nowrap">
+                    <div class="font-medium text-text-primary">
+                        {{ $item->tanggal_mulai ? $item->tanggal_mulai->format('d M Y') : '-' }}
+                    </div>
+                    @if ($item->tanggal_selesai && $item->tanggal_selesai->format('Y-m-d') !== ($item->tanggal_mulai ? $item->tanggal_mulai->format('Y-m-d') : ''))
+                        <div class="text-[11px] text-text-muted mt-0.5">s.d. {{ $item->tanggal_selesai->format('d M Y') }}</div>
+                    @endif
+                    @if ($item->jam_mulai)
+                        <div class="text-[11px] text-text-muted mt-0.5">
+                            {{ substr($item->jam_mulai, 0, 5) }} {{ $item->jam_selesai ? '- ' . substr($item->jam_selesai, 0, 5) : 'WIB' }}
+                        </div>
+                    @endif
+                </td>
 
-                <a 
-                    href="{{ route('admin.agendas.index', ['jenis' => 'ujian']) }}" 
-                    class="px-3.5 py-2 rounded-xl font-medium whitespace-nowrap transition-all flex items-center gap-2 {{ $currentJenis === 'ujian' ? 'bg-brand-primary text-neutral-900 font-semibold shadow-sm' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-neutral-800' }}"
-                >
-                    <span>Uji Kompetensi / Seleksi</span>
-                    <span class="px-1.5 py-0.5 rounded-full text-[10px] font-bold {{ $currentJenis === 'ujian' ? 'bg-black/10' : 'bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300' }}">
-                        {{ $jenisCounts['ujian'] }}
-                    </span>
-                </a>
-            </div>
+                <!-- Column: Lokasi -->
+                <td class="px-5 py-3.5 text-xs text-text-secondary whitespace-nowrap">
+                    <div class="flex items-center gap-1.5">
+                        <i data-lucide="map-pin" class="w-3.5 h-3.5 text-text-muted shrink-0"></i>
+                        <span class="truncate max-w-[180px]">{{ $item->lokasi ?? 'SMKN 1 Cirebon' }}</span>
+                    </div>
+                </td>
 
-            <!-- Search Form -->
-            <form method="GET" action="{{ route('admin.agendas.index') }}" class="relative w-full sm:w-72">
-                @if (request('jenis'))
-                    <input type="hidden" name="jenis" value="{{ request('jenis') }}">
-                @endif
-                <input
-                    type="text"
-                    name="q"
-                    value="{{ request('q') }}"
-                    placeholder="Cari judul agenda atau lokasi..."
-                    class="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-neutral-800/60 text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary"
-                >
-                <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5"></i>
-            </form>
-        </div>
-    </div>
+                <!-- Column: Penulis / Penyelenggara -->
+                <td class="px-5 py-3.5 text-xs text-text-secondary whitespace-nowrap">
+                    {{ $item->creator->name ?? 'Admin BKK' }}
+                </td>
 
-    <!-- Agenda Table -->
-    <div class="bg-surface-card border border-slate-200/80 dark:border-white/10 rounded-2xl shadow-sm overflow-hidden">
-        @if ($agendas->count() > 0)
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="border-b border-slate-100 dark:border-white/5 bg-slate-50/75 dark:bg-neutral-800/50 text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                            <th class="py-3 px-6">Nama Agenda Kegiatan</th>
-                            <th class="py-3 px-4">Jenis</th>
-                            <th class="py-3 px-4">Tanggal Pelaksanaan</th>
-                            <th class="py-3 px-4">Lokasi</th>
-                            <th class="py-3 px-6 text-right">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-100 dark:divide-white/5 text-xs">
-                        @foreach ($agendas as $agenda)
-                            <tr class="hover:bg-slate-50/50 dark:hover:bg-neutral-800/40 transition-colors">
-                                <!-- Judul & Deskripsi -->
-                                <td class="py-4 px-6 max-w-sm">
-                                    <p class="font-semibold text-slate-900 dark:text-white line-clamp-1">
-                                        {{ $agenda->judul }}
-                                    </p>
-                                    <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-1">
-                                        {{ $agenda->deskripsi ?: 'Tidak ada deskripsi detail' }}
-                                    </p>
-                                </td>
-
-                                <!-- Jenis -->
-                                <td class="py-4 px-4 whitespace-nowrap">
-                                    @if ($agenda->jenis === 'akademik')
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
-                                            Akademik / PKL
-                                        </span>
-                                    @elseif ($agenda->jenis === 'umum')
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
-                                            Umum / Job Fair
-                                        </span>
-                                    @elseif ($agenda->jenis === 'ujian')
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-purple-50 text-purple-700 dark:bg-purple-950/50 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
-                                            Ujian / Seleksi
-                                        </span>
-                                    @else
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-slate-100 text-slate-600 dark:bg-neutral-800 dark:text-slate-300">
-                                            Libur
-                                        </span>
-                                    @endif
-                                </td>
-
-                                <!-- Tanggal -->
-                                <td class="py-4 px-4 whitespace-nowrap text-slate-700 dark:text-slate-300">
-                                    <div class="flex items-center gap-1.5 font-medium">
-                                        <i data-lucide="calendar" class="w-3.5 h-3.5 text-slate-400"></i>
-                                        <span>{{ $agenda->tanggal_mulai ? $agenda->tanggal_mulai->format('d M Y') : '-' }}</span>
-                                    </div>
-                                    @if ($agenda->tanggal_selesai && $agenda->tanggal_selesai->ne($agenda->tanggal_mulai))
-                                        <div class="text-[11px] text-slate-400 ml-5 mt-0.5">
-                                            s.d. {{ $agenda->tanggal_selesai->format('d M Y') }}
-                                        </div>
-                                    @endif
-                                </td>
-
-                                <!-- Lokasi -->
-                                <td class="py-4 px-4 whitespace-nowrap text-slate-600 dark:text-slate-400">
-                                    <div class="flex items-center gap-1.5">
-                                        <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i>
-                                        <span>{{ $agenda->lokasi ?: 'Aula SMKN 1 Cirebon' }}</span>
-                                    </div>
-                                </td>
-
-                                <!-- Aksi -->
-                                <td class="py-4 px-6 text-right whitespace-nowrap">
-                                    <div class="flex items-center justify-end gap-2">
-                                        <a 
-                                            href="{{ route('admin.agendas.edit', $agenda) }}" 
-                                            class="p-1.5 rounded-lg text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-neutral-800 transition-colors"
-                                            title="Edit Agenda"
-                                        >
-                                            <i data-lucide="edit-3" class="w-4 h-4"></i>
-                                        </a>
-
-                                        <form method="POST" action="{{ route('admin.agendas.destroy', $agenda) }}" onsubmit="return confirm('Apakah Anda yakin ingin menghapus agenda kegiatan ini?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button 
-                                                type="submit" 
-                                                class="p-1.5 rounded-lg text-rose-500 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors"
-                                                title="Hapus Agenda"
-                                            >
-                                                <i data-lucide="trash-2" class="w-4 h-4"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Pagination -->
-            <div class="px-6 py-4 border-t border-slate-100 dark:border-white/5">
-                {{ $agendas->links() }}
-            </div>
-        @else
-            <div class="py-16 text-center">
-                <div class="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-neutral-800 text-slate-400 flex items-center justify-center mx-auto mb-4">
-                    <i data-lucide="calendar" class="w-8 h-8"></i>
-                </div>
-                <h3 class="text-sm font-bold text-slate-900 dark:text-white">Belum Ada Agenda Terjadwal</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-sm mx-auto">
-                    Jadwalkan kegiatan rekrutmen kampus, pembekalan magang, atau workshop industri untuk siswa.
-                </p>
-                <div class="mt-4">
-                    <x-ui.button variant="primary" size="sm" href="{{ route('admin.agendas.create') }}">
-                        <i data-lucide="plus" class="w-3.5 h-3.5 mr-1.5"></i>
-                        Tambah Agenda Sekarang
-                    </x-ui.button>
-                </div>
-            </div>
-        @endif
-    </div>
+                <!-- Column: Aksi -->
+                <td class="px-5 py-3.5 text-right whitespace-nowrap">
+                    <div class="inline-flex items-center gap-1.5">
+                        <x-ui.icon-button 
+                            size="sm" 
+                            icon="eye" 
+                            href="{{ route('admin.agendas.show', $item) }}"
+                            label="Lihat Detail Agenda" 
+                        />
+                        <x-ui.icon-button 
+                            size="sm" 
+                            icon="pencil" 
+                            href="{{ route('admin.agendas.edit', $item) }}"
+                            label="Edit Agenda" 
+                        />
+                        <form method="POST" action="{{ route('admin.agendas.destroy', $item) }}" onsubmit="return confirm('Apakah Anda yakin ingin menghapus agenda kegiatan ini?')" class="inline">
+                            @csrf
+                            @method('DELETE')
+                            <x-ui.icon-button 
+                                size="sm" 
+                                icon="trash-2" 
+                                variant="danger" 
+                                type="submit" 
+                                label="Hapus Agenda" 
+                            />
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        @empty
+            <tr>
+                <td colspan="6" class="p-8 text-center text-text-secondary text-sm">
+                    <div class="flex flex-col items-center justify-center gap-2">
+                        <i data-lucide="calendar" class="w-8 h-8 text-text-muted"></i>
+                        <p class="font-semibold text-text-primary">Belum ada agenda kegiatan BKK</p>
+                        <p class="text-xs text-text-muted">Mulai jadwalkan agenda kunjungan industri, workshop karier, pembekalan PKL, dan job fair.</p>
+                    </div>
+                </td>
+            </tr>
+        @endforelse
+    </x-admin.data-table>
 </div>
+
+<!-- Modal Filter Agenda -->
+<x-ui.modal 
+    id="modal-filter-agendas" 
+    title="Filter Agenda Kegiatan" 
+    subtitle="Saring agenda kegiatan berdasarkan kategori jenis"
+    size="md"
+>
+    <form method="GET" action="{{ route('admin.agendas.index') }}" class="space-y-4">
+        @if (request('search', request('q')))
+            <input type="hidden" name="search" value="{{ request('search', request('q')) }}">
+        @endif
+
+        <div class="space-y-1.5">
+            <label class="block text-xs font-semibold text-text-primary">
+                Kategori Jenis Agenda
+            </label>
+            <select 
+                name="jenis" 
+                class="choices-select w-full"
+            >
+                <option value="">Semua Agenda</option>
+                <option value="akademik" {{ request('jenis') === 'akademik' ? 'selected' : '' }}>Akademik / PKL</option>
+                <option value="umum" {{ request('jenis') === 'umum' ? 'selected' : '' }}>Umum / Job Fair</option>
+                <option value="ujian" {{ request('jenis') === 'ujian' ? 'selected' : '' }}>Uji Kompetensi / Seleksi</option>
+            </select>
+        </div>
+
+        <div class="pt-5 border-t border-border-subtle flex items-center justify-between gap-3">
+            <a 
+                href="{{ route('admin.agendas.index') }}" 
+                class="px-4 py-2 text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors"
+            >
+                Reset Filter
+            </a>
+            <div class="flex items-center gap-3">
+                <button 
+                    type="button" 
+                    onclick="window.closeModal('modal-filter-agendas')"
+                    class="px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-full border border-border-default text-text-secondary hover:text-text-primary hover:bg-surface-bg transition-colors focus:outline-none"
+                >
+                    Batal
+                </button>
+                <button 
+                    type="submit" 
+                    class="px-6 py-2.5 text-xs sm:text-sm font-semibold rounded-full bg-brand-primary text-text-on-brand-primary hover:brightness-105 transition-all shadow-md shadow-brand-primary/20 focus:outline-none"
+                >
+                    Terapkan Filter
+                </button>
+            </div>
+        </div>
+    </form>
+</x-ui.modal>
 @endsection
