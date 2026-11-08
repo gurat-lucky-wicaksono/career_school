@@ -273,4 +273,40 @@ class TeacherPortalTest extends TestCase
         $response->assertSee('Portofolio Siswa Bimbingan');
         $response->assertSee('Sistem Informasi PKL Berbasis Laravel');
     }
+
+    public function test_guest_cannot_access_teacher_global_search(): void
+    {
+        $response = $this->getJson(route('teacher.search', ['q' => 'siswa']));
+        $response->assertStatus(401);
+    }
+
+    public function test_teacher_global_search_returns_empty_for_short_query(): void
+    {
+        [$user] = $this->getTeacherUser();
+
+        $response = $this->actingAs($user)->getJson(route('teacher.search', ['q' => 'a']));
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'success' => true,
+                'groups' => [],
+            ]);
+    }
+
+    public function test_teacher_global_search_returns_navigation_and_matches(): void
+    {
+        [$user] = $this->getTeacherUser();
+        $this->getStudentWithSkill();
+
+        $response = $this->actingAs($user)->getJson(route('teacher.search', ['q' => 'Siswa']));
+
+        $response->assertStatus(200)
+            ->assertJsonPath('success', true);
+
+        $data = $response->json();
+        $this->assertIsArray($data['groups']);
+
+        $categories = collect($data['groups'])->pluck('category')->all();
+        $this->assertContains('Menu & Navigasi', $categories);
+    }
 }
