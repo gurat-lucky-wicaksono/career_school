@@ -15,17 +15,18 @@
                     </span>
                 </div>
                 <p class="text-xs text-text-secondary mt-1">
-                    Nomor Sertifikat: <span class="font-mono font-bold text-text-primary">{{ $evaluation->nomor_sertifikat ?? 'Akan diterbitkan saat disahkan' }}</span>
+                    Nomor Sertifikat: <span class="font-sans font-bold text-text-primary">{{ $evaluation->nomor_sertifikat ?? 'Akan diterbitkan saat disahkan' }}</span>
                 </p>
             </div>
 
-            <a 
-                href="{{ route('teacher.evaluations.index') }}" 
-                class="px-3.5 py-1.5 text-xs font-semibold rounded-btn border border-border-subtle text-text-secondary hover:text-text-primary hover:bg-surface-bg transition-colors flex items-center gap-1.5 self-start sm:self-auto"
+            <x-ui.button 
+                variant="secondary" 
+                size="md" 
+                href="{{ route('teacher.evaluations.index') }}"
+                class="self-start sm:self-auto"
             >
-                <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
-                <span>Kembali ke Daftar</span>
-            </a>
+                Kembali ke Daftar
+            </x-ui.button>
         </div>
     </div>
 
@@ -43,7 +44,7 @@
                 </div>
                 <div class="flex justify-between py-1 border-b border-border-subtle/50">
                     <span class="text-text-secondary">NISN</span>
-                    <span class="font-mono text-text-primary">{{ $evaluation->student->nisn }}</span>
+                    <span class="font-sans text-text-primary">{{ $evaluation->student->nisn }}</span>
                 </div>
                 <div class="flex justify-between py-1 border-b border-border-subtle/50">
                     <span class="text-text-secondary">Kelas & Angkatan</span>
@@ -181,13 +182,12 @@
             </div>
 
             <div class="pt-2 flex items-center justify-end">
-                <button 
+                <x-ui.button 
                     type="submit" 
-                    class="px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-btn bg-emerald-600 text-white hover:bg-emerald-700 transition-all shadow-xs active:scale-[0.96] flex items-center gap-2"
+                    variant="primary"
                 >
-                    <i data-lucide="check-circle" class="w-4 h-4"></i>
-                    <span>Sahkan & Kunci Nilai PKL</span>
-                </button>
+                    Sahkan & Kunci Nilai PKL
+                </x-ui.button>
             </div>
         </form>
     @endif
