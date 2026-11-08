@@ -22,13 +22,11 @@
             </p>
         </div>
 
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3 shrink-0">
             <x-ui.button variant="secondary" size="md" href="{{ route('teacher.mentoring.index') }}">
-                <i data-lucide="users" class="w-4 h-4 mr-2"></i>
                 Siswa Bimbingan
             </x-ui.button>
             <x-ui.button variant="primary" size="md" href="{{ route('teacher.skills.index') }}">
-                <i data-lucide="award" class="w-4 h-4 mr-2"></i>
                 Validasi Keahlian
             </x-ui.button>
         </div>
@@ -124,7 +122,7 @@
                                     <h4 class="text-xs font-heading font-bold text-text-primary truncate">
                                         {{ $submission->student->user->name }}
                                     </h4>
-                                    <span class="text-[10px] text-text-muted font-mono">
+                                    <span class="text-[10px] text-text-muted font-sans">
                                         {{ $submission->student->schoolClass?->nama ?? 'PPLG' }}
                                     </span>
                                 </div>
@@ -144,13 +142,13 @@
                             @csrf
                             <input type="hidden" name="tingkat" value="{{ $submission->tingkat }}">
                             <input type="hidden" name="catatan" value="Diverifikasi langsung oleh guru pengampu kejuruan.">
-                            <button 
+                            <x-ui.button 
                                 type="submit" 
-                                class="inline-flex items-center gap-1 px-3 py-1.5 rounded-btn bg-brand-primary text-text-on-brand-primary text-xs font-semibold hover:brightness-105 active:scale-[0.96] transition-transform shadow-xs"
+                                variant="primary"
+                                size="sm"
                             >
-                                <i data-lucide="check" class="w-3.5 h-3.5"></i>
-                                <span>Sahkan</span>
-                            </button>
+                                Sahkan
+                            </x-ui.button>
                         </form>
                     </div>
                 @empty

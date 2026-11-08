@@ -15,13 +15,11 @@
             </p>
         </div>
 
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3 shrink-0">
             <x-ui.button variant="secondary" size="md" href="{{ route('teacher.portfolios.index') }}">
-                <i data-lucide="folder-git-2" class="w-4 h-4 mr-2"></i>
                 Lihat portofolio siswa
             </x-ui.button>
             <x-ui.button variant="primary" size="md" href="{{ route('teacher.skills.index') }}">
-                <i data-lucide="award" class="w-4 h-4 mr-2"></i>
                 Validasi keahlian
             </x-ui.button>
         </div>
@@ -76,10 +74,10 @@
 
     <!-- Filters & Search Toolbar -->
     <div class="p-5 rounded-card bg-surface-card border border-border-subtle shadow-xs">
-        <form method="GET" action="{{ route('teacher.mentoring.index') }}" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <form method="GET" action="{{ route('teacher.mentoring.index') }}" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 items-end">
             <!-- Search -->
-            <div class="lg:col-span-2">
-                <label for="search" class="block text-xs font-semibold text-text-secondary uppercase tracking-wider mb-1.5">
+            <div class="lg:col-span-5">
+                <label for="search" class="block text-xs font-semibold text-text-primary mb-1.5">
                     Cari siswa / NISN
                 </label>
                 <div class="relative">
@@ -89,22 +87,21 @@
                         id="search"
                         value="{{ request('q') }}"
                         placeholder="Ketik nama lengkap atau nomor NISN..."
-                        class="w-full pl-10 pr-4 py-2 text-xs rounded-btn border border-border-subtle bg-surface-bg text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-1 focus:ring-brand-primary"
+                        class="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm rounded-full border border-border-default bg-surface-bg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 shadow-xs transition-all"
                     >
-                    <i data-lucide="search" class="w-4 h-4 text-text-muted absolute left-3.5 top-2.5"></i>
+                    <i data-lucide="search" class="w-4 h-4 text-text-muted absolute left-3.5 top-1/2 -translate-y-1/2"></i>
                 </div>
             </div>
 
             <!-- Filter Kelas -->
-            <div>
-                <label for="class_id" class="block text-xs font-semibold text-text-secondary uppercase tracking-wider mb-1.5">
+            <div class="lg:col-span-3">
+                <label for="class_id" class="block text-xs font-semibold text-text-primary mb-1.5">
                     Rombongan belajar
                 </label>
                 <select
                     name="class_id"
                     id="class_id"
-                    class="w-full px-3 py-2 text-xs rounded-btn border border-border-subtle bg-surface-bg text-text-primary focus:outline-none focus:ring-1 focus:ring-brand-primary"
-                    onchange="this.form.submit()"
+                    class="choices-select w-full"
                 >
                     <option value="">Semua rombel / kelas</option>
                     @foreach ($classes as $class)
@@ -116,15 +113,14 @@
             </div>
 
             <!-- Filter Status PKL -->
-            <div>
-                <label for="status" class="block text-xs font-semibold text-text-secondary uppercase tracking-wider mb-1.5">
+            <div class="lg:col-span-2">
+                <label for="status" class="block text-xs font-semibold text-text-primary mb-1.5">
                     Status penempatan PKL
                 </label>
                 <select
                     name="status"
                     id="status"
-                    class="w-full px-3 py-2 text-xs rounded-btn border border-border-subtle bg-surface-bg text-text-primary focus:outline-none focus:ring-1 focus:ring-brand-primary"
-                    onchange="this.form.submit()"
+                    class="choices-select w-full"
                 >
                     <option value="">Semua status siswa</option>
                     <option value="diterima" {{ request('status') === 'diterima' ? 'selected' : '' }}>Diterima PKL / bekerja</option>
@@ -132,6 +128,18 @@
                     <option value="melamar" {{ request('status') === 'melamar' ? 'selected' : '' }}>Sedang melamar lowongan</option>
                     <option value="belum_melamar" {{ request('status') === 'belum_melamar' ? 'selected' : '' }}>Belum mengajukan lamaran</option>
                 </select>
+            </div>
+
+            <!-- Actions -->
+            <div class="lg:col-span-2 flex items-center gap-2">
+                <x-ui.button variant="primary" type="submit" class="flex-1 justify-center">
+                    Filter
+                </x-ui.button>
+                @if (request()->hasAny(['q', 'class_id', 'status']))
+                    <a href="{{ route('teacher.mentoring.index') }}" class="h-10 w-10 rounded-full border border-border-default hover:border-text-secondary/70 hover:bg-surface-bg text-text-secondary hover:text-text-primary flex items-center justify-center transition-all shadow-xs shrink-0" title="Reset filter">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                    </a>
+                @endif
             </div>
         </form>
     </div>
@@ -250,23 +258,23 @@
                                 <!-- Actions -->
                                 <td class="py-4 px-6 text-right whitespace-nowrap">
                                     <div class="flex items-center justify-end gap-2">
-                                        <a
+                                        <x-ui.button
+                                            variant="secondary"
+                                            size="sm"
                                             href="{{ route('teacher.skills.index', ['q' => $student->user->name]) }}"
-                                            class="inline-flex items-center gap-1 px-3 py-1.5 rounded-btn border border-border-subtle text-xs font-medium text-text-secondary hover:text-text-primary bg-surface-card hover:bg-surface-bg active:scale-[0.96] transition-transform"
                                             title="Validasi keahlian siswa ini"
                                         >
-                                            <i data-lucide="award" class="w-3.5 h-3.5 text-brand-secondary dark:text-brand-primary"></i>
                                             Validasi
-                                        </a>
+                                        </x-ui.button>
 
-                                        <a
+                                        <x-ui.button
+                                            variant="secondary"
+                                            size="sm"
                                             href="{{ route('teacher.portfolios.index', ['q' => $student->user->name]) }}"
-                                            class="inline-flex items-center gap-1 px-3 py-1.5 rounded-btn border border-border-subtle text-xs font-medium text-text-secondary hover:text-text-primary bg-surface-card hover:bg-surface-bg active:scale-[0.96] transition-transform"
                                             title="Periksa karya portofolio"
                                         >
-                                            <i data-lucide="folder" class="w-3.5 h-3.5 text-state-info-text"></i>
                                             Portofolio
-                                        </a>
+                                        </x-ui.button>
                                     </div>
                                 </td>
                             </tr>

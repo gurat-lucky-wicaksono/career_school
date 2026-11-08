@@ -158,6 +158,9 @@ Route::middleware(['auth', 'role:guru'])->prefix('teacher')->name('teacher.')->g
     Route::get('/evaluations', [\App\Http\Controllers\Teacher\InternshipEvaluationController::class, 'index'])->name('evaluations.index');
     Route::get('/evaluations/{evaluation}', [\App\Http\Controllers\Teacher\InternshipEvaluationController::class, 'show'])->name('evaluations.show');
     Route::post('/evaluations/{evaluation}/verify', [\App\Http\Controllers\Teacher\InternshipEvaluationController::class, 'verify'])->name('evaluations.verify');
+
+    // Pencarian Global / Command Palette Guru
+    Route::get('/search', [\App\Http\Controllers\Teacher\GlobalSearchController::class, 'search'])->name('search');
 });
 
 // Komunitas Vokasi & Social Network Routes (Protected by Auth for All Roles)

@@ -15,9 +15,8 @@
             </p>
         </div>
 
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 shrink-0">
             <x-ui.button variant="secondary" size="md" href="{{ route('teacher.mentoring.index') }}">
-                <i data-lucide="users" class="w-4 h-4 mr-2"></i>
                 Data Siswa Bimbingan
             </x-ui.button>
         </div>
@@ -55,7 +54,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs font-semibold text-text-muted uppercase tracking-wider">Rata-rata Nilai</p>
-                    <h3 class="text-2xl font-bold font-heading text-text-primary mt-1 font-mono">{{ $stats['average_score'] }}</h3>
+                    <h3 class="text-2xl font-bold font-heading text-text-primary mt-1">{{ $stats['average_score'] }}</h3>
                 </div>
                 <div class="w-10 h-10 rounded-full bg-brand-primary/10 text-brand-primary flex items-center justify-center">
                     <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
@@ -79,45 +78,64 @@
     </div>
 
     <!-- Filter & Search Toolbar -->
-    <div class="bg-surface-card border border-border-subtle rounded-btn p-4 shadow-xs">
-        <form method="GET" action="{{ route('teacher.evaluations.index') }}" class="flex flex-col sm:flex-row gap-3 items-center justify-between">
-            <div class="relative w-full sm:w-80">
-                <i data-lucide="search" class="w-4 h-4 text-text-muted absolute left-3 top-1/2 -translate-y-1/2"></i>
-                <input 
-                    type="text" 
-                    name="search" 
-                    value="{{ request('search') }}" 
-                    placeholder="Cari nama siswa, NISN, mitra DUDI..."
-                    class="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-surface-bg border border-border-subtle rounded-btn focus:outline-hidden focus:border-brand-primary text-text-primary"
-                >
+    <div class="bg-surface-card border border-border-subtle rounded-card p-4 shadow-xs">
+        <form method="GET" action="{{ route('teacher.evaluations.index') }}" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 items-end">
+            <div class="lg:col-span-5">
+                <label for="eval-search" class="block text-xs font-semibold text-text-primary mb-1.5">
+                    Cari Siswa / DUDI
+                </label>
+                <div class="relative">
+                    <i data-lucide="search" class="w-4 h-4 text-text-muted absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+                    <input 
+                        type="text" 
+                        id="eval-search"
+                        name="search" 
+                        value="{{ request('search') }}" 
+                        placeholder="Cari nama siswa, NISN, mitra DUDI..."
+                        class="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm rounded-full border border-border-default bg-surface-bg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 shadow-xs transition-all"
+                    >
+                </div>
             </div>
 
-            <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+            <div class="lg:col-span-3">
+                <label for="eval-status" class="block text-xs font-semibold text-text-primary mb-1.5">
+                    Status Evaluasi
+                </label>
                 <select 
+                    id="eval-status"
                     name="status" 
-                    onchange="this.form.submit()" 
-                    class="px-3 py-2 text-xs sm:text-sm bg-surface-bg border border-border-subtle rounded-btn text-text-primary focus:outline-hidden focus:border-brand-primary"
+                    class="choices-select w-full"
                 >
                     <option value="all" {{ request('status') === 'all' || !request('status') ? 'selected' : '' }}>Semua Status</option>
                     <option value="submitted" {{ request('status') === 'submitted' ? 'selected' : '' }}>Menunggu Verifikasi</option>
                     <option value="verified" {{ request('status') === 'verified' ? 'selected' : '' }}>Telah Disahkan</option>
                     <option value="draft" {{ request('status') === 'draft' ? 'selected' : '' }}>Draf Industri</option>
                 </select>
+            </div>
 
+            <div class="lg:col-span-2">
+                <label for="eval-major" class="block text-xs font-semibold text-text-primary mb-1.5">
+                    Konsentrasi Keahlian
+                </label>
                 <select 
+                    id="eval-major"
                     name="major_id" 
-                    onchange="this.form.submit()" 
-                    class="px-3 py-2 text-xs sm:text-sm bg-surface-bg border border-border-subtle rounded-btn text-text-primary focus:outline-hidden focus:border-brand-primary"
+                    class="choices-select w-full"
                 >
                     <option value="">Semua Jurusan</option>
                     @foreach($majors as $m)
                         <option value="{{ $m->id }}" {{ request('major_id') == $m->id ? 'selected' : '' }}>{{ $m->nama }}</option>
                     @endforeach
                 </select>
+            </div>
 
+            <div class="lg:col-span-2 flex items-center gap-2">
+                <x-ui.button variant="primary" type="submit" class="flex-1 justify-center">
+                    Filter
+                </x-ui.button>
                 @if(request()->filled('search') || (request()->filled('status') && request('status') !== 'all') || request()->filled('major_id'))
-                    <a href="{{ route('teacher.evaluations.index') }}" class="px-3 py-2 text-xs font-semibold text-text-secondary hover:text-text-primary border border-border-subtle rounded-btn hover:bg-surface-bg transition-colors">
-                        Reset
+                    <a href="{{ route('teacher.evaluations.index') }}" class="h-10 w-10 rounded-full border border-border-default hover:border-text-secondary/70 hover:bg-surface-bg text-text-secondary hover:text-text-primary flex items-center justify-center transition-all shadow-xs shrink-0" title="Reset filter">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
                     </a>
                 @endif
             </div>
@@ -158,7 +176,7 @@
                                         <div class="font-heading font-bold text-text-primary truncate">
                                             {{ $eval->student->user->name ?? 'Siswa' }}
                                         </div>
-                                        <div class="text-[11px] text-text-muted truncate font-mono">
+                                        <div class="text-[11px] text-text-muted truncate font-sans">
                                             {{ $eval->student->major->nama ?? 'Jurusan' }} &bull; {{ $eval->student->schoolClass->nama ?? 'Kelas' }}
                                         </div>
                                     </div>
@@ -173,7 +191,7 @@
 
                             <!-- Nilai -->
                             <td class="px-5 py-3.5 text-center">
-                                <span class="font-bold font-mono text-base text-text-primary">{{ number_format($eval->nilai_akhir, 1) }}</span>
+                                <span class="font-bold font-sans text-base text-text-primary">{{ number_format($eval->nilai_akhir, 1) }}</span>
                                 <div class="text-[10px] text-text-muted">Skor / 100</div>
                             </td>
 
@@ -199,23 +217,23 @@
                             </td>
 
                             <!-- Aksi -->
-                            <td class="px-5 py-3.5 text-right">
+                            <td class="px-5 py-3.5 text-right whitespace-nowrap">
                                 @if($eval->status === 'submitted')
-                                    <a 
+                                    <x-ui.button 
+                                        variant="primary"
+                                        size="sm"
                                         href="{{ route('teacher.evaluations.show', $eval) }}" 
-                                        class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-btn bg-brand-primary text-white hover:bg-brand-primary/90 transition-all shadow-xs active:scale-[0.96]"
                                     >
-                                        <i data-lucide="check-square" class="w-3.5 h-3.5"></i>
-                                        <span>Tinjau & Validasi</span>
-                                    </a>
+                                        Tinjau & Validasi
+                                    </x-ui.button>
                                 @else
-                                    <a 
+                                    <x-ui.button 
+                                        variant="secondary"
+                                        size="sm"
                                         href="{{ route('teacher.evaluations.show', $eval) }}" 
-                                        class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-btn border border-border-subtle bg-surface-card hover:bg-surface-bg text-text-secondary hover:text-text-primary transition-colors"
                                     >
-                                        <i data-lucide="eye" class="w-3.5 h-3.5"></i>
-                                        <span>Lihat Detail</span>
-                                    </a>
+                                        Lihat Detail
+                                    </x-ui.button>
                                 @endif
                             </td>
                         </tr>
