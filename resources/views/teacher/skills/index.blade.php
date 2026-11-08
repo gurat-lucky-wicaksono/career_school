@@ -79,7 +79,7 @@
                     name="q" 
                     value="{{ request('q') }}" 
                     placeholder="Cari siswa atau NISN..." 
-                    class="w-full pl-10 pr-4 py-2 rounded-btn border border-border-subtle bg-surface-bg text-text-primary placeholder:text-text-muted text-xs focus:ring-1 focus:ring-brand-primary outline-none transition-all"
+                    class="w-full pl-10 pr-4 py-2.5 rounded-full border border-border-default bg-surface-bg text-text-primary placeholder:text-text-muted text-xs sm:text-sm focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all shadow-xs"
                 >
             </div>
 
@@ -87,7 +87,7 @@
             <div class="lg:col-span-3">
                 <select 
                     name="class_id" 
-                    class="w-full px-3 py-2 rounded-btn border border-border-subtle bg-surface-bg text-text-primary text-xs focus:ring-1 focus:ring-brand-primary outline-none transition-all"
+                    class="choices-select w-full"
                 >
                     <option value="">Semua rombel / kelas</option>
                     @foreach ($classes as $c)
@@ -100,7 +100,7 @@
             <div class="lg:col-span-3">
                 <select 
                     name="skill_id" 
-                    class="w-full px-3 py-2 rounded-btn border border-border-subtle bg-surface-bg text-text-primary text-xs focus:ring-1 focus:ring-brand-primary outline-none transition-all"
+                    class="choices-select w-full"
                 >
                     <option value="">Semua standar keahlian</option>
                     @foreach ($skills as $s)
@@ -111,11 +111,11 @@
 
             <!-- Actions (2 Cols) -->
             <div class="lg:col-span-2 flex items-center gap-2">
-                <x-ui.button variant="secondary" size="md" type="submit" class="w-full justify-center">
+                <x-ui.button variant="primary" type="submit" class="flex-1 justify-center">
                     Filter
                 </x-ui.button>
                 @if (request()->hasAny(['q', 'class_id', 'skill_id']))
-                    <a href="{{ route('teacher.skills.index', ['status' => $currentStatus]) }}" class="p-2 rounded-btn border border-border-subtle hover:bg-surface-bg text-text-muted hover:text-text-primary transition-colors" title="Reset filter">
+                    <a href="{{ route('teacher.skills.index', ['status' => $currentStatus]) }}" class="h-10 w-10 rounded-full border border-border-default hover:border-text-secondary/70 hover:bg-surface-bg text-text-secondary hover:text-text-primary flex items-center justify-center transition-all shadow-xs shrink-0" title="Reset filter">
                         <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
                     </a>
                 @endif
@@ -143,14 +143,14 @@
                         </label>
                     </div>
 
-                    <button 
+                    <x-ui.button 
                         type="submit" 
+                        variant="primary"
+                        size="sm"
                         onclick="return confirm('Apakah Anda yakin ingin memvalidasi seluruh keahlian yang dipilih?')"
-                        class="px-3.5 py-1.5 rounded-btn bg-brand-primary text-text-on-brand-primary font-semibold text-xs shadow-xs hover:brightness-105 active:scale-[0.96] transition-transform flex items-center gap-1.5"
                     >
-                        <i data-lucide="check-check" class="w-3.5 h-3.5"></i>
-                        <span>Sahkan sekaligus</span>
-                    </button>
+                        Sahkan sekaligus
+                    </x-ui.button>
                 </div>
             @endif
 
@@ -193,7 +193,7 @@
                                             <span class="font-heading font-bold text-text-primary block">
                                                 {{ $item->student->user->name }}
                                             </span>
-                                            <span class="text-[11px] text-text-muted font-mono">
+                                            <span class="text-[11px] text-text-muted font-sans">
                                                 NISN: {{ $item->student->nisn }}
                                             </span>
                                         </div>
@@ -261,11 +261,10 @@
                                                 skill_name: '{{ addslashes($item->skill->nama) }}',
                                                 tingkat: {{ $item->tingkat }}
                                             })"
-                                            class="px-2.5 py-1.5 rounded-btn bg-brand-primary text-text-on-brand-primary font-semibold text-xs shadow-xs hover:brightness-105 active:scale-[0.96] transition-transform flex items-center gap-1"
+                                            class="px-3 py-1.5 rounded-full bg-brand-primary text-text-on-brand-primary font-semibold text-xs shadow-xs hover:brightness-105 active:scale-[0.96] transition-transform"
                                             title="Sahkan & sesuaikan level"
                                         >
-                                            <i data-lucide="badge-check" class="w-3.5 h-3.5"></i>
-                                            <span>{{ $item->tervalidasi ? 'Sesuaikan' : 'Sahkan' }}</span>
+                                            {{ $item->tervalidasi ? 'Sesuaikan' : 'Sahkan' }}
                                         </button>
 
                                         @if ($item->tervalidasi)
@@ -386,7 +385,6 @@
                         Batal
                     </x-ui.button>
                     <x-ui.button variant="primary" size="md" type="submit">
-                        <i data-lucide="check" class="w-4 h-4 mr-1.5"></i>
                         Simpan & sahkan
                     </x-ui.button>
                 </div>
