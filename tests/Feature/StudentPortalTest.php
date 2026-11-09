@@ -81,7 +81,7 @@ class StudentPortalTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('Halo, ' . $user->name);
-        $response->assertSee('Portal Siswa Vokasi');
+        $response->assertDontSee('&bull; NISN:', false);
         $response->assertSee('Rekomendasi Lowongan Industri');
         $response->assertSee('Keahlian Terdaftar');
     }
@@ -439,6 +439,38 @@ class StudentPortalTest extends TestCase
             'student_id' => $student->id,
             'skill_id' => $skill->id,
         ]);
+    }
+
+    public function test_guest_cannot_access_student_global_search(): void
+    {
+        $response = $this->getJson(route('student.search', ['q' => 'lowongan']));
+        $response->assertStatus(401);
+    }
+
+    public function test_student_global_search_returns_empty_when_query_is_too_short(): void
+    {
+        [$user] = $this->getStudentUser();
+
+        $response = $this->actingAs($user)->getJson(route('student.search', ['q' => 'a']));
+        $response->assertStatus(200)
+            ->assertJson([
+                'success' => true,
+                'groups' => [],
+            ]);
+    }
+
+    public function test_student_global_search_returns_navigation_and_job_matches(): void
+    {
+        [$user, $student] = $this->getStudentUser();
+
+        $response = $this->actingAs($user)->getJson(route('student.search', ['q' => 'portofolio']));
+        $response->assertStatus(200)
+            ->assertJsonPath('success', true);
+
+        $data = $response->json();
+        $this->assertNotEmpty($data['groups']);
+        $this->assertArrayHasKey('category', $data['groups'][0]);
+        $this->assertArrayHasKey('items', $data['groups'][0]);
     }
 }
 

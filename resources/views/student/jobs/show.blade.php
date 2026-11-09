@@ -11,7 +11,6 @@
             size="sm" 
             href="{{ route('student.jobs.index') }}"
         >
-            <i data-lucide="arrow-left" class="w-4 h-4 mr-1.5"></i>
             Kembali ke Lowongan
         </x-ui.button>
 
@@ -88,14 +87,14 @@
                         Lihat Lamaran Saya
                     </x-ui.button>
                 @else
-                    <button 
+                    <x-ui.button 
+                        variant="primary" 
+                        size="md" 
                         type="button" 
                         @click="applyModalOpen = true"
-                        class="px-5 py-2.5 rounded-xl bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold text-xs shadow-sm shadow-brand-primary/25 transition-all flex items-center justify-center gap-2"
                     >
-                        <i data-lucide="send" class="w-4 h-4"></i>
-                        <span>Lamar Posisi Ini</span>
-                    </button>
+                        Lamar Posisi Ini
+                    </x-ui.button>
                 @endif
             </div>
         </div>
@@ -416,7 +415,6 @@
                         Batal
                     </x-ui.button>
                     <x-ui.button variant="primary" size="md" type="submit">
-                        <i data-lucide="send" class="w-4 h-4 mr-1.5"></i>
                         Kirim Lamaran Sekarang
                     </x-ui.button>
                 </div>

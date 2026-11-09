@@ -40,7 +40,7 @@
                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
                     <div class="p-3 rounded-xl bg-slate-50 dark:bg-neutral-800/40 border border-slate-100 dark:border-white/5">
                         <span class="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">NISN</span>
-                        <span class="font-mono font-bold text-slate-900 dark:text-white text-xs mt-0.5 block">
+                        <span class="font-sans font-bold text-slate-900 dark:text-white text-xs mt-0.5 block">
                             {{ $student->nisn }}
                         </span>
                     </div>
@@ -153,7 +153,7 @@
                             <select 
                                 name="jenis_kelamin" 
                                 id="jenis_kelamin" 
-                                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-neutral-800/60 text-slate-800 dark:text-slate-100 text-xs focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-none transition-all"
+                                class="choices-select w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-neutral-800/60 text-slate-800 dark:text-slate-100 text-xs focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-none transition-all"
                             >
                                 <option value="">Pilih Jenis Kelamin...</option>
                                 <option value="L" {{ old('jenis_kelamin', $user->profile?->jenis_kelamin) === 'L' ? 'selected' : '' }}>Laki-laki</option>
@@ -178,7 +178,6 @@
                     <!-- Form Submit -->
                     <div class="pt-3 border-t border-slate-100 dark:border-white/5 flex justify-end">
                         <x-ui.button variant="primary" size="md" type="submit">
-                            <i data-lucide="check" class="w-4 h-4 mr-1.5"></i>
                             Simpan Perubahan Biodata
                         </x-ui.button>
                     </div>
@@ -215,7 +214,7 @@
                             name="skill_id" 
                             id="skill_id" 
                             required 
-                            class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-neutral-800/60 text-slate-800 dark:text-slate-100 text-xs focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-none transition-all"
+                            class="choices-select w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-neutral-800/60 text-slate-800 dark:text-slate-100 text-xs focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-none transition-all"
                         >
                             <option value="">Pilih kompetensi keahlian...</option>
                             @foreach ($availableSkills as $s)
@@ -232,7 +231,7 @@
                             name="tingkat" 
                             id="tingkat" 
                             required 
-                            class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-neutral-800/60 text-slate-800 dark:text-slate-100 text-xs focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-none transition-all"
+                            class="choices-select w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-neutral-800/60 text-slate-800 dark:text-slate-100 text-xs focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-none transition-all"
                         >
                             <option value="1">Level 1 - Pemula (Dasar Konsep)</option>
                             <option value="2">Level 2 - Menengah Awal (Mampu Menjalankan Tugas)</option>
@@ -244,7 +243,6 @@
 
                     <div class="pt-2">
                         <x-ui.button variant="primary" size="sm" type="submit" class="w-full justify-center">
-                            <i data-lucide="plus" class="w-3.5 h-3.5 mr-1.5"></i>
                             Tambahkan ke Profil
                         </x-ui.button>
                     </div>

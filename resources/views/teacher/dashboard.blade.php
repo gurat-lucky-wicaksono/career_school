@@ -7,13 +7,6 @@
     <!-- 1. Header Banner -->
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-            <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-brand-secondary dark:text-brand-primary mb-1">
-                <span>Portal Pembimbing Vokasi</span>
-                <span class="text-text-muted">&bull;</span>
-                <span>NIP: {{ $teacher->nip }}</span>
-                <span class="text-text-muted">&bull;</span>
-                <span>{{ $teacher->mata_pelajaran }}</span>
-            </div>
             <h1 class="text-2xl sm:text-3xl font-heading font-bold text-text-primary tracking-tight">
                 Selamat Datang, {{ $user->name }}
             </h1>

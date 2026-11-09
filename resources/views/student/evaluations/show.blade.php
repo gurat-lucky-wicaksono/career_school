@@ -15,28 +15,28 @@
                     </span>
                 </div>
                 <p class="text-xs text-text-secondary mt-1">
-                    Nomor Sertifikat: <span class="font-mono font-bold text-text-primary">{{ $evaluation->nomor_sertifikat ?? '-' }}</span>
+                    Nomor Sertifikat: <span class="font-sans font-bold text-text-primary">{{ $evaluation->nomor_sertifikat ?? '-' }}</span>
                 </p>
             </div>
 
             <div class="flex items-center gap-2 self-start sm:self-auto">
                 @if($evaluation->status === 'verified')
-                    <a 
+                    <x-ui.button 
+                        variant="primary" 
+                        size="sm" 
                         href="{{ route('student.evaluations.print', $evaluation) }}" 
                         target="_blank"
-                        class="px-4 py-2 text-xs sm:text-sm font-semibold rounded-btn bg-emerald-600 text-white hover:bg-emerald-700 transition-all shadow-xs flex items-center gap-2"
                     >
-                        <i data-lucide="printer" class="w-4 h-4"></i>
-                        <span>Cetak Sertifikat Resmi</span>
-                    </a>
+                        Cetak Sertifikat Resmi
+                    </x-ui.button>
                 @endif
-                <a 
+                <x-ui.button 
+                    variant="secondary" 
+                    size="sm" 
                     href="{{ route('student.evaluations.index') }}" 
-                    class="px-3.5 py-2 text-xs font-semibold rounded-btn border border-border-subtle text-text-secondary hover:text-text-primary hover:bg-surface-bg transition-colors flex items-center gap-1.5"
                 >
-                    <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
-                    <span>Kembali</span>
-                </a>
+                    Kembali
+                </x-ui.button>
             </div>
         </div>
     </div>
@@ -88,7 +88,7 @@
             <div class="flex items-center gap-3">
                 <div class="text-right">
                     <span class="text-xs text-text-muted">Skor Komposit</span>
-                    <div class="text-3xl font-extrabold font-mono text-text-primary">{{ number_format($evaluation->nilai_akhir, 1) }}</div>
+                    <div class="text-3xl font-extrabold font-sans text-text-primary">{{ number_format($evaluation->nilai_akhir, 1) }}</div>
                 </div>
                 <div class="px-3 py-1.5 rounded-btn border {{ $evaluation->predicate_badge_class }} text-center">
                     <div class="text-sm font-bold">{{ $evaluation->predikat }}</div>
@@ -100,19 +100,19 @@
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div class="p-4 rounded-btn border border-border-subtle bg-surface-bg/50">
                 <div class="text-[11px] font-semibold text-text-muted uppercase">1. Teknis Kejuruan (40%)</div>
-                <div class="text-2xl font-bold font-mono text-text-primary mt-1">{{ number_format($evaluation->nilai_teknis, 1) }}</div>
+                <div class="text-2xl font-bold font-sans text-text-primary mt-1">{{ number_format($evaluation->nilai_teknis, 1) }}</div>
                 <div class="text-[11px] text-text-secondary mt-1">Bobot: {{ number_format($evaluation->nilai_teknis * 0.4, 1) }} poin</div>
             </div>
 
             <div class="p-4 rounded-btn border border-border-subtle bg-surface-bg/50">
                 <div class="text-[11px] font-semibold text-text-muted uppercase">2. Disiplin & Etika (30%)</div>
-                <div class="text-2xl font-bold font-mono text-text-primary mt-1">{{ number_format($evaluation->nilai_disiplin, 1) }}</div>
+                <div class="text-2xl font-bold font-sans text-text-primary mt-1">{{ number_format($evaluation->nilai_disiplin, 1) }}</div>
                 <div class="text-[11px] text-text-secondary mt-1">Bobot: {{ number_format($evaluation->nilai_disiplin * 0.3, 1) }} poin</div>
             </div>
 
             <div class="p-4 rounded-btn border border-border-subtle bg-surface-bg/50">
                 <div class="text-[11px] font-semibold text-text-muted uppercase">3. Kerjasama & Komunikasi (30%)</div>
-                <div class="text-2xl font-bold font-mono text-text-primary mt-1">{{ number_format($evaluation->nilai_kerjasama, 1) }}</div>
+                <div class="text-2xl font-bold font-sans text-text-primary mt-1">{{ number_format($evaluation->nilai_kerjasama, 1) }}</div>
                 <div class="text-[11px] text-text-secondary mt-1">Bobot: {{ number_format($evaluation->nilai_kerjasama * 0.3, 1) }} poin</div>
             </div>
         </div>
