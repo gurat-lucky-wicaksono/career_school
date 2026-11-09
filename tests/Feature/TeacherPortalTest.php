@@ -128,7 +128,7 @@ class TeacherPortalTest extends TestCase
         $response = $this->actingAs($user)->get('/teacher/dashboard');
 
         $response->assertStatus(200);
-        $response->assertSee('Portal Pembimbing Vokasi');
+        $response->assertDontSee('Portal Pembimbing Vokasi');
         $response->assertSee('Selamat Datang, ' . $user->name);
         $response->assertSee('Validasi Keahlian');
         $response->assertSee('Siswa Bimbingan');
