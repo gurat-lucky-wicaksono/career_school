@@ -133,6 +133,9 @@ Route::middleware(['auth', 'role:siswa'])->prefix('student')->name('student.')->
     Route::put('/profile', [\App\Http\Controllers\Student\ProfileController::class, 'update'])->name('profile.update');
     Route::post('/profile/skills', [\App\Http\Controllers\Student\ProfileController::class, 'addSkill'])->name('profile.skills.add');
     Route::delete('/profile/skills/{skill}', [\App\Http\Controllers\Student\ProfileController::class, 'removeSkill'])->name('profile.skills.remove');
+
+    // Pencarian Global / Command Palette Siswa
+    Route::get('/search', [\App\Http\Controllers\Student\GlobalSearchController::class, 'search'])->name('search');
 });
 
 // Portal Guru Kejuruan & Pembimbing PKL Routes (Protected by Auth & Role: Guru)
