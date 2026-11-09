@@ -35,7 +35,7 @@
             <div class="lg:col-span-2">
                 <select 
                     name="jenis" 
-                    class="w-full px-3 py-2.5 rounded-input border border-border-default/60 bg-surface-bg text-text-primary text-xs focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-colors outline-none"
+                    class="choices-select w-full px-3 py-2.5 rounded-input border border-border-default/60 bg-surface-bg text-text-primary text-xs focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-colors outline-none"
                 >
                     <option value="">Semua jenis</option>
                     <option value="magang" {{ request('jenis') === 'magang' ? 'selected' : '' }}>Magang / PKL</option>
@@ -58,7 +58,7 @@
             <div class="lg:col-span-2">
                 <select 
                     name="sort" 
-                    class="w-full px-3 py-2.5 rounded-input border border-border-default/60 bg-surface-bg text-text-primary text-xs focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-colors outline-none"
+                    class="choices-select w-full px-3 py-2.5 rounded-input border border-border-default/60 bg-surface-bg text-text-primary text-xs focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-colors outline-none"
                 >
                     <option value="match_desc" {{ request('sort', 'match_desc') === 'match_desc' ? 'selected' : '' }}>Kecocokan tertinggi</option>
                     <option value="latest" {{ request('sort') === 'latest' ? 'selected' : '' }}>Terbaru</option>

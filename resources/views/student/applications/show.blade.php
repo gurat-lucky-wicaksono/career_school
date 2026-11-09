@@ -11,27 +11,25 @@
             size="sm" 
             href="{{ route('student.applications.index') }}"
         >
-            <i data-lucide="arrow-left" class="w-4 h-4 mr-1.5"></i>
             Kembali ke Daftar Lamaran
         </x-ui.button>
 
         <div class="flex items-center gap-2">
-            <a 
+            <x-ui.button 
+                variant="secondary" 
+                size="sm" 
                 href="{{ route('student.applications.print', $application) }}" 
                 target="_blank"
-                class="inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-neutral-800 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-neutral-700 transition-colors shadow-sm"
             >
-                <i data-lucide="printer" class="w-3.5 h-3.5 mr-1.5 text-brand-secondary dark:text-brand-primary"></i>
-                <span>Cetak Lembar Bukti (PDF)</span>
-            </a>
+                Cetak Lembar Bukti (PDF)
+            </x-ui.button>
 
             <x-ui.button 
                 variant="ghost" 
                 size="sm" 
                 href="{{ route('student.jobs.show', $application->job) }}"
             >
-                <span>Buka Detail Lowongan</span>
-                <i data-lucide="external-link" class="w-3.5 h-3.5 ml-1.5"></i>
+                Buka Detail Lowongan
             </x-ui.button>
         </div>
     </div>
@@ -52,7 +50,7 @@
                         <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold {{ $application->job->jenis === 'magang' ? 'bg-sky-50 text-sky-700 dark:bg-sky-950/40 dark:text-sky-300 border border-sky-200/60' : 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 border border-emerald-200/60' }}">
                             {{ $application->job->jenis === 'magang' ? 'Magang / PKL' : 'Penuh Waktu' }}
                         </span>
-                        <span class="text-xs text-slate-400 font-mono">
+                        <span class="text-xs text-slate-400 font-sans font-medium">
                             #APP-{{ str_pad($application->id, 5, '0', STR_PAD_LEFT) }}
                         </span>
                     </div>

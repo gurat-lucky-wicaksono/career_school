@@ -16,7 +16,6 @@
         </div>
 
         <x-ui.button variant="primary" size="md" href="{{ route('student.portfolios.create') }}">
-            <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
             Tambah Karya Baru
         </x-ui.button>
     </div>

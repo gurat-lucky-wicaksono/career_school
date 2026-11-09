@@ -7,13 +7,6 @@
     <!-- 1. Header Banner -->
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-            <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-brand-primary mb-1">
-                <span>Portal Siswa Vokasi</span>
-                <span class="text-slate-300 dark:text-neutral-600">&bull;</span>
-                <span>{{ $student->schoolClass?->nama ?? 'PPLG' }}</span>
-                <span class="text-slate-300 dark:text-neutral-600">&bull;</span>
-                <span>NISN: {{ $student->nisn }}</span>
-            </div>
             <h1 class="text-2xl sm:text-3xl font-bold text-text-primary font-heading tracking-tight">
                 Halo, {{ $user->name }}
             </h1>
@@ -22,13 +15,11 @@
             </p>
         </div>
 
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3 shrink-0">
             <x-ui.button variant="secondary" size="md" href="{{ route('student.portfolios.index') }}">
-                <i data-lucide="folder-kanban" class="w-4 h-4 mr-2"></i>
                 Kelola portofolio
             </x-ui.button>
             <x-ui.button variant="primary" size="md" href="{{ route('student.jobs.index') }}">
-                <i data-lucide="compass" class="w-4 h-4 mr-2"></i>
                 Jelajahi lowongan
             </x-ui.button>
         </div>

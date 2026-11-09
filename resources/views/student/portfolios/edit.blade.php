@@ -11,7 +11,6 @@
             size="sm" 
             href="{{ route('student.portfolios.index') }}"
         >
-            <i data-lucide="arrow-left" class="w-4 h-4 mr-1.5"></i>
             Kembali ke Portofolio
         </x-ui.button>
     </div>
@@ -58,7 +57,7 @@
                     name="kategori" 
                     id="kategori" 
                     required
-                    class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-neutral-800/60 text-slate-800 dark:text-slate-100 text-xs focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-none transition-all"
+                    class="choices-select w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-neutral-800/60 text-slate-800 dark:text-slate-100 text-xs focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-none transition-all"
                 >
                     <option value="Web Development" {{ $currentCategory === 'Web Development' ? 'selected' : '' }}>Web Development</option>
                     <option value="Mobile App" {{ $currentCategory === 'Mobile App' ? 'selected' : '' }}>Mobile Application</option>
@@ -133,7 +132,6 @@
                     Batal
                 </x-ui.button>
                 <x-ui.button variant="primary" size="md" type="submit">
-                    <i data-lucide="check" class="w-4 h-4 mr-1.5"></i>
                     Simpan Perubahan
                 </x-ui.button>
             </div>

@@ -11,7 +11,6 @@
             size="sm" 
             href="{{ route('student.portfolios.index') }}"
         >
-            <i data-lucide="arrow-left" class="w-4 h-4 mr-1.5"></i>
             Kembali ke Portofolio
         </x-ui.button>
     </div>
@@ -55,7 +54,7 @@
                     name="kategori" 
                     id="kategori" 
                     required
-                    class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-neutral-800/60 text-slate-800 dark:text-slate-100 text-xs focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-none transition-all"
+                    class="choices-select w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-neutral-800/60 text-slate-800 dark:text-slate-100 text-xs focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-none transition-all"
                 >
                     <option value="">Pilih Kategori Proyek...</option>
                     <option value="Web Development" {{ old('kategori') === 'Web Development' ? 'selected' : '' }}>Web Development</option>
@@ -125,7 +124,6 @@
                     Batal
                 </x-ui.button>
                 <x-ui.button variant="primary" size="md" type="submit">
-                    <i data-lucide="save" class="w-4 h-4 mr-1.5"></i>
                     Simpan Karya
                 </x-ui.button>
             </div>

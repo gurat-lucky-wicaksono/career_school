@@ -15,9 +15,8 @@
             </p>
         </div>
 
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 shrink-0">
             <x-ui.button variant="secondary" size="md" href="{{ route('student.applications.index') }}">
-                <i data-lucide="send" class="w-4 h-4 mr-2"></i>
                 Riwayat Lamaran
             </x-ui.button>
         </div>
@@ -55,7 +54,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs font-semibold text-text-muted uppercase tracking-wider">Skor Tertinggi Capaian</p>
-                    <h3 class="text-2xl font-bold font-heading text-text-primary mt-1 font-mono">
+                    <h3 class="text-2xl font-bold font-heading text-text-primary mt-1 font-sans">
                         {{ $stats['highest_score'] > 0 ? number_format($stats['highest_score'], 1) : '-' }}
                     </h3>
                 </div>
@@ -110,32 +109,32 @@
                     </div>
 
                     @if($isVerified)
-                        <div class="flex items-center gap-2 self-start sm:self-auto">
-                            <a 
-                                href="{{ route('student.evaluations.show', $eval) }}" 
-                                class="px-3 py-1.5 text-xs font-semibold rounded-btn border border-border-subtle bg-surface-card hover:bg-surface-bg text-text-secondary hover:text-text-primary transition-colors flex items-center gap-1.5"
+                        <div class="flex items-center gap-2 self-start sm:self-auto shrink-0">
+                            <x-ui.button 
+                                variant="secondary" 
+                                size="sm" 
+                                href="{{ route('student.evaluations.show', $eval) }}"
                             >
-                                <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
-                                <span>Lihat Transkrip</span>
-                            </a>
-                            <a 
+                                Lihat Transkrip
+                            </x-ui.button>
+                            <x-ui.button 
+                                variant="primary" 
+                                size="sm" 
                                 href="{{ route('student.evaluations.print', $eval) }}" 
                                 target="_blank"
-                                class="px-3.5 py-1.5 text-xs font-semibold rounded-btn bg-emerald-600 text-white hover:bg-emerald-700 transition-all shadow-xs flex items-center gap-1.5"
                             >
-                                <i data-lucide="printer" class="w-3.5 h-3.5"></i>
-                                <span>Cetak Sertifikat PKL</span>
-                            </a>
+                                Cetak Sertifikat PKL
+                            </x-ui.button>
                         </div>
                     @elseif($isSubmitted)
-                        <div class="self-start sm:self-auto">
-                            <a 
-                                href="{{ route('student.evaluations.show', $eval) }}" 
-                                class="px-3.5 py-1.5 text-xs font-semibold rounded-btn bg-brand-primary text-white hover:bg-brand-primary/90 transition-all shadow-xs flex items-center gap-1.5"
+                        <div class="self-start sm:self-auto shrink-0">
+                            <x-ui.button 
+                                variant="primary" 
+                                size="sm" 
+                                href="{{ route('student.evaluations.show', $eval) }}"
                             >
-                                <i data-lucide="eye" class="w-3.5 h-3.5"></i>
-                                <span>Lihat Rincian Nilai</span>
-                            </a>
+                                Lihat Rincian Nilai
+                            </x-ui.button>
                         </div>
                     @endif
                 </div>
@@ -145,19 +144,19 @@
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-surface-bg/50 p-3.5 rounded-btn border border-border-subtle/80">
                         <div>
                             <span class="text-[10px] text-text-muted uppercase font-semibold">1. Teknis (40%)</span>
-                            <div class="text-base font-bold font-mono text-text-primary mt-0.5">{{ number_format($eval->nilai_teknis, 1) }}</div>
+                            <div class="text-base font-bold font-sans text-text-primary mt-0.5">{{ number_format($eval->nilai_teknis, 1) }}</div>
                         </div>
                         <div>
                             <span class="text-[10px] text-text-muted uppercase font-semibold">2. Disiplin (30%)</span>
-                            <div class="text-base font-bold font-mono text-text-primary mt-0.5">{{ number_format($eval->nilai_disiplin, 1) }}</div>
+                            <div class="text-base font-bold font-sans text-text-primary mt-0.5">{{ number_format($eval->nilai_disiplin, 1) }}</div>
                         </div>
                         <div>
                             <span class="text-[10px] text-text-muted uppercase font-semibold">3. Kerjasama (30%)</span>
-                            <div class="text-base font-bold font-mono text-text-primary mt-0.5">{{ number_format($eval->nilai_kerjasama, 1) }}</div>
+                            <div class="text-base font-bold font-sans text-text-primary mt-0.5">{{ number_format($eval->nilai_kerjasama, 1) }}</div>
                         </div>
                         <div class="border-l border-border-subtle pl-3">
                             <span class="text-[10px] text-text-muted uppercase font-semibold">Skor Akhir & Predikat</span>
-                            <div class="text-base font-bold font-mono text-text-primary mt-0.5 flex items-center gap-1.5">
+                            <div class="text-base font-bold font-sans text-text-primary mt-0.5 flex items-center gap-1.5">
                                 <span>{{ number_format($eval->nilai_akhir, 1) }}</span>
                                 <span class="text-xs px-2 py-0.5 rounded-full font-bold border {{ $eval->predicate_badge_class }}">
                                     {{ $eval->predikat }}

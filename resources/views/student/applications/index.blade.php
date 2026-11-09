@@ -16,7 +16,6 @@
         </div>
 
         <x-ui.button variant="primary" size="md" href="{{ route('student.jobs.index') }}">
-            <i data-lucide="compass" class="w-4 h-4 mr-2"></i>
             Jelajahi Lowongan Lainnya
         </x-ui.button>
     </div>
@@ -171,7 +170,7 @@
                 <!-- Footer & Action Buttons -->
                 <div class="mt-4 pt-3.5 border-t border-slate-100 dark:border-white/5 flex items-center justify-between gap-3">
                     <span class="text-[11px] text-slate-400">
-                        ID Lamaran: <span class="font-mono">#APP-{{ str_pad($application->id, 5, '0', STR_PAD_LEFT) }}</span>
+                        ID Lamaran: <span class="font-sans font-medium">#APP-{{ str_pad($application->id, 5, '0', STR_PAD_LEFT) }}</span>
                     </span>
 
                     <div class="flex items-center gap-2">
@@ -195,8 +194,7 @@
                         </a>
 
                         <x-ui.button variant="primary" size="sm" href="{{ route('student.applications.show', $application) }}">
-                            <span>Pelacakan Detail</span>
-                            <i data-lucide="arrow-right" class="w-3.5 h-3.5 ml-1.5"></i>
+                            Pelacakan Detail
                         </x-ui.button>
                     </div>
                 </div>
