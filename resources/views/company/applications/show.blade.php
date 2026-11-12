@@ -11,7 +11,6 @@
             size="sm" 
             href="{{ route('company.applications.index') }}"
         >
-            <i data-lucide="arrow-left" class="w-3.5 h-3.5 mr-1.5"></i>
             Kembali ke daftar pelamar
         </x-ui.button>
 
@@ -49,7 +48,7 @@
                     </div>
 
                     <p class="text-xs text-text-secondary">
-                        {{ $application->student->major->nama ?? 'Program Vokasi' }} &bull; NISN: <span class="font-mono">{{ $application->student->nisn }}</span>
+                        {{ $application->student->major->nama ?? 'Program Vokasi' }} &bull; NISN: <span class="font-sans font-semibold">{{ $application->student->nisn }}</span>
                     </p>
 
                     <p class="text-[11px] text-text-muted flex flex-wrap items-center gap-3 pt-1">
@@ -220,7 +219,7 @@
                     <select 
                         name="status" 
                         required
-                        class="w-full h-10 px-3 text-xs rounded-btn bg-surface-bg border border-border-subtle text-text-primary focus:outline-none focus:ring-1 focus:ring-brand-primary"
+                        class="choices-select w-full h-10 px-3 text-xs rounded-btn bg-surface-bg border border-border-subtle text-text-primary focus:outline-none focus:ring-1 focus:ring-brand-primary"
                     >
                         <option value="tertunda" {{ $application->status === 'tertunda' ? 'selected' : '' }}>Tertunda (Antrean baru)</option>
                         <option value="ditinjau" {{ $application->status === 'ditinjau' ? 'selected' : '' }}>Sedang ditinjau</option>
