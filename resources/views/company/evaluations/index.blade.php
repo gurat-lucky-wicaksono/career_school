@@ -74,22 +74,24 @@
             </div>
 
             <div class="flex items-center gap-2 w-full sm:w-auto">
-                <select 
-                    name="eval_status" 
-                    onchange="this.form.submit()" 
-                    class="px-3 py-2 text-xs sm:text-sm bg-surface-bg border border-border-subtle rounded-btn text-text-primary focus:outline-hidden focus:border-brand-primary"
-                >
-                    <option value="">Semua Status Evaluasi</option>
-                    <option value="belum" {{ request('eval_status') === 'belum' ? 'selected' : '' }}>Belum Dievaluasi</option>
-                    <option value="draft" {{ request('eval_status') === 'draft' ? 'selected' : '' }}>Draf</option>
-                    <option value="submitted" {{ request('eval_status') === 'submitted' ? 'selected' : '' }}>Menunggu Verifikasi Guru</option>
-                    <option value="verified" {{ request('eval_status') === 'verified' ? 'selected' : '' }}>Terverifikasi Sekolah</option>
-                </select>
+                <div class="min-w-[200px] w-full sm:w-auto">
+                    <select 
+                        name="eval_status" 
+                        onchange="this.form.submit()" 
+                        class="choices-select w-full"
+                    >
+                        <option value="">Semua Status Evaluasi</option>
+                        <option value="belum" {{ request('eval_status') === 'belum' ? 'selected' : '' }}>Belum Dievaluasi</option>
+                        <option value="draft" {{ request('eval_status') === 'draft' ? 'selected' : '' }}>Draf</option>
+                        <option value="submitted" {{ request('eval_status') === 'submitted' ? 'selected' : '' }}>Menunggu Verifikasi Guru</option>
+                        <option value="verified" {{ request('eval_status') === 'verified' ? 'selected' : '' }}>Terverifikasi Sekolah</option>
+                    </select>
+                </div>
 
                 @if(request()->filled('search') || request()->filled('eval_status'))
-                    <a href="{{ route('company.evaluations.index') }}" class="px-3 py-2 text-xs font-semibold text-text-secondary hover:text-text-primary border border-border-subtle rounded-btn hover:bg-surface-bg transition-colors">
+                    <x-ui.button variant="secondary" size="sm" href="{{ route('company.evaluations.index') }}">
                         Reset
-                    </a>
+                    </x-ui.button>
                 @endif
             </div>
         </form>
@@ -132,7 +134,7 @@
                                         <div class="font-heading font-bold text-text-primary truncate">
                                             {{ $app->student->user->name ?? 'Siswa' }}
                                         </div>
-                                        <div class="text-[11px] text-text-muted truncate font-mono">
+                                        <div class="text-[11px] text-text-muted truncate font-sans">
                                             {{ $app->student->major->nama ?? 'Jurusan' }} &bull; NISN: {{ $app->student->nisn }}
                                         </div>
                                     </div>
@@ -148,7 +150,7 @@
                             <!-- Nilai Akhir -->
                             <td class="px-5 py-3.5 text-center">
                                 @if($eval)
-                                    <span class="font-bold font-mono text-base text-text-primary">{{ number_format($eval->nilai_akhir, 1) }}</span>
+                                    <span class="font-bold font-sans text-base text-text-primary">{{ number_format($eval->nilai_akhir, 1) }}</span>
                                     <div class="text-[10px] text-text-muted">Skor / 100</div>
                                 @else
                                     <span class="text-xs text-text-muted italic">-</span>
@@ -188,48 +190,28 @@
                             </td>
 
                             <!-- Aksi -->
-                            <td class="px-5 py-3.5 text-right">
+                            <td class="px-5 py-3.5 text-right whitespace-nowrap">
                                 @if(!$eval)
-                                    <a 
-                                        href="{{ route('company.evaluations.create', $app) }}" 
-                                        class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-btn bg-brand-primary text-white hover:bg-brand-primary/90 transition-all shadow-xs active:scale-[0.96]"
-                                    >
-                                        <i data-lucide="pen-tool" class="w-3.5 h-3.5"></i>
-                                        <span>Beri Nilai</span>
-                                    </a>
+                                    <x-ui.button variant="primary" size="sm" href="{{ route('company.evaluations.create', $app) }}">
+                                        Beri Nilai
+                                    </x-ui.button>
                                 @elseif($eval->status === 'draft')
-                                    <a 
-                                        href="{{ route('company.evaluations.edit', $eval) }}" 
-                                        class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-btn bg-amber-500 text-white hover:bg-amber-600 transition-all shadow-xs active:scale-[0.96]"
-                                    >
-                                        <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
-                                        <span>Lanjutkan Draf</span>
-                                    </a>
+                                    <x-ui.button variant="secondary" size="sm" href="{{ route('company.evaluations.edit', $eval) }}">
+                                        Lanjutkan Draf
+                                    </x-ui.button>
                                 @elseif($eval->status === 'submitted')
                                     <div class="inline-flex items-center gap-1.5">
-                                        <a 
-                                            href="{{ route('company.evaluations.edit', $eval) }}" 
-                                            class="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-btn border border-border-subtle bg-surface-card hover:bg-surface-bg text-text-secondary transition-colors"
-                                        >
-                                            <i data-lucide="edit-2" class="w-3 h-3"></i>
-                                            <span>Edit</span>
-                                        </a>
-                                        <a 
-                                            href="{{ route('company.evaluations.show', $eval) }}" 
-                                            class="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold rounded-btn bg-indigo-50 text-indigo-700 hover:bg-indigo-100 dark:bg-indigo-950/40 dark:text-indigo-300 dark:hover:bg-indigo-900/60 transition-colors"
-                                        >
-                                            <i data-lucide="eye" class="w-3 h-3"></i>
-                                            <span>Detail</span>
-                                        </a>
+                                        <x-ui.button variant="secondary" size="sm" href="{{ route('company.evaluations.edit', $eval) }}">
+                                            Edit
+                                        </x-ui.button>
+                                        <x-ui.button variant="secondary" size="sm" href="{{ route('company.evaluations.show', $eval) }}">
+                                            Detail
+                                        </x-ui.button>
                                     </div>
                                 @else
-                                    <a 
-                                        href="{{ route('company.evaluations.show', $eval) }}" 
-                                        class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-btn bg-surface-bg border border-border-subtle text-text-primary hover:bg-surface-card transition-colors"
-                                    >
-                                        <i data-lucide="award" class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400"></i>
-                                        <span>Transkrip Sah</span>
-                                    </a>
+                                    <x-ui.button variant="secondary" size="sm" href="{{ route('company.evaluations.show', $eval) }}">
+                                        Transkrip Sah
+                                    </x-ui.button>
                                 @endif
                             </td>
                         </tr>
