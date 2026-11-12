@@ -92,7 +92,7 @@
                     <select 
                         name="jenis" 
                         required
-                        class="w-full h-10 px-3 text-xs rounded-xl bg-slate-50 dark:bg-neutral-800/60 border border-slate-200/80 dark:border-white/10 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-primary/50"
+                        class="choices-select w-full h-10 px-3 text-xs rounded-xl bg-slate-50 dark:bg-neutral-800/60 border border-slate-200/80 dark:border-white/10 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-primary/50"
                     >
                         <option value="penuh_waktu" {{ old('jenis', $job->jenis) === 'penuh_waktu' ? 'selected' : '' }}>Penuh Waktu (Full Time)</option>
                         <option value="magang" {{ old('jenis', $job->jenis) === 'magang' ? 'selected' : '' }}>Magang / Praktik Kerja Lapangan (PKL)</option>
@@ -197,14 +197,14 @@
                     </p>
                 </div>
 
-                <button 
+                <x-ui.button 
+                    variant="secondary" 
+                    size="sm" 
                     type="button" 
                     @click="addSkill()"
-                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-neutral-800 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-neutral-700 transition-colors"
                 >
-                    <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-                    <span>Tambah Syarat Skill</span>
-                </button>
+                    Tambah Syarat Skill
+                </x-ui.button>
             </div>
 
             <!-- Dynamic Skills Rows -->
