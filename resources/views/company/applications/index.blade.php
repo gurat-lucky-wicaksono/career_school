@@ -29,7 +29,7 @@
             <button 
                 type="button" 
                 onclick="window.openModal('modal-filter-applications')"
-                class="relative h-11 px-4 text-xs sm:text-sm font-semibold rounded-btn border border-border-subtle bg-surface-card text-text-primary hover:border-text-secondary/70 hover:bg-surface-bg flex items-center gap-2 transition-all shadow-xs active:scale-[0.96]"
+                class="relative h-11 px-4 text-xs sm:text-sm font-semibold rounded-full border border-border-default bg-surface-card text-text-primary hover:border-text-secondary/70 hover:bg-surface-bg flex items-center gap-2 transition-all shadow-xs"
             >
                 <i data-lucide="filter" class="w-4 h-4 text-text-secondary"></i>
                 <span>Filter</span>
@@ -52,7 +52,7 @@
                             <div class="font-heading font-bold text-text-primary text-sm truncate">
                                 {{ $app->student->user->name ?? 'Siswa' }}
                             </div>
-                            <div class="text-[11px] text-text-muted truncate font-mono">
+                            <div class="text-[11px] text-text-muted truncate font-sans">
                                 {{ $app->student->major->nama ?? 'Jurusan Vokasi' }} &bull; NISN: {{ $app->student->nisn }}
                             </div>
                         </div>

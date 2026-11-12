@@ -15,27 +15,19 @@
                     </span>
                 </div>
                 <p class="text-xs text-text-secondary mt-1">
-                    Nomor Transkrip / Sertifikat: <span class="font-mono font-bold text-text-primary">{{ $evaluation->nomor_sertifikat ?? '-' }}</span>
+                    Nomor Transkrip / Sertifikat: <span class="font-sans font-bold text-text-primary">{{ $evaluation->nomor_sertifikat ?? '-' }}</span>
                 </p>
             </div>
 
             <div class="flex items-center gap-2 self-start sm:self-auto">
                 @if($evaluation->status !== 'verified')
-                    <a 
-                        href="{{ route('company.evaluations.edit', $evaluation) }}" 
-                        class="px-3.5 py-1.5 text-xs font-semibold rounded-btn bg-brand-primary text-white hover:bg-brand-primary/90 transition-all shadow-xs flex items-center gap-1.5"
-                    >
-                        <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
-                        <span>Edit Penilaian</span>
-                    </a>
+                    <x-ui.button variant="primary" size="sm" href="{{ route('company.evaluations.edit', $evaluation) }}">
+                        Edit Penilaian
+                    </x-ui.button>
                 @endif
-                <a 
-                    href="{{ route('company.evaluations.index') }}" 
-                    class="px-3.5 py-1.5 text-xs font-semibold rounded-btn border border-border-subtle text-text-secondary hover:text-text-primary hover:bg-surface-bg transition-colors flex items-center gap-1.5"
-                >
-                    <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
-                    <span>Daftar Evaluasi</span>
-                </a>
+                <x-ui.button variant="secondary" size="sm" href="{{ route('company.evaluations.index') }}">
+                    Daftar Evaluasi
+                </x-ui.button>
             </div>
         </div>
     </div>
@@ -54,7 +46,7 @@
                 </div>
                 <div class="flex justify-between py-1 border-b border-border-subtle/50">
                     <span class="text-text-secondary">NISN</span>
-                    <span class="font-mono text-text-primary">{{ $evaluation->student->nisn }}</span>
+                    <span class="font-sans text-text-primary">{{ $evaluation->student->nisn }}</span>
                 </div>
                 <div class="flex justify-between py-1 border-b border-border-subtle/50">
                     <span class="text-text-secondary">Kelas / Angkatan</span>
@@ -105,7 +97,7 @@
             <div class="flex items-center gap-3">
                 <div class="text-right">
                     <span class="text-xs text-text-muted">Skor Komposit</span>
-                    <div class="text-3xl font-extrabold font-mono text-text-primary">{{ number_format($evaluation->nilai_akhir, 1) }}</div>
+                    <div class="text-3xl font-extrabold font-sans text-text-primary">{{ number_format($evaluation->nilai_akhir, 1) }}</div>
                 </div>
                 <div class="px-3 py-1.5 rounded-btn border {{ $evaluation->predicate_badge_class }} text-center">
                     <div class="text-sm font-bold">{{ $evaluation->predikat }}</div>
@@ -117,19 +109,19 @@
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div class="p-4 rounded-btn border border-border-subtle bg-surface-bg/50">
                 <div class="text-[11px] font-semibold text-text-muted uppercase">Kompetensi Teknis (40%)</div>
-                <div class="text-2xl font-bold font-mono text-text-primary mt-1">{{ number_format($evaluation->nilai_teknis, 1) }}</div>
+                <div class="text-2xl font-bold font-sans text-text-primary mt-1">{{ number_format($evaluation->nilai_teknis, 1) }}</div>
                 <div class="text-[11px] text-text-secondary mt-1">Kontribusi skor: {{ number_format($evaluation->nilai_teknis * 0.4, 1) }} poin</div>
             </div>
 
             <div class="p-4 rounded-btn border border-border-subtle bg-surface-bg/50">
                 <div class="text-[11px] font-semibold text-text-muted uppercase">Disiplin & Etika (30%)</div>
-                <div class="text-2xl font-bold font-mono text-text-primary mt-1">{{ number_format($evaluation->nilai_disiplin, 1) }}</div>
+                <div class="text-2xl font-bold font-sans text-text-primary mt-1">{{ number_format($evaluation->nilai_disiplin, 1) }}</div>
                 <div class="text-[11px] text-text-secondary mt-1">Kontribusi skor: {{ number_format($evaluation->nilai_disiplin * 0.3, 1) }} poin</div>
             </div>
 
             <div class="p-4 rounded-btn border border-border-subtle bg-surface-bg/50">
                 <div class="text-[11px] font-semibold text-text-muted uppercase">Kerjasama & Komunikasi (30%)</div>
-                <div class="text-2xl font-bold font-mono text-text-primary mt-1">{{ number_format($evaluation->nilai_kerjasama, 1) }}</div>
+                <div class="text-2xl font-bold font-sans text-text-primary mt-1">{{ number_format($evaluation->nilai_kerjasama, 1) }}</div>
                 <div class="text-[11px] text-text-secondary mt-1">Kontribusi skor: {{ number_format($evaluation->nilai_kerjasama * 0.3, 1) }} poin</div>
             </div>
         </div>

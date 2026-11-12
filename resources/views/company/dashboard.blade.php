@@ -18,7 +18,6 @@
         <div class="flex items-center gap-3">
             @if ($company->isVerified())
                 <x-ui.button variant="primary" href="{{ route('company.jobs.index') }}?create=1">
-                    <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
                     Pasang lowongan
                 </x-ui.button>
             @else
@@ -153,13 +152,9 @@
                             Mulai publikasikan posisi lowongan atau magang untuk merekrut siswa terbaik SMK Negeri 1 Cirebon.
                         </p>
                         @if ($company->isVerified())
-                            <a 
-                                href="{{ route('company.jobs.create') }}" 
-                                class="inline-flex items-center gap-1.5 mt-4 px-4 py-2 rounded-btn bg-brand-primary text-text-on-brand-primary text-xs font-semibold hover:brightness-105 active:scale-[0.96] transition-transform shadow-xs"
-                            >
-                                <i data-lucide="plus" class="w-4 h-4"></i>
-                                <span>Buat lowongan pertama</span>
-                            </a>
+                            <x-ui.button variant="primary" size="sm" href="{{ route('company.jobs.create') }}" class="mt-4">
+                                Buat lowongan pertama
+                            </x-ui.button>
                         @endif
                     </div>
                 @endforelse

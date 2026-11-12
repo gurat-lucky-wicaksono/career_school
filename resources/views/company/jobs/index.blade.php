@@ -180,7 +180,7 @@
 
                 <!-- Kuota & Batas -->
                 <td class="px-5 py-3.5 text-xs text-slate-700 dark:text-slate-300">
-                    <div>Kuota: <span class="font-semibold text-slate-900 dark:text-white font-mono">{{ $job->kuota }}</span> orang</div>
+                    <div>Kuota: <span class="font-semibold text-slate-900 dark:text-white font-sans">{{ $job->kuota }}</span> orang</div>
                     <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
                         Batas: {{ $job->batas_lamaran ? $job->batas_lamaran->format('d M Y') : 'Tanpa batas' }}
                     </div>
@@ -401,7 +401,7 @@
                         value="1" 
                         min="1" 
                         max="100"
-                        class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary text-sm transition-all outline-none shadow-xs font-normal font-mono"
+                        class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary text-sm transition-all outline-none shadow-xs font-normal font-sans"
                     >
                 </div>
 
@@ -619,7 +619,7 @@
                         min="1" 
                         max="100"
                         x-model="editJob.kuota"
-                        class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary text-sm transition-all outline-none shadow-xs font-normal font-mono"
+                        class="w-full px-5 py-3 rounded-full bg-surface-bg border border-border-default hover:border-text-secondary/70 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 text-text-primary text-sm transition-all outline-none shadow-xs font-normal font-sans"
                     >
                 </div>
 

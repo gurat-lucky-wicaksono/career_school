@@ -18,7 +18,7 @@
                             {{ $evaluation->status_label }}
                         </span>
                     </div>
-                    <p class="text-xs text-text-muted mt-0.5 font-mono">
+                    <p class="text-xs text-text-muted mt-0.5 font-sans">
                         NISN: {{ $evaluation->student->nisn }} &bull; {{ $evaluation->student->schoolClass->nama ?? 'Kelas' }} &bull; {{ $evaluation->student->major->nama ?? 'Jurusan' }}
                     </p>
                     <p class="text-xs text-text-secondary mt-1">
@@ -27,10 +27,9 @@
                 </div>
             </div>
 
-            <a href="{{ route('company.evaluations.index') }}" class="px-3 py-1.5 text-xs font-semibold rounded-btn border border-border-subtle text-text-secondary hover:text-text-primary hover:bg-surface-bg transition-colors self-start sm:self-auto flex items-center gap-1.5">
-                <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
-                <span>Kembali</span>
-            </a>
+            <x-ui.button variant="secondary" size="sm" href="{{ route('company.evaluations.index') }}" class="self-start sm:self-auto">
+                Kembali
+            </x-ui.button>
         </div>
     </div>
 
@@ -70,7 +69,7 @@
                             name="nilai_teknis" 
                             value="{{ old('nilai_teknis', $evaluation->nilai_teknis) }}" 
                             required
-                            class="w-full px-3 py-2 text-sm font-mono font-bold bg-surface-card border border-border-subtle rounded-btn focus:outline-hidden focus:border-brand-primary text-text-primary"
+                            class="w-full px-3 py-2 text-sm font-sans font-bold bg-surface-card border border-border-subtle rounded-btn focus:outline-hidden focus:border-brand-primary text-text-primary"
                         >
                         @error('nilai_teknis')
                             <p class="text-xs text-rose-500 mt-1">{{ $message }}</p>
@@ -101,7 +100,7 @@
                             name="nilai_disiplin" 
                             value="{{ old('nilai_disiplin', $evaluation->nilai_disiplin) }}" 
                             required
-                            class="w-full px-3 py-2 text-sm font-mono font-bold bg-surface-card border border-border-subtle rounded-btn focus:outline-hidden focus:border-brand-primary text-text-primary"
+                            class="w-full px-3 py-2 text-sm font-sans font-bold bg-surface-card border border-border-subtle rounded-btn focus:outline-hidden focus:border-brand-primary text-text-primary"
                         >
                         @error('nilai_disiplin')
                             <p class="text-xs text-rose-500 mt-1">{{ $message }}</p>
@@ -132,7 +131,7 @@
                             name="nilai_kerjasama" 
                             value="{{ old('nilai_kerjasama', $evaluation->nilai_kerjasama) }}" 
                             required
-                            class="w-full px-3 py-2 text-sm font-mono font-bold bg-surface-card border border-border-subtle rounded-btn focus:outline-hidden focus:border-brand-primary text-text-primary"
+                            class="w-full px-3 py-2 text-sm font-sans font-bold bg-surface-card border border-border-subtle rounded-btn focus:outline-hidden focus:border-brand-primary text-text-primary"
                         >
                         @error('nilai_kerjasama')
                             <p class="text-xs text-rose-500 mt-1">{{ $message }}</p>
@@ -155,8 +154,8 @@
 
                 <div class="flex items-center gap-4">
                     <div class="text-right">
-                        <div class="text-xs text-text-muted font-mono">Skor Terhitung</div>
-                        <div class="text-2xl font-bold font-heading text-text-primary font-mono" id="previewScore">{{ number_format($evaluation->nilai_akhir, 1) }}</div>
+                        <div class="text-xs text-text-muted font-sans">Skor Terhitung</div>
+                        <div class="text-2xl font-bold font-heading text-text-primary font-sans" id="previewScore">{{ number_format($evaluation->nilai_akhir, 1) }}</div>
                     </div>
                     <div class="h-8 w-px bg-border-subtle"></div>
                     <div class="text-left">
@@ -188,25 +187,27 @@
 
             <!-- Submit Action Buttons -->
             <div class="pt-4 border-t border-border-subtle flex flex-col sm:flex-row items-center justify-end gap-3">
-                <button 
+                <x-ui.button 
+                    variant="secondary" 
+                    size="md" 
                     type="submit" 
                     name="submit_action" 
                     value="draft"
-                    class="w-full sm:w-auto px-4 py-2 text-xs sm:text-sm font-semibold rounded-btn border border-border-subtle bg-surface-card hover:bg-surface-bg text-text-secondary hover:text-text-primary transition-colors flex items-center justify-center gap-1.5"
+                    class="w-full sm:w-auto justify-center"
                 >
-                    <i data-lucide="save" class="w-4 h-4"></i>
-                    <span>Simpan Perubahan Draf</span>
-                </button>
+                    Simpan Perubahan Draf
+                </x-ui.button>
 
-                <button 
+                <x-ui.button 
+                    variant="primary" 
+                    size="md" 
                     type="submit" 
                     name="submit_action" 
                     value="submit"
-                    class="w-full sm:w-auto px-5 py-2 text-xs sm:text-sm font-semibold rounded-btn bg-brand-primary text-white hover:bg-brand-primary/90 transition-all shadow-xs active:scale-[0.96] flex items-center justify-center gap-1.5"
+                    class="w-full sm:w-auto justify-center"
                 >
-                    <i data-lucide="send" class="w-4 h-4"></i>
-                    <span>{{ $evaluation->status === 'submitted' ? 'Simpan & Kirim Ulang' : 'Kirimkan Nilai ke Sekolah' }}</span>
-                </button>
+                    {{ $evaluation->status === 'submitted' ? 'Simpan & Kirim Ulang' : 'Kirimkan Nilai ke Sekolah' }}
+                </x-ui.button>
             </div>
         </div>
     </form>
