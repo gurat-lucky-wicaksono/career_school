@@ -15,8 +15,7 @@
             </p>
         </div>
 
-        <a href="{{ route('feed.index') }}" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-btn bg-neutral-100 dark:bg-neutral-800 text-text-primary text-xs font-semibold hover:bg-neutral-200 dark:hover:bg-neutral-700 active:scale-[0.96] transition-transform shadow-xs">
-            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+        <a href="{{ route('feed.index') }}" class="inline-flex items-center px-4 py-2 rounded-btn bg-neutral-100 dark:bg-neutral-800 text-text-primary text-xs font-semibold hover:bg-neutral-200 dark:hover:bg-neutral-700 active:scale-[0.96] transition-transform shadow-xs">
             Kembali ke feed
         </a>
     </div>

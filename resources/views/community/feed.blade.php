@@ -48,8 +48,7 @@
                 </div>
 
                 <div class="pt-2">
-                    <a href="{{ route('community.profile', $user->username) }}" class="w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-btn bg-neutral-100 dark:bg-neutral-800 text-text-primary text-xs font-semibold hover:bg-neutral-200 dark:hover:bg-neutral-700 active:scale-[0.96] transition-transform shadow-xs">
-                        <i data-lucide="user" class="w-3.5 h-3.5"></i>
+                    <a href="{{ route('community.profile', $user->username) }}" class="w-full inline-flex items-center justify-center px-3 py-2 rounded-btn bg-neutral-100 dark:bg-neutral-800 text-text-primary text-xs font-semibold hover:bg-neutral-200 dark:hover:bg-neutral-700 active:scale-[0.96] transition-transform shadow-xs">
                         Lihat profil saya
                     </a>
                 </div>
@@ -127,9 +126,8 @@
 
                                 <button 
                                     type="submit" 
-                                    class="inline-flex items-center justify-center gap-2 px-5 py-2 rounded-btn bg-brand-primary text-text-on-brand-primary font-semibold text-xs hover:brightness-105 active:scale-[0.96] transition-transform shadow-xs"
+                                    class="inline-flex items-center justify-center px-5 py-2 rounded-btn bg-brand-primary text-text-on-brand-primary font-semibold text-xs hover:brightness-105 active:scale-[0.96] transition-transform shadow-xs"
                                 >
-                                    <i data-lucide="send" class="w-3.5 h-3.5"></i>
                                     Bagikan
                                 </button>
                             </div>
