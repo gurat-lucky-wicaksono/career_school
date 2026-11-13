@@ -105,9 +105,8 @@
                         <button
                             type="button"
                             onclick="resetRoleSelection()"
-                            class="inline-flex items-center gap-1.5 text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors group"
+                            class="inline-flex items-center text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors group"
                         >
-                            <x-icon name="arrow-left" class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
                             <span>Ganti Pilihan Peran</span>
                         </button>
                         <span id="role-indicator-badge" class="px-2.5 py-0.5 rounded-full bg-brand-primary/15 text-text-primary text-[11px] font-semibold">

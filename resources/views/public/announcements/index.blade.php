@@ -36,7 +36,7 @@
                 <div class="flex items-center gap-2">
                     <select
                         name="prioritas"
-                        class="w-full px-3 py-2.5 text-xs sm:text-sm rounded-input border border-border-default/60 bg-surface-bg text-text-primary focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-colors"
+                        class="choices-select w-full px-3 py-2.5 text-xs sm:text-sm rounded-input border border-border-default/60 bg-surface-bg text-text-primary focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-colors"
                         onchange="this.form.submit()"
                     >
                         <option value="">Semua prioritas</option>
@@ -94,9 +94,8 @@
                                 Oleh: {{ $item->author->name ?? 'Admin BKK' }}
                             </span>
 
-                            <a href="{{ route('public.announcements.show', $item) }}" class="inline-flex items-center gap-1 font-semibold text-brand-secondary dark:text-brand-primary hover:underline">
+                            <a href="{{ route('public.announcements.show', $item) }}" class="font-semibold text-brand-secondary dark:text-brand-primary hover:underline">
                                 Baca selengkapnya
-                                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                             </a>
                         </div>
                     </article>

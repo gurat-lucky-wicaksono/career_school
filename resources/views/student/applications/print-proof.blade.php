@@ -352,7 +352,7 @@
             <tr>
                 <td class="label-col">NISN / Identitas Siswa</td>
                 <td class="sep-col">:</td>
-                <td class="val-col font-mono">{{ $application->student->nisn ?? '-' }}</td>
+                <td class="val-col font-sans font-medium">{{ $application->student->nisn ?? '-' }}</td>
             </tr>
             <tr>
                 <td class="label-col">Konsentrasi Keahlian (Jurusan)</td>

@@ -57,15 +57,13 @@
                         if (auth()->user()->isSiswa()) $editProfileUrl = route('student.profile');
                         elseif (auth()->user()->isPerusahaan()) $editProfileUrl = route('company.profile');
                     @endphp
-                    <a href="{{ $editProfileUrl }}" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-btn bg-neutral-100 dark:bg-neutral-800 text-text-primary text-xs font-semibold hover:bg-neutral-200 dark:hover:bg-neutral-700 active:scale-[0.96] transition-transform shadow-xs">
-                        <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                    <a href="{{ $editProfileUrl }}" class="inline-flex items-center px-4 py-2 rounded-btn bg-neutral-100 dark:bg-neutral-800 text-text-primary text-xs font-semibold hover:bg-neutral-200 dark:hover:bg-neutral-700 active:scale-[0.96] transition-transform shadow-xs">
                         Edit profil
                     </a>
                 @else
                     <form method="POST" action="{{ route('users.follow', $profileUser) }}">
                         @csrf
-                        <button type="submit" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-btn font-semibold text-xs active:scale-[0.96] transition-transform shadow-xs {{ $isFollowing ? 'bg-neutral-100 dark:bg-neutral-800 text-text-secondary hover:bg-state-danger-bg hover:text-state-danger-text' : 'bg-brand-primary text-text-on-brand-primary hover:brightness-105' }}">
-                            <i data-lucide="{{ $isFollowing ? 'user-check' : 'user-plus' }}" class="w-4 h-4"></i>
+                        <button type="submit" class="inline-flex items-center justify-center px-6 py-2.5 rounded-btn font-semibold text-xs active:scale-[0.96] transition-transform shadow-xs {{ $isFollowing ? 'bg-neutral-100 dark:bg-neutral-800 text-text-secondary hover:bg-state-danger-bg hover:text-state-danger-text' : 'bg-brand-primary text-text-on-brand-primary hover:brightness-105' }}">
                             <span>{{ $isFollowing ? 'Mengikuti' : 'Ikuti' }}</span>
                         </button>
                     </form>

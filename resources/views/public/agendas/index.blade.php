@@ -36,7 +36,7 @@
                 <div class="flex items-center gap-2">
                     <select
                         name="jenis"
-                        class="w-full px-3 py-2.5 text-xs sm:text-sm rounded-input border border-border-default/60 bg-surface-bg text-text-primary focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-colors"
+                        class="choices-select w-full px-3 py-2.5 text-xs sm:text-sm rounded-input border border-border-default/60 bg-surface-bg text-text-primary focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-colors"
                         onchange="this.form.submit()"
                     >
                         <option value="">Semua kategori</option>

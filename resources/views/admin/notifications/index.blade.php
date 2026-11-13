@@ -119,11 +119,10 @@
                         @csrf
                         <button 
                             type="submit" 
-                            class="px-4 py-2 rounded-full text-xs font-semibold bg-surface-bg hover:bg-slate-200/60 dark:hover:bg-neutral-800 border border-border-default text-text-primary transition-all flex items-center gap-1.5 shadow-xs"
+                            class="px-4 py-2 rounded-full text-xs font-semibold bg-surface-bg hover:bg-slate-200/60 dark:hover:bg-neutral-800 border border-border-default text-text-primary transition-all shadow-xs"
                             title="Buka detail"
                         >
-                            <span>Buka</span>
-                            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                            Buka
                         </button>
                     </form>
                 </div>
