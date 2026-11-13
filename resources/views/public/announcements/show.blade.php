@@ -7,8 +7,7 @@
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <!-- Back Navigation -->
         <div>
-            <a href="{{ route('public.announcements') }}" class="inline-flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
-                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            <a href="{{ route('public.announcements') }}" class="inline-flex items-center text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
                 Kembali ke Daftar Pengumuman
             </a>
         </div>
@@ -71,9 +70,8 @@
                         href="{{ asset('storage/' . $announcement->lampiran) }}" 
                         target="_blank" 
                         download
-                        class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-brand-primary text-neutral-900 font-semibold text-xs sm:text-sm hover:brightness-105 transition-all shadow-sm flex-shrink-0"
+                        class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-brand-primary text-neutral-900 font-semibold text-xs sm:text-sm hover:brightness-105 transition-all shadow-sm flex-shrink-0"
                     >
-                        <i data-lucide="download" class="w-4 h-4"></i>
                         Unduh Berkas
                     </a>
                 </div>

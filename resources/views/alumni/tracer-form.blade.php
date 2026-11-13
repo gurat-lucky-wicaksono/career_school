@@ -10,10 +10,9 @@
         <div class="flex items-center justify-between">
             <a
                 href="{{ route('alumni.index') }}"
-                class="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
+                class="inline-flex items-center text-xs sm:text-sm font-semibold text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
             >
-                <i data-lucide="arrow-left" class="w-4 h-4"></i>
-                <span>Kembali ke Direktori Alumni</span>
+                Kembali ke Direktori Alumni
             </a>
             <span class="text-xs text-slate-400">
                 Format Resmi BKK SMKN 1 Cirebon
@@ -65,7 +64,7 @@
                             <select
                                 name="major_id"
                                 required
-                                class="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-primary"
+                                class="choices-select w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-primary"
                             >
                                 <option value="">-- Pilih Konsentrasi Keahlian --</option>
                                 @foreach($majors as $m)
@@ -86,7 +85,7 @@
                             <select
                                 name="tahun_lulus"
                                 required
-                                class="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-primary"
+                                class="choices-select w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-primary"
                             >
                                 <option value="">-- Pilih Tahun Lulus --</option>
                                 @foreach($years as $yr)
@@ -203,7 +202,7 @@
                             </label>
                             <select
                                 name="pendapatan_bulanan"
-                                class="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-primary"
+                                class="choices-select w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-primary"
                             >
                                 <option value="">-- Pilih Rentang Gaji / Omzet --</option>
                                 <option value="< Rp 2.000.000" {{ old('pendapatan_bulanan', $alumni->pendapatan_bulanan) === '< Rp 2.000.000' ? 'selected' : '' }}>&lt; Rp 2.000.000</option>
@@ -242,7 +241,7 @@
                         </label>
                         <select
                             name="keselarasan"
-                            class="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-primary"
+                            class="choices-select w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-primary"
                         >
                             <option value="">-- Pilih Tingkat Kesesuaian --</option>
                             <option value="sangat_sesuai" {{ old('keselarasan', $alumni->keselarasan) === 'sangat_sesuai' ? 'selected' : '' }}>Sangat Sesuai (Kompetensi PPLG terpakai langsung secara dominan)</option>
@@ -290,10 +289,9 @@
                     </a>
                     <button
                         type="submit"
-                        class="px-6 py-2.5 rounded-xl bg-brand-primary text-slate-950 font-bold text-xs sm:text-sm shadow hover:brightness-105 active:scale-95 transition-all flex items-center gap-2"
+                        class="px-6 py-2.5 rounded-xl bg-brand-primary text-slate-950 font-bold text-xs sm:text-sm shadow hover:brightness-105 active:scale-95 transition-all flex items-center justify-center"
                     >
-                        <i data-lucide="save" class="w-4 h-4"></i>
-                        <span>Simpan Data Tracer Study</span>
+                        Simpan Data Tracer Study
                     </button>
                 </div>
             </form>

@@ -10,10 +10,9 @@
         <div>
             <a
                 href="{{ route('alumni.index') }}"
-                class="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
+                class="inline-flex items-center text-xs sm:text-sm font-semibold text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
             >
-                <i data-lucide="arrow-left" class="w-4 h-4"></i>
-                <span>Kembali ke Direktori Alumni</span>
+                Kembali ke Direktori Alumni
             </a>
         </div>
 
@@ -116,10 +115,9 @@
                 @if($alumni->user && $alumni->user->username)
                     <a
                         href="{{ route('community.profile', $alumni->user->username) }}"
-                        class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-brand-primary text-slate-950 font-bold text-xs sm:text-sm shadow hover:brightness-105 transition-all"
+                        class="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-brand-primary text-slate-950 font-bold text-xs sm:text-sm shadow hover:brightness-105 transition-all"
                     >
-                        <i data-lucide="user" class="w-4 h-4"></i>
-                        <span>Lihat Profil di Komunitas</span>
+                        Lihat Profil di Komunitas
                     </a>
                 @endif
             </div>
