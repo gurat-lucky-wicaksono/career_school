@@ -372,7 +372,7 @@
                     <tr>
                         <td class="label">Nomor Induk Siswa Nasional</td>
                         <td class="sep">:</td>
-                        <td class="val font-mono">{{ $evaluation->student->nisn }}</td>
+                        <td class="val font-sans font-semibold">{{ $evaluation->student->nisn }}</td>
                     </tr>
                     <tr>
                         <td class="label">Kompetensi Keahlian</td>
@@ -415,8 +415,8 @@
                                 <div style="font-size: 8pt; color: #64748b;">Penguasaan alat kerja, pemecahan masalah teknis, kerapian output</div>
                             </td>
                             <td class="text-center">40%</td>
-                            <td class="text-center font-mono">{{ number_format($evaluation->nilai_teknis, 1) }}</td>
-                            <td class="text-center font-mono font-bold">{{ number_format($evaluation->nilai_teknis * 0.40, 2) }}</td>
+                            <td class="text-center font-sans font-medium">{{ number_format($evaluation->nilai_teknis, 1) }}</td>
+                            <td class="text-center font-sans font-bold">{{ number_format($evaluation->nilai_teknis * 0.40, 2) }}</td>
                         </tr>
                         <tr>
                             <td class="text-center">2</td>
@@ -425,8 +425,8 @@
                                 <div style="font-size: 8pt; color: #64748b;">Ketepatan waktu, kepatuhan SOP keselamatan kerja, integritas</div>
                             </td>
                             <td class="text-center">30%</td>
-                            <td class="text-center font-mono">{{ number_format($evaluation->nilai_disiplin, 1) }}</td>
-                            <td class="text-center font-mono font-bold">{{ number_format($evaluation->nilai_disiplin * 0.30, 2) }}</td>
+                            <td class="text-center font-sans font-medium">{{ number_format($evaluation->nilai_disiplin, 1) }}</td>
+                            <td class="text-center font-sans font-bold">{{ number_format($evaluation->nilai_disiplin * 0.30, 2) }}</td>
                         </tr>
                         <tr>
                             <td class="text-center">3</td>
@@ -435,12 +435,12 @@
                                 <div style="font-size: 8pt; color: #64748b;">Inisiatif, kolaborasi dengan tim kerja, keterbukaan masukan</div>
                             </td>
                             <td class="text-center">30%</td>
-                            <td class="text-center font-mono">{{ number_format($evaluation->nilai_kerjasama, 1) }}</td>
-                            <td class="text-center font-mono font-bold">{{ number_format($evaluation->nilai_kerjasama * 0.30, 2) }}</td>
+                            <td class="text-center font-sans font-medium">{{ number_format($evaluation->nilai_kerjasama, 1) }}</td>
+                            <td class="text-center font-sans font-bold">{{ number_format($evaluation->nilai_kerjasama * 0.30, 2) }}</td>
                         </tr>
                         <tr class="total-row">
                             <td colspan="3" class="text-right">Skor Akhir Komposit (Skala 0 - 100):</td>
-                            <td colspan="2" class="text-center font-mono font-bold" style="font-size: 11pt;">{{ number_format($evaluation->nilai_akhir, 2) }}</td>
+                            <td colspan="2" class="text-center font-sans font-bold" style="font-size: 11pt;">{{ number_format($evaluation->nilai_akhir, 2) }}</td>
                         </tr>
                         <tr class="predicate-row">
                             <td colspan="3" class="text-right">Predikat Kelulusan PKL:</td>

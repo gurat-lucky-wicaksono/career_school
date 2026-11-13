@@ -93,7 +93,7 @@
             <div class="flex items-center gap-3">
                 <div class="text-right">
                     <span class="text-xs text-text-muted">Skor Komposit</span>
-                    <div class="text-3xl font-extrabold font-mono text-text-primary">{{ number_format($evaluation->nilai_akhir, 1) }}</div>
+                    <div class="text-3xl font-extrabold font-sans text-text-primary">{{ number_format($evaluation->nilai_akhir, 1) }}</div>
                 </div>
                 <div class="px-3 py-1.5 rounded-btn border {{ $evaluation->predicate_badge_class }} text-center">
                     <div class="text-sm font-bold">{{ $evaluation->predikat }}</div>
@@ -105,19 +105,19 @@
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div class="p-4 rounded-btn border border-border-subtle bg-surface-bg/50">
                 <div class="text-[11px] font-semibold text-text-muted uppercase">1. Teknis Kejuruan (40%)</div>
-                <div class="text-2xl font-bold font-mono text-text-primary mt-1">{{ number_format($evaluation->nilai_teknis, 1) }}</div>
+                <div class="text-2xl font-bold font-sans text-text-primary mt-1">{{ number_format($evaluation->nilai_teknis, 1) }}</div>
                 <div class="text-[11px] text-text-secondary mt-1">Bobot: {{ number_format($evaluation->nilai_teknis * 0.4, 1) }} poin</div>
             </div>
 
             <div class="p-4 rounded-btn border border-border-subtle bg-surface-bg/50">
                 <div class="text-[11px] font-semibold text-text-muted uppercase">2. Disiplin & Etika (30%)</div>
-                <div class="text-2xl font-bold font-mono text-text-primary mt-1">{{ number_format($evaluation->nilai_disiplin, 1) }}</div>
+                <div class="text-2xl font-bold font-sans text-text-primary mt-1">{{ number_format($evaluation->nilai_disiplin, 1) }}</div>
                 <div class="text-[11px] text-text-secondary mt-1">Bobot: {{ number_format($evaluation->nilai_disiplin * 0.3, 1) }} poin</div>
             </div>
 
             <div class="p-4 rounded-btn border border-border-subtle bg-surface-bg/50">
                 <div class="text-[11px] font-semibold text-text-muted uppercase">3. Kerjasama & Komunikasi (30%)</div>
-                <div class="text-2xl font-bold font-mono text-text-primary mt-1">{{ number_format($evaluation->nilai_kerjasama, 1) }}</div>
+                <div class="text-2xl font-bold font-sans text-text-primary mt-1">{{ number_format($evaluation->nilai_kerjasama, 1) }}</div>
                 <div class="text-[11px] text-text-secondary mt-1">Bobot: {{ number_format($evaluation->nilai_kerjasama * 0.3, 1) }} poin</div>
             </div>
         </div>
